@@ -1,4 +1,5 @@
 import Link from "next/link";
+import WelcomeSection from "@/components/home/WelcomeSection";
 
 const heroTexture = "https://itetbd.net/_next/image?q=90&url=%2F_next%2Fstatic%2Fmedia%2Ffooter-bg.1uqsdmgciiqzm.jpg&w=3840";
 
@@ -38,15 +39,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-10">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#8d6c32]">Welcome to ITET</p>
-            <h2 className="mt-3 text-3xl font-black leading-tight text-slate-900 sm:text-4xl">Uniting Textile Professionals. Advancing Industry.</h2>
-          </div>
-          <p className="text-base leading-8 text-slate-600">ITET is the trusted platform for textile engineers to connect and contribute to sustainable success.</p>
-        </div>
-      </section>
+      <WelcomeSection />
 
       <section className="bg-[#f5f7f6]">
         <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-10">
