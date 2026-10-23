@@ -296,7 +296,7 @@ function AlumniSection() {
                   <a href="#" aria-label="LinkedIn" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#0A66C2] hover:text-white focus:bg-[#0A66C2] focus:text-white focus:outline-none active:bg-[#0A66C2] active:text-white">
                     <SocialIcon type="linkedin" />
                   </a>
-                  <a href="#" aria-label="Instagram" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#E4405F] hover:text-white focus:bg-[#E4405F] focus:text-white focus:outline-none active:bg-[#E4405F] active:text-white">
+                  <a href="#" aria-label="Instagram" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] hover:text-white focus:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] focus:text-white focus:outline-none active:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] active:text-white">
                     <SocialIcon type="instagram" />
                   </a>
                 </div>
