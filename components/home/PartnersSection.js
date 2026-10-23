@@ -1,28 +1,10 @@
 const partners = [
-  {
-    name: "360d SOUL Limited",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1789365280%2Fz4w2tnpphbqfifogzghm.webp&w=3840",
-  },
-  {
-    name: "EMMTEX Solutions BD Ltd.",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1789365281%2Fghsg9xis6ehmjqe3ygow.webp&w=3840",
-  },
-  {
-    name: "Knit Empir Ltd.",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1789365282%2Fyfnhpmf2tvekprgsxsx9.webp&w=3840",
-  },
-  {
-    name: "Texpro Worldno1",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1789365283%2Ftxtth9ndbcypx5nwrfo7.webp&w=3840",
-  },
-  {
-    name: "AUKO-TEX Group",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1789365283%2Fshmhsayunyipq43jgjki.webp&w=3840",
-  },
-  {
-    name: "Van Lin Textile Innovations Ltd.",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1789365284%2Fc8ha8ag7jkwqjjm2xb0t.webp&w=3840",
-  },
+  { name: "360d SOUL Limited", image: "/images/partners/360d-soul.webp" },
+  { name: "EMMTEX Solutions BD Ltd.", image: "/images/partners/emmtex-solutions.webp" },
+  { name: "Knit Empir Ltd.", image: "/images/partners/knit-empir.webp" },
+  { name: "Texpro Worldno1", image: "/images/partners/texpro-worldno1.webp" },
+  { name: "AUKO-TEX Group", image: "/images/partners/auko-tex.webp" },
+  { name: "Van Lin Textile Innovations Ltd.", image: "/images/partners/van-lin.webp" },
 ];
 
 export default function PartnersSection() {
