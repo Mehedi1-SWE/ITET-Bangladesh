@@ -190,13 +190,27 @@ jobs:
           cat /tmp/reference.log
           exit 1
 
-      - name: Capture reference and local screenshots
+      - name: Capture live and local screenshots
         run: |
           mkdir -p visual
-          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:4000/static.html visual/reference-desktop.png
-          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:3000/?visual=1 visual/local-desktop.png
-          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:4000/static.html visual/reference-mobile.png
-          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000/?visual=1 visual/local-mobile.png
+          cat > /tmp/capture.mjs <<'EOF'
+          import { chromium } from "playwright";
+
+          async function capture(url, path, width, height) {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage({ viewport: { width, height } });
+            await page.goto(url, { waitUntil: "networkidle", timeout: 120000 });
+            await page.waitForTimeout(3000);
+            await page.screenshot({ path, fullPage: true });
+            await browser.close();
+          }
+
+          await capture("https://itetbd.net/", "visual/reference-desktop.png", 1440, 900);
+          await capture("http://127.0.0.1:3000/?visual=1", "visual/local-desktop.png", 1440, 900);
+          await capture("https://itetbd.net/", "visual/reference-mobile.png", 390, 844);
+          await capture("http://127.0.0.1:3000/?visual=1", "visual/local-mobile.png", 390, 844);
+          EOF
+          node /tmp/capture.mjs
 
       - name: Calculate visual difference
         run: |
