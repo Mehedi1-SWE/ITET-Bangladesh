@@ -1,5 +1,5 @@
 import Link from "next/link";
-import WelcomeSection from "@/components/home/WelcomeSection";
+import WelcomeSection from "@/components/home/WelcomeSection";\nimport LeadershipMessages from "@/components/home/LeadershipMessages";
 
 const heroTexture = "https://itetbd.net/_next/image?q=90&url=%2F_next%2Fstatic%2Fmedia%2Ffooter-bg.1uqsdmgciiqzm.jpg&w=3840";
 
@@ -39,7 +39,7 @@ export default function Home() {
         </div>
       </section>
 
-      <WelcomeSection />
+      <WelcomeSection />\n\n      <LeadershipMessages />
 
       <section className="bg-[#f5f7f6]">
         <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-10">
