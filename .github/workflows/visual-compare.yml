@@ -193,7 +193,7 @@ jobs:
       - name: Capture live and local screenshots
         run: |
           mkdir -p visual
-          cat > /tmp/capture.mjs <<'EOF'
+          cat > capture.mjs <<'EOF'
           import { chromium } from "playwright";
 
           async function capture(url, path, width, height) {
@@ -210,7 +210,7 @@ jobs:
           await capture("https://itetbd.net/", "visual/reference-mobile.png", 390, 844);
           await capture("http://127.0.0.1:3000/?visual=1", "visual/local-mobile.png", 390, 844);
           EOF
-          node /tmp/capture.mjs
+          node capture.mjs
 
       - name: Calculate visual difference
         run: |
