@@ -21,8 +21,8 @@ export default function Header() {
   return (
     <>
       <div className="hidden xl:block">
-        <div className="h-8 bg-secondary text-white text-[13px] leading-none">
-          <div className="flex h-8 flex-col lg:flex-row justify-between items-start lg:items-center gap-4 px-4 lg:px-6">
+        <div className="bg-secondary text-white text-[13px]">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 py-1.5 px-4 lg:px-6">
             <div className="flex flex-col sm:flex-row flex-wrap items-center sm:items-center gap-4 sm:gap-6">
               <span className="flex items-center gap-1.5">
                 <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
@@ -44,11 +44,11 @@ export default function Header() {
                 <Link className="hover:text-primary" href="/contact">Contact Us</Link>
               </div>
               <span className="hidden sm:block mx-2">|</span>
-              <div className="flex h-full items-center gap-3 text-[13px] leading-none">
-                <a href="https://www.facebook.com/groups/itetbd/?ref=share&mibextid=KtfwRi" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="facebook" /></a>
-                <a href="https://www.linkedin.com/in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="linkedin" /></a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="instagram" /></a>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="youtube" /></a>
+              <div className="flex items-center gap-3">
+                <a href="https://www.facebook.com/groups/itetbd/?ref=share&mibextid=KtfwRi" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="facebook" /></a>
+                <a href="https://www.linkedin.com/in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="linkedin" /></a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="instagram" /></a>
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="youtube" /></a>
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default function Header() {
 
       <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-xs transition-all duration-200">
         <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between sm:h-[72px]">
+          <div className="flex items-center justify-between h-16 sm:h-18">
             <Link className="flex items-center gap-2.5 sm:gap-3 group shrink-0" href="/">
               <div className="relative w-12 h-12 sm:w-12 sm:h-12 overflow-hidden">
                 <img src="/images/logo/itet-logo.jpg" alt="ITET Logo" className="absolute inset-0 h-full w-full object-contain p-0.5" />
