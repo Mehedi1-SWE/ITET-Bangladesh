@@ -103,6 +103,13 @@ jobs:
               "ktvkf8w4w6zkf1odcknj.jpg": "/images/gallery/gallery-11.jpg",
           }
 
+          for token, path in asset_map.items():
+              body = re.sub(
+                  r'src="/_next/image\\?url=[^"]*' + re.escape(token) + r'[^"]*"',
+                  f'src="http://127.0.0.1:3000{path}"',
+                  body
+              )
+
           def convert_src(match):
               encoded = match.group(1)
               decoded = unquote(encoded.replace("&amp;", "&"))
@@ -164,9 +171,9 @@ jobs:
         run: |
           mkdir -p visual
           npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:4000/static.html visual/reference-desktop.png
-          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:3000 visual/local-desktop.png
+          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:3000/?visual=1 visual/local-desktop.png
           npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:4000/static.html visual/reference-mobile.png
-          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000 visual/local-mobile.png
+          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000/?visual=1 visual/local-mobile.png
 
       - name: Calculate visual difference
         run: |
