@@ -22,7 +22,7 @@ export default function Header() {
     <>
       <div className="hidden xl:block">
         <div className="bg-secondary text-white text-[13px]">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 py-1.5 px-4 lg:px-6">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 py-2 px-4 lg:px-6">
             <div className="flex flex-col sm:flex-row flex-wrap items-center sm:items-center gap-4 sm:gap-6">
               <span className="flex items-center gap-1.5">
                 <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
