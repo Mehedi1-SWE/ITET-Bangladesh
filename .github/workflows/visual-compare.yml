@@ -121,8 +121,9 @@ jobs:
           }
 
           for token, path in asset_map.items():
+              # Match by the exact asset token, regardless of Next image optimizer query encoding.
               body = re.sub(
-                  r'src="/_next/image\\?url=[^"]*' + re.escape(token) + r'[^"]*"',
+                  r'src="[^"]*' + re.escape(token) + r'[^"]*"',
                   f'src="{path}"',
                   body
               )
