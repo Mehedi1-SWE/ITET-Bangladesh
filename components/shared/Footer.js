@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const logoUrl = "https://itetbd.net/_next/image?q=75&url=%2F_next%2Fstatic%2Fmedia%2Fitet-logo.18l-2n8two3ye.jpg&w=64";
+const logoUrl = "/images/logo/itet-logo.jpg";
 
 export default function Footer() {
   return (
