@@ -130,27 +130,80 @@ function PriceCard({ title, icon, unit }) {
 }
 
 
-function ResponsibilitySkeleton() {
-  const cards = [
-    "rounded-tl-[48px] rounded-br-[48px] rounded-tr-none rounded-bl-none",
-    "rounded-tr-[48px] rounded-bl-[48px] rounded-tl-none rounded-br-none",
-    "rounded-tl-[48px] rounded-tr-[48px] rounded-br-[48px] rounded-bl-none",
-    "rounded-tr-[48px] rounded-bl-[48px] rounded-tl-[48px] rounded-br-none",
+function ResponsibilityIcon({ type }) {
+  const iconClass = "w-6 h-6 text-[#0b1830]";
+
+  if (type === "shield") {
+    return <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3v8Z" /><path d="m9 12 2 2 4-4" /></svg>;
+  }
+
+  if (type === "bulb") {
+    return <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18h6" /><path d="M10 22h4" /><path d="M8.4 14.5A7 7 0 1 1 15.6 14.5C14.6 15.3 14 16.4 14 18h-4c0-1.6-.6-2.7-1.6-3.5Z" /></svg>;
+  }
+
+  if (type === "handshake") {
+    return <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m11 17 2 2a1 1 0 0 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 0 0 3-3l-4.2-4.2a3 3 0 0 0-4.2 0l-.9.9a1 1 0 0 1-1.4-1.4l2.7-2.7a5.8 5.8 0 0 1 7.1-.9l.4.3a2 2 0 0 0 1.4.2L22 3" /><path d="M2 3l1.5 11H6l6.5 6.5a1 1 0 0 0 1.5-1.3" /></svg>;
+  }
+
+  return <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M12 3a14 14 0 0 1 0 18" /><path d="M12 3a14 14 0 0 0 0 18" /></svg>;
+}
+
+function ResponsibilitySection() {
+  const items = [
+    {
+      number: "01",
+      icon: "shield",
+      title: "Recognizing Industry Excellence",
+      description: "We are committed to recognize and honor the valuable contributions of individuals within our community who have significant impact in textile and RMG industry.",
+      shape: "rounded-tl-[48px] rounded-br-[48px] rounded-tr-none rounded-bl-none",
+    },
+    {
+      number: "02",
+      icon: "bulb",
+      title: "Support Current Students",
+      description: "We facilitate interactive sessions with industry experts and provide access to market intelligence to help students remain updated and to make them fit for industry.",
+      shape: "rounded-tr-[48px] rounded-bl-[48px] rounded-tl-none rounded-br-none",
+    },
+    {
+      number: "03",
+      icon: "handshake",
+      title: "Assist Our Alumni",
+      description: "We stand beside our alumni during their times of need, offering guidance, support, and professional networking opportunities.",
+      shape: "rounded-tl-[48px] rounded-tr-[48px] rounded-br-[48px] rounded-bl-none",
+    },
+    {
+      number: "04",
+      icon: "globe",
+      title: "Strengthen Our Community",
+      description: "We aim to foster a vibrant, supportive community built on knowledge sharing, mutual respect, and collective growth.",
+      shape: "rounded-tr-[48px] rounded-bl-[48px] rounded-tl-[48px] rounded-br-none",
+    },
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white border-t border-gray-100" aria-label="Our Responsibility">
+    <section className="py-16 md:py-16 bg-white border-t border-gray-100" aria-label="Our Responsibility">
       <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
-        <div className="animate-pulse space-y-12">
-          <div className="text-center max-w-xl mx-auto space-y-3">
-            <div className="w-48 sm:w-64 h-8 bg-gray-200 rounded mx-auto" />
-            <div className="w-full max-w-lg h-4 bg-gray-200 rounded mx-auto" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cards.map((shape) => (
-              <div key={shape} className={`h-[340px] bg-gray-50 border border-gray-200 p-7 ${shape} space-y-4`} />
-            ))}
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-semibold text-[#10213d] tracking-tight font-manuale leading-tight">Our Responsibility</h2>
+          <p className="mt-3 text-sm sm:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">Dedicated to serving the national textile engineering fraternity through institutional empowerment, professional standards, and community welfare.</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {items.map((item) => (
+            <article key={item.number} className={`relative min-h-[260px] bg-white border border-gray-200 px-8 py-8 shadow-[0_1px_2px_rgba(15,23,42,0.02)] hover:shadow-md transition-shadow duration-300 ${item.shape}`}>
+              <div className="flex items-start justify-between gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
+                  <ResponsibilityIcon type={item.icon} />
+                </div>
+                <span className="text-[52px] leading-none font-bold text-gray-200/90 tracking-tight select-none">{item.number}</span>
+              </div>
+
+              <div className="mt-8">
+                <h3 className="text-[17px] sm:text-lg font-semibold text-gray-950 tracking-tight leading-snug">{item.title}</h3>
+                <p className="mt-3 text-[13px] sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -313,7 +366,7 @@ export default function HomeLowerSections() {
           </div>
         </div>
       </section>
-      <ResponsibilitySkeleton />
+      <ResponsibilitySection />
       <WideAd />
       <AlumniSkeleton />
       <GallerySection />
