@@ -1,5 +1,7 @@
 import Link from "next/link";
-import WelcomeSection from "@/components/home/WelcomeSection";\nimport LeadershipMessages from "@/components/home/LeadershipMessages";
+import WelcomeSection from "@/components/home/WelcomeSection";
+import LeadershipMessages from "@/components/home/LeadershipMessages";
+import PartnersSection from "@/components/home/PartnersSection";
 
 const heroTexture = "https://itetbd.net/_next/image?q=90&url=%2F_next%2Fstatic%2Fmedia%2Ffooter-bg.1uqsdmgciiqzm.jpg&w=3840";
 
@@ -39,25 +41,9 @@ export default function Home() {
         </div>
       </section>
 
-      <WelcomeSection />\n\n      <LeadershipMessages />
-
-      <section className="bg-[#f5f7f6]">
-        <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-10">
-          <div className="grid gap-5 md:grid-cols-3">
-            {[
-              ["Events & Conclaves", "Explore ITET programs, professional events, and industry gatherings.", "/events"],
-              ["Latest Notices", "Stay informed with official notices, announcements, and attachments.", "/notice"],
-              ["Textile Market Updates", "Track yarn, chemical, fabric, and accessories market information.", "/market-updates"],
-            ].map(([title, text, href]) => (
-              <Link key={title} href={href} className="rounded-xl border border-black/5 bg-white p-6 shadow-sm transition-transform hover:-translate-y-1">
-                <h3 className="text-xl font-bold text-slate-900">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
-                <span className="mt-5 inline-block text-sm font-bold text-[#8d6c32]">Explore →</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <WelcomeSection />
+      <LeadershipMessages />
+      <PartnersSection />
     </>
   );
 }
