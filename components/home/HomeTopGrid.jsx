@@ -102,7 +102,7 @@ function LeadershipCard({ leader }) {
 }
 
 export default function HomeTopGrid() {
-  const [leaderIndex, setLeaderIndex] = useState(0);
+  const [leaderIndex, setLeaderIndex] = useState(1);
   const [partnerIndex, setPartnerIndex] = useState(0);
 
   useEffect(() => {
