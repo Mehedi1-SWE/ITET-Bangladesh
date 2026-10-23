@@ -260,6 +260,12 @@ function GallerySection() {
             </div>
           ))}
         </div>
+        <div className="mt-10 sm:mt-12 flex justify-center items-center">
+          <Link className="inline-flex items-center gap-2 px-6 sm:px-8 py-2 rounded-md bg-secondary hover:bg-primary text-white text-sm sm:text-base font-medium shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer" href="/gallery">
+            <span> See More</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+          </Link>
+        </div>
       </div>
     </section>
   );
