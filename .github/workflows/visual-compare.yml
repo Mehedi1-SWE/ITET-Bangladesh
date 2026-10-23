@@ -44,12 +44,27 @@ jobs:
           root = Path("reference/live-site")
           html = (root / "home.html").read_text(errors="ignore")
 
-          marker = html.find('<div hidden id="S:0">')
-          start = html.find('<div class="bg-white">', marker if marker >= 0 else 0)
-          end = html.find("</footer>", start)
-          if start < 0 or end < 0:
-              raise SystemExit("Could not locate streamed homepage body")
-          body = html[start:end + len("</footer>")]
+          stream_marker = html.find('id="S:0"')
+          content_start = html.find('<div class="bg-white">', stream_marker if stream_marker >= 0 else 0)
+          cta = html.find("Empower Your Textile Career Today", content_start)
+          content_end = html.find("</section>", cta)
+
+          header_start = html.find('<div class="hidden xl:block">')
+          header_end = html.find("</header>", header_start)
+
+          footer_start = html.find('<footer class="relative bg-[#050813]')
+          footer_end = html.find("</footer>", footer_start)
+
+          if min(content_start, cta, content_end, header_start, header_end, footer_start, footer_end) < 0:
+              raise SystemExit(
+                  f"Could not locate live regions: content={content_start}, cta={cta}, "
+                  f"header={header_start}, footer={footer_start}"
+              )
+
+          header = html[header_start:header_end + len("</header>")]
+          content = html[content_start:content_end + len("</section>")]
+          footer = html[footer_start:footer_end + len("</footer>")]
+          body = header + content + footer
 
           body = re.sub(r'\s+srcSet="[^"]*"', "", body)
           body = re.sub(r'\s+sizes="[^"]*"', "", body)
