@@ -4,168 +4,84 @@ import Link from "next/link";
 import { useState } from "react";
 
 const aboutItems = [
-  { label: "History of ITET", href: "/history-itet" },
-  { label: "ITET's Mission & Vision", href: "/mission-vision" },
-  { label: "Constitution", href: "/constitution" },
-  { label: "Committee Members", href: "/committee" },
-  { label: "Welfare Trust", href: "/welfareTrust" },
+  ["History of ITET", "/history-itet"],
+  ["ITET's Mission & Vision", "/mission-vision"],
+  ["Constitution", "/constitution"],
+  ["Committee Members", "/committee"],
+  ["Welfare Trust", "/welfareTrust"],
 ];
 
 const membershipItems = [
-  { label: "Membership Overview", href: "/membership-overview" },
-  { label: "Member Benefits", href: "/members-benifits" },
-  { label: "Directory & Update Info", href: "/membership-login" },
+  ["Membership Overview", "/membership-overview"],
+  ["Member Benefits", "/members-benifits"],
+  ["Directory & Update Info", "/membership-login"],
 ];
 
-const mainItems = [
-  { label: "Events", href: "/events" },
-  { label: "Notice", href: "/notice" },
-  { label: "Publication", href: "/publication" },
-  { label: "Job Circular", href: "/job-circular" },
-  { label: "Gallery", href: "/gallery" },
-];
-
-function ChevronDown() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
-      <path d="M5 7.5 10 12.5 15 7.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+function Chevron() {
+  return <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>;
 }
 
-function MenuIcon({ open }) {
+function Drop({ label, items }) {
   return (
-    <span className="relative block h-5 w-5">
-      <span className={`absolute left-0 top-[3px] h-[1.5px] w-5 bg-current transition-all ${open ? "translate-y-[6px] rotate-45" : ""}`} />
-      <span className={`absolute left-0 top-[9px] h-[1.5px] w-5 bg-current transition-all ${open ? "opacity-0" : ""}`} />
-      <span className={`absolute left-0 top-[15px] h-[1.5px] w-5 bg-current transition-all ${open ? "-translate-y-[6px] -rotate-45" : ""}`} />
-    </span>
-  );
-}
-
-function DesktopDropdown({ label, items }) {
-  return (
-    <div className="group relative">
-      <button type="button" className="flex h-16 items-center gap-1.5 px-3 text-[14px] font-semibold text-[#272727] transition-colors hover:text-[#8d6c32]">
-        <span>{label}</span>
-        <ChevronDown />
+    <div className="relative group">
+      <button type="button" className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1.5 cursor-pointer text-gray-700 hover:text-primary hover:bg-gray-50">
+        <span>{label}</span><Chevron />
       </button>
-      <div className="invisible absolute left-0 top-full z-50 min-w-[245px] translate-y-2 border border-black/10 bg-white p-2 opacity-0 shadow-[0_18px_45px_rgba(0,0,0,0.12)] transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-        {items.map((item) => (
-          <Link key={item.href} href={item.href} className="block border-b border-black/[0.06] px-4 py-3 text-[13px] font-medium text-[#343434] transition-colors last:border-b-0 hover:bg-[#f7f2e8] hover:text-[#8d6c32]">
-            {item.label}
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MobileGroup({ label, items, value, onToggle, onNavigate }) {
-  const active = value === label;
-
-  return (
-    <div className="border-b border-black/10">
-      <button type="button" onClick={() => onToggle(active ? "" : label)} className="flex w-full items-center justify-between py-4 text-left text-[15px] font-semibold text-[#222222]">
-        <span>{label}</span>
-        <span className={`transition-transform ${active ? "rotate-180" : ""}`}><ChevronDown /></span>
-      </button>
-      {active && (
-        <div className="pb-3 pl-3">
-          {items.map((item) => (
-            <Link key={item.href} href={item.href} onClick={onNavigate} className="block py-2.5 text-[14px] text-[#626262]">
-              {item.label}
-            </Link>
-          ))}
+      <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+        <div className="w-64 bg-white border border-gray-200 rounded-lg shadow-xl p-2">
+          {items.map(([text, href]) => <Link key={href} href={href} className="block px-3 py-2.5 rounded-md text-sm text-gray-700 hover:text-primary hover:bg-gray-50">{text}</Link>)}
         </div>
-      )}
+      </div>
     </div>
   );
 }
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileGroup, setMobileGroup] = useState("");
-
-  function closeMenu() {
-    setMenuOpen(false);
-    setMobileGroup("");
-  }
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <nav className="border-y border-black/10 bg-white">
-        <div className="mx-auto flex h-[66px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
-          <div className="hidden h-full items-center xl:flex">
-            <Link href="/" className="flex h-16 items-center px-3 text-[14px] font-semibold text-[#8d6c32]">Home</Link>
-            <DesktopDropdown label="About ITET" items={aboutItems} />
-            <DesktopDropdown label="Membership" items={membershipItems} />
-            {mainItems.map((item) => (
-              <Link key={item.href} href={item.href} className="flex h-16 items-center px-3 text-[14px] font-semibold text-[#272727] transition-colors hover:text-[#8d6c32]">
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3 xl:hidden">
-            <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#8d6c32]">ITET Bangladesh</span>
-          </div>
-
-          <button type="button" onClick={() => setMenuOpen(true)} className="flex h-10 items-center gap-2.5 border border-black/15 bg-white px-3.5 text-[13px] font-semibold text-[#222222] transition-colors hover:border-[#8d6c32] hover:text-[#8d6c32]" aria-label="Open menu" aria-expanded={menuOpen}>
-            <MenuIcon open={false} />
-            <span>Menu</span>
-          </button>
-        </div>
+      <nav className="hidden xl:flex items-center gap-1.5 lg:gap-2">
+        <Link className="px-3.5 py-2 rounded-md text-sm font-semibold text-primary" href="/">Home</Link>
+        <Drop label="About ITET" items={aboutItems} />
+        <Drop label="Membership" items={membershipItems} />
+        <Link className="px-3.5 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50" href="/events">Events</Link>
+        <Link className="px-3.5 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50" href="/notices">Notice</Link>
+        <Link className="px-3.5 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50" href="/publication">Publication</Link>
+        <Link className="px-3.5 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50" href="/job-circular">Job Circular</Link>
+        <Link className="px-3.5 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50" href="/gallery">Gallery</Link>
       </nav>
 
-      <div className={`fixed inset-0 z-[100] transition ${menuOpen ? "pointer-events-auto" : "pointer-events-none"}`} aria-hidden={!menuOpen}>
-        <button type="button" onClick={closeMenu} className={`absolute inset-0 bg-black/45 transition-opacity duration-300 ${menuOpen ? "opacity-100" : "opacity-0"}`} aria-label="Close menu overlay" />
-        <aside className={`absolute right-0 top-0 h-full w-full max-w-[430px] overflow-y-auto bg-[#f8f6f1] shadow-2xl transition-transform duration-300 ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
-          <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8d6c32]">ITET Bangladesh</p>
-              <h2 className="mt-1 text-[22px] font-bold text-[#202020]">Menu</h2>
-            </div>
-            <button type="button" onClick={closeMenu} className="flex h-10 w-10 items-center justify-center border border-black/15 bg-white text-[#222222]" aria-label="Close menu">
-              <MenuIcon open />
-            </button>
-          </div>
-
-          <div className="px-6 py-3">
-            <Link href="/" onClick={closeMenu} className="block border-b border-black/10 py-4 text-[15px] font-semibold text-[#222222]">Home <span className="float-right">→</span></Link>
-            <MobileGroup label="About ITET" items={aboutItems} value={mobileGroup} onToggle={setMobileGroup} onNavigate={closeMenu} />
-            <MobileGroup label="Membership" items={membershipItems} value={mobileGroup} onToggle={setMobileGroup} onNavigate={closeMenu} />
-            {mainItems.map((item) => (
-              <Link key={item.href} href={item.href} onClick={closeMenu} className="block border-b border-black/10 py-4 text-[15px] font-semibold text-[#222222]">
-                {item.label} <span className="float-right">→</span>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mx-6 mt-4 border border-[#c9b58e] bg-[#efe6d4] p-5 text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#806630]">AD SPACE 1:1 (Square)</p>
-            <Link href="/contact" onClick={closeMenu} className="mt-3 inline-flex border border-[#8d6c32] bg-[#8d6c32] px-4 py-2 text-[12px] font-bold text-white">Book this space</Link>
-          </div>
-
-          <div className="px-6 py-7">
-            <h3 className="text-[12px] font-bold uppercase tracking-[0.16em] text-[#8d6c32]">Our Portal</h3>
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <Link href="/member-portal" onClick={closeMenu} className="border border-[#222222] bg-[#222222] px-3 py-3 text-center text-[12px] font-semibold text-white">Members Portal</Link>
-              <Link href="/client-portal" onClick={closeMenu} className="border border-[#222222] px-3 py-3 text-center text-[12px] font-semibold text-[#222222]">Advertiser Portal</Link>
-            </div>
-
-            <h3 className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em] text-[#8d6c32]">Contact Us</h3>
-            <div className="mt-3 space-y-2 text-[14px] text-[#494949]">
-              <a href="tel:+8801715771454" className="block">+880 1715-771454</a>
-              <a href="mailto:info@itetbd.net" className="block">info@itetbd.net</a>
-            </div>
-
-            <Link href="/member-portal/qna" onClick={closeMenu} className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold text-[#8d6c32]">
-              Query & Answer <span>→</span>
-            </Link>
-          </div>
-        </aside>
+      <div className="hidden xl:flex items-center gap-3 ml-3">
+        <Link className="bg-secondary hover:bg-primary text-white text-xs font-semibold px-4 py-2 rounded-md shadow-xs hover:shadow-sm transition-all duration-200 flex items-center gap-1.5" href="/member-portal">
+          <span>Member Portal</span>
+        </Link>
       </div>
+
+      <div className="flex items-center gap-2 xl:hidden">
+        <button type="button" onClick={() => setOpen(!open)} className="p-2 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-md transition-colors" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      {open && (
+        <div className="xl:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[70] flex flex-col">
+          <div className="p-4 border-b flex items-center justify-between">
+            <span className="font-semibold">Menu</span>
+            <button onClick={() => setOpen(false)} className="p-2">✕</button>
+          </div>
+          <div className="p-4 overflow-y-auto">
+            <Link href="/" className="block py-3 border-b">Home</Link>
+            {aboutItems.map(([text, href]) => <Link key={href} href={href} className="block py-3 border-b">{text}</Link>)}
+            {membershipItems.map(([text, href]) => <Link key={href} href={href} className="block py-3 border-b">{text}</Link>)}
+            <Link href="/events" className="block py-3 border-b">Events</Link>
+            <Link href="/notices" className="block py-3 border-b">Notice</Link>
+            <Link href="/publication" className="block py-3 border-b">Publication</Link>
+            <Link href="/job-circular" className="block py-3 border-b">Job Circular</Link>
+            <Link href="/gallery" className="block py-3 border-b">Gallery</Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }
