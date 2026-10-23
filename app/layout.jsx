@@ -1,4 +1,4 @@
-import { Poppins, Manuale } from "next/font/google";
+import { Poppins, Manuale, Raleway } from "next/font/google";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import "./globals.css";
@@ -6,13 +6,19 @@ import "./globals.css";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const manuale = Manuale({
   variable: "--font-manuale",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const raleway = Raleway({
+  variable: "--font-raleway",
+  subsets: ["latin"],
+  weight: ["800", "900"],
 });
 
 export const metadata = {
@@ -22,7 +28,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${manuale.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${manuale.variable} ${raleway.variable}`}>
       <body className={`${poppins.className} bg-white font-sans`}>
         <Header />
         <main>{children}</main>
