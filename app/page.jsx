@@ -2,14 +2,13 @@ import HomeTopGrid from "@/components/home/HomeTopGrid";
 import HomeLowerSections from "@/components/home/HomeLowerSections";
 import WelcomePortalModal from "@/components/home/WelcomePortalModal";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  await new Promise((resolve) => setTimeout(resolve, 650));
+export default async function Home({ searchParams }) {
+  const params = await searchParams;
+  const visualMode = Object.prototype.hasOwnProperty.call(params ?? {}, "visual");
 
   return (
     <>
-      <WelcomePortalModal />
+      <WelcomePortalModal disabled={visualMode} />
       <HomeTopGrid />
       <HomeLowerSections />
     </>
