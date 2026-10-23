@@ -9,7 +9,7 @@ const leaders = [
     quote: '"Reform, Modernization & Global Recognition"',
     name: "Engr. A.S.M Hafizur Rahman Nixon",
     designation: "Secretary General, ITET",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1784604127%2Ft401koolwosautufl57y.jpg&w=3840",
+    image: "/images/leadership/secretary-general.jpg",
     excerpt:
       "ITET aims to unite textile engineers, strengthen professional identity, modernize member services, and expand Bangladesh’s global textile engineering presence.",
   },
@@ -18,7 +18,7 @@ const leaders = [
     quote: '"Connecting Textile Engineers, Building a Stronger Future"',
     name: "Engr. Md. Enayet Hossain",
     designation: "President, ITET",
-    image: "https://itetbd.net/_next/image?q=75&url=https%3A%2F%2Fres.cloudinary.com%2Fdov6k7xdk%2Fimage%2Fupload%2Fv1788451721%2Feuf8qnccsryjcjw2vdix.jpg&w=3840",
+    image: "/images/leadership/president.jpg",
     excerpt:
       "The ITET digital platform connects members, shares professional knowledge, supports careers, and strengthens the collective voice of Bangladesh’s textile engineers.",
   },
