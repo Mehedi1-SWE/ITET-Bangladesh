@@ -308,11 +308,9 @@ export default function HomeLowerSections() {
           </div>
         </div>
       </section>
-      <ResponsibilitySkeleton />
       <WideAd />
       <AlumniSkeleton />
       <GallerySection />
-      <MembershipCta />
     </>
   );
 }
