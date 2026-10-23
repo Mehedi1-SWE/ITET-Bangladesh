@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #111827;
-  --brand: #0f6b3f;
-  --brand-dark: #084c2d;
-  --brand-light: #eaf5ef;
+@theme {
+  --color-primary: #f54a00;
+  --color-primary-dark: #e17100;
+  --color-primary-light: #ff7839;
+  --color-secondary: #0f172b;
+  --color-base-light: #f8f7f2;
+  --font-sans: var(--font-poppins), "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-manuale: var(--font-manuale), "Manuale", Georgia, serif;
 }
 
 * {
@@ -18,9 +20,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111827;
+  font-family: var(--font-sans);
 }
 
 a {
@@ -31,4 +33,18 @@ a {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 999px;
 }
