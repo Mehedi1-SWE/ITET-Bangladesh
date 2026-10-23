@@ -106,7 +106,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      <div className={`xl:hidden fixed inset-0 z-[60] transition-opacity duration-500 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+      <div className={`xl:hidden fixed inset-0 z-[60] overflow-hidden transition-opacity duration-500 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <button className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} aria-label="Close menu overlay" />
         <aside className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[70] transform transition-all duration-500 ease-out flex flex-col ${open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
           <div className="flex items-center justify-between p-4 border-b border-gray-100">
