@@ -1,5 +1,5 @@
 import SupportInquiries from "@/components/shared/SupportInquiries";
-import CouncilLoadingPanel from "@/components/shared/CouncilLoadingPanel";
+import CommitteeMembers from "@/components/shared/CommitteeMembers";
 
 export default function Committee() {
   return (
@@ -22,7 +22,7 @@ export default function Committee() {
         </div>
       </section>
 
-      <CouncilLoadingPanel type="committee" />
+      <CommitteeMembers />
       <SupportInquiries />
     </div>
   );
