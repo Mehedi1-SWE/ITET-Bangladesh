@@ -52,14 +52,19 @@ jobs:
           html_classes = html_class_match.group(1) if html_class_match else ""
           body_classes = body_class_match.group(1) if body_class_match else ""
 
-          font_paths = sorted(set(re.findall(r'href="([^"]+\\.woff2)"[^>]*as="font"', html)))
-          for font_path in font_paths:
-              if not font_path.startswith("/"):
-                  continue
-              target = root / font_path.lstrip("/")
-              target.parent.mkdir(parents=True, exist_ok=True)
+          # The downloaded live CSS is served from /css/*.css and references
+          # fonts as ../media/<hash>.woff2, which resolves to /media/<hash>.woff2.
+          # Mirror every referenced live font into that exact static-server path.
+          media_dir = root / "media"
+          media_dir.mkdir(parents=True, exist_ok=True)
+          font_files = set()
+          for css_path in sorted((root / "css").glob("*.css")):
+              css_text = css_path.read_text(errors="ignore")
+              font_files.update(re.findall(r'url\\(\\.\\./media/([^\\)"]+\\.woff2)\\)', css_text))
+          for font_name in sorted(font_files):
+              target = media_dir / font_name
               if not target.exists():
-                  urlretrieve("https://itetbd.net" + font_path, target)
+                  urlretrieve("https://itetbd.net/_next/static/media/" + font_name, target)
 
           stream_marker = html.find('id="S:0"')
           content_start = html.find('<section class="w-full bg-base-light', stream_marker if stream_marker >= 0 else 0)
