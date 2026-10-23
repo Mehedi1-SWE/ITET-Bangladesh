@@ -75,6 +75,33 @@ jobs:
           body = re.sub(r'\s+srcSet="[^"]*"', "", body)
           body = re.sub(r'\s+sizes="[^"]*"', "", body)
           body = re.sub(r'\s+loading="lazy"', "", body)
+          body = body.replace('style="opacity:0;transform:translateY(8px)"', '')
+          body = body.replace('style="opacity:0;transform:translateY(12px)"', '')
+
+          asset_map = {
+              "t401koolwosautufl57y.jpg": "/images/leadership/secretary-general.jpg",
+              "euf8qnccsryjcjw2vdix.jpg": "/images/leadership/president.jpg",
+              "z4w2tnpphbqfifogzghm.webp": "/images/partners/360d-soul.webp",
+              "ghsg9xis6ehmjqe3ygow.webp": "/images/partners/emmtex-solutions.webp",
+              "yfnhpmf2tvekprgsxsx9.webp": "/images/partners/knit-empir.webp",
+              "txtth9ndbcypx5nwrfo7.webp": "/images/partners/texpro-worldno1.webp",
+              "shmhsayunyipq43jgjki.webp": "/images/partners/auko-tex.webp",
+              "c8ha8ag7jkwqjjm2xb0t.webp": "/images/partners/van-lin.webp",
+              "L1.png": "/images/market/yarn.png",
+              "L2.png": "/images/market/chemical.png",
+              "L3.png": "/images/market/fabrics-accessories.png",
+              "fchpbtayxgoihujbolap.jpg": "/images/gallery/gallery-01.jpg",
+              "dpwfafgh6ox4kau3zo9y.jpg": "/images/gallery/gallery-02.jpg",
+              "kzyv31tazjvtpmnhp2ci.jpg": "/images/gallery/gallery-03.jpg",
+              "omwhwr5woifwj17nl3se.jpg": "/images/gallery/gallery-04.jpg",
+              "my8ajrl1bi360rubdto2.jpg": "/images/gallery/gallery-05.jpg",
+              "rznb5zh4zfcwdym1vpc4.jpg": "/images/gallery/gallery-06.jpg",
+              "gzldzflekiej6bkxqid7.jpg": "/images/gallery/gallery-07.jpg",
+              "i7vsh7brluqn4q2bztss.jpg": "/images/gallery/gallery-08.jpg",
+              "jggfrdrnp18ujbzim1wk.jpg": "/images/gallery/gallery-09.jpg",
+              "ra4bglla1m7y0iwx6q4d.jpg": "/images/gallery/gallery-10.jpg",
+              "ktvkf8w4w6zkf1odcknj.jpg": "/images/gallery/gallery-11.jpg",
+          }
 
           def convert_src(match):
               encoded = match.group(1)
@@ -85,6 +112,9 @@ jobs:
                   return 'src="http://127.0.0.1:3000/images/logo/itet-logo.jpg"'
               if "footer-bg" in decoded:
                   return 'src="http://127.0.0.1:3000/images/home/hero-texture.jpg"'
+              for token, path in asset_map.items():
+                  if token in decoded:
+                      return f'src="http://127.0.0.1:3000{path}"'
               if decoded.startswith("http://") or decoded.startswith("https://"):
                   return f'src="{decoded}"'
               return f'src="{decoded}"'
