@@ -1,6 +1,6 @@
 import AdSpace from "@/components/shared/AdSpace";
 
-const architectureImage = "https://itetbd.net/_next/image?q=75&url=%2Fhero-building-bg.jpg&w=3840";
+const architectureImage = "/images/home/itet-architecture.jpg";
 
 export default function WelcomeSection() {
   return (
