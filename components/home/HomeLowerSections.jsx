@@ -290,13 +290,13 @@ function AlumniSection() {
 
               <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#eeeeec] pt-4">
                 <div className="flex items-center gap-2">
-                  <a href="#" aria-label="Facebook" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#fff2ea] hover:text-primary">
+                  <a href="#" aria-label="Facebook" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#1877F2] hover:text-white focus:bg-[#1877F2] focus:text-white focus:outline-none active:bg-[#1877F2] active:text-white">
                     <SocialIcon type="facebook" />
                   </a>
-                  <a href="#" aria-label="LinkedIn" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#fff2ea] hover:text-primary">
+                  <a href="#" aria-label="LinkedIn" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#0A66C2] hover:text-white focus:bg-[#0A66C2] focus:text-white focus:outline-none active:bg-[#0A66C2] active:text-white">
                     <SocialIcon type="linkedin" />
                   </a>
-                  <a href="#" aria-label="Instagram" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#fff2ea] hover:text-primary">
+                  <a href="#" aria-label="Instagram" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#E4405F] hover:text-white focus:bg-[#E4405F] focus:text-white focus:outline-none active:bg-[#E4405F] active:text-white">
                     <SocialIcon type="instagram" />
                   </a>
                 </div>
