@@ -11,6 +11,9 @@ export default function WelcomePortalModal() {
   const [progress, setProgress] = useState(false);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("visual")) return undefined;
+
     setOpen(true);
     const frame = requestAnimationFrame(() => setProgress(true));
 
@@ -39,7 +42,7 @@ export default function WelcomePortalModal() {
   return (
     <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/45 backdrop-blur-[5px] px-4">
       <div className="relative h-[426px] w-full max-w-[670px] overflow-hidden rounded-[6px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.32)]">
-        <div className="relative z-10 flex h-full w-[calc(100%-250px)] flex-col px-[30px] pb-[28px] pt-[31px] sm:w-[420px]">
+        <div className="relative z-10 flex h-full w-full flex-col px-[30px] pb-[28px] pt-[31px] sm:w-[420px]">
           <div className="flex items-center gap-3">
             <img src="/images/logo/itet-logo.jpg" alt="ITET Logo" className="h-[30px] w-[30px] object-contain" />
             <span className="text-[19px] font-semibold tracking-[-0.02em] text-[#111827]">ITET Bangladesh</span>
