@@ -93,7 +93,7 @@ export default function Navbar() {
         <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-gray-50" href="/gallery">Gallery</Link>
       </nav>
 
-      <div className="hidden xl:flex items-center gap-3 ml-3">
+      <div className="hidden xl:flex items-center gap-3">
         <Link className="bg-secondary hover:bg-primary text-white text-xs font-semibold px-4 py-2 rounded-md shadow-xs hover:shadow-sm transition-all duration-200 flex items-center gap-1.5 group" href="/member-portal">
           <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
           <span>Member Portal</span>
