@@ -7,17 +7,83 @@ const marketGroups = [
 ];
 
 const gallery = [
-  ["gallery-01.jpg", "lg:col-span-3"],
-  ["gallery-02.jpg", "lg:col-span-6"],
-  ["gallery-03.jpg", "lg:col-span-3"],
-  ["gallery-04.jpg", "lg:col-span-4"],
-  ["gallery-05.jpg", "lg:col-span-4"],
-  ["gallery-06.jpg", "lg:col-span-4"],
-  ["gallery-07.jpg", "lg:col-span-6"],
-  ["gallery-08.jpg", "lg:col-span-6"],
-  ["gallery-09.jpg", "lg:col-span-4"],
-  ["gallery-10.jpg", "lg:col-span-4"],
-  ["gallery-11.jpg", "lg:col-span-4"],
+  {
+    file: "gallery-01.jpg",
+    span: "lg:col-span-3",
+    category: "Industry & Policy",
+    badge: "ITET TIE- MoU",
+    title: "টেক্সটাইল খাতে উদ্ভাবন ও গবেষণার নতুন দিগন্ত: ITET এবং TIE-এর মধ্যে ঐতিহাসিক MoU স্বাক্ষর!",
+  },
+  {
+    file: "gallery-02.jpg",
+    span: "lg:col-span-6",
+    category: "Highlights",
+    badge: "",
+    title: "ITET Curated Moment",
+  },
+  {
+    file: "gallery-03.jpg",
+    span: "lg:col-span-3",
+    category: "Council & Leadership",
+    badge: "",
+    title: "Textile Today highlights the newly elected 15th Council Committee of ITET in their July 2026 edition.",
+  },
+  {
+    file: "gallery-04.jpg",
+    span: "lg:col-span-4",
+    category: "Council & Leadership",
+    badge: "02 August 2026",
+    title: "02 August 2026, IEB Central Leaders and the newly elected ITET Executive Committee met in an exchange of views meeting at the IEB Headquarters.",
+  },
+  {
+    file: "gallery-05.jpg",
+    span: "lg:col-span-4",
+    category: "Industry & Policy",
+    badge: "On 29 July",
+    title: "On 29 July 2026, ITET officially submitted a policy recommendation paper titled 'Building a Productive, and Innovative Textile Economy for Bangladesh'.",
+  },
+  {
+    file: "gallery-06.jpg",
+    span: "lg:col-span-4",
+    category: "Council & Leadership",
+    badge: "",
+    title: "On 26th June, 2026; Historic Landslide Victory for ITET: Enayet–Sumayel–Nixon (GG) Panel Achieves a Historic Clean Sweep!",
+  },
+  {
+    file: "gallery-07.jpg",
+    span: "lg:col-span-6",
+    category: "Council & Leadership",
+    badge: "",
+    title: "On 14th July 2026, Engr. Abdus Sobhan, CIP, Managing Director of Auko-Tex Group, extended a warm reception to the newly elected members.",
+  },
+  {
+    file: "gallery-08.jpg",
+    span: "lg:col-span-6",
+    category: "Council & Leadership",
+    badge: "On 18th July",
+    title: "On 18th July 2026, Leadership transition marks a new chapter for ITET with the Handover & Takeover Ceremony of the 15th Council.",
+  },
+  {
+    file: "gallery-09.jpg",
+    span: "lg:col-span-4",
+    category: "Council & Leadership",
+    badge: "On July 27",
+    title: "On July 27, 2026, a delegation from the 15th Central Executive Council of ITET paid a courtesy visit to the Honorable Minister of Textiles and Jute.",
+  },
+  {
+    file: "gallery-10.jpg",
+    span: "lg:col-span-4",
+    category: "Council & Leadership",
+    badge: "",
+    title: "On 1st August 2026, The 15th Council of ITET Bangladesh organized a discussion meeting and prayer program to remember the martyrs of the July Movement.",
+  },
+  {
+    file: "gallery-11.jpg",
+    span: "lg:col-span-4",
+    category: "Council & Leadership",
+    badge: "",
+    title: "On 1st August 2026, The 15th Council of ITET Bangladesh organized a discussion meeting and prayer program to remember the martyrs of the July Movement.",
+  },
 ];
 
 function PriceCard({ title, icon, unit }) {
@@ -160,11 +226,37 @@ function GallerySection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-2.5 sm:gap-3.5 md:gap-4">
-          {gallery.map(([file, span], index) => (
-            <div key={file} className={`group relative overflow-hidden rounded-md sm:rounded-lg bg-neutral-200/90 cursor-pointer shadow-[0_2px_10px_-3px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 ring-1 ring-black/[0.04] ${span} h-[165px] sm:h-[240px] md:h-[280px] lg:h-[360px]`}>
-              <img src={`/images/gallery/${file}`} alt="ITET Gallery Photo" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="absolute left-3 bottom-3 text-[10px] text-white/90 opacity-0 group-hover:opacity-100 transition-opacity">{String(index+1).padStart(2,"0")}</span>
+          {gallery.map((item) => (
+            <div key={item.file} className={`group relative overflow-hidden rounded-md sm:rounded-lg bg-neutral-200/90 cursor-pointer shadow-[0_2px_10px_-3px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 ring-1 ring-black/[0.04] ${item.span} h-[165px] xs:h-[190px] sm:h-[240px] md:h-[280px] lg:h-[360px]`}>
+              <img src={`/images/gallery/${item.file}`} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
+              {item.badge && (
+                <div className="hidden sm:block absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10 transition-all duration-300 transform group-hover:translate-y-[-2px]">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-white/95 hover:bg-white text-neutral-900 text-[11px] sm:text-xs font-semibold rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.18)] backdrop-blur-md transition-all duration-200 border border-white/40">
+                    <span className="truncate max-w-[120px] sm:max-w-[180px] tracking-tight">{item.badge}</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-neutral-700"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                  </div>
+                </div>
+              )}
+
+              <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-1 group-hover:translate-y-0">
+                <span className="p-1.5 sm:p-2 rounded-full bg-black/50 hover:bg-black/70 text-white backdrop-blur-md transition-colors border border-white/20 inline-flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6" /><path d="m21 3-7 7" /><path d="m3 21 7-7" /><path d="M9 21H3v-6" /></svg>
+                </span>
+              </div>
+
+              <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-1 group-hover:translate-y-0">
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-black/50 text-white/90 text-[9px] sm:text-[10px] font-medium backdrop-blur-md border border-white/10 uppercase tracking-wider">{item.category}</span>
+              </div>
+
+              <div className={`absolute inset-x-0 bottom-0 p-2.5 sm:p-4 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 ${item.badge ? "sm:bottom-14" : ""}`}>
+                <h4 className="text-white text-[11px] sm:text-sm font-medium line-clamp-2 leading-tight drop-shadow-sm">{item.title}</h4>
+                <div className="flex items-center gap-1 mt-1 text-primary text-[9.5px] sm:text-[11px] font-semibold">
+                  <span>View photo</span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                </div>
+              </div>
             </div>
           ))}
         </div>
