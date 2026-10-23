@@ -269,36 +269,42 @@ function AlumniSection() {
   ];
 
   return (
-    <section className="py-10 lg:py-16 bg-[#f8f6f0]">
+    <section className="bg-[#f8f6f0] py-16 lg:py-[72px]">
       <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[#10213d] tracking-tight mb-3 font-manuale leading-tight">Meet Our Proud Alumni</h2>
-          <p className="text-sm sm:text-base text-[#31415d] leading-relaxed max-w-2xl mx-auto">Connecting you with the remarkable leaders, innovators, and textile experts shaping our global industry.</p>
+        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-14">
+          <h2 className="font-manuale text-3xl font-semibold leading-tight tracking-tight text-[#10213d] sm:text-4xl md:text-5xl">Meet Our Proud Alumni</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[#31415d] sm:text-base">Connecting you with the remarkable leaders, innovators, and textile experts shaping our global industry.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 xl:grid-cols-4">
           {alumni.map((person) => (
-            <article key={person.name} className="bg-white border border-[#dedede] rounded-lg p-5 shadow-sm">
-              <div className="mb-4">
-                <h3 className="text-lg sm:text-[19px] font-semibold text-[#0b1830] leading-tight">{person.name}</h3>
-                <p className="mt-1 text-sm text-[#5a6477] leading-snug">{person.designation}</p>
+            <article key={person.name} className="group rounded-lg border border-[#dedede] bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/20 hover:shadow-[0_14px_30px_rgba(15,23,42,0.10)]">
+              <div className="mb-[18px]">
+                <h3 className="text-[18px] font-semibold leading-[1.2] tracking-[-0.01em] text-[#0b1830] sm:text-[19px]">{person.name}</h3>
+                <p className="mt-1 text-[14px] leading-snug text-[#5a6477]">{person.designation}</p>
               </div>
 
-              <div className="overflow-hidden rounded-2xl border border-orange-200/80 bg-gray-100">
-                <img src={person.image} alt={person.name} className="w-full aspect-square object-cover" />
+              <div className="relative aspect-square overflow-hidden rounded-2xl border border-[#f4cdbd] bg-[#ecebea]">
+                <img src={person.image} alt={person.name} className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.025]" />
               </div>
 
-              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+              <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#eeeeec] pt-4">
                 <div className="flex items-center gap-2">
-                  <a href="#" aria-label="Facebook" className="w-8 h-8 rounded-full bg-[#f5f5f3] text-gray-500 hover:text-primary hover:bg-orange-50 flex items-center justify-center transition-colors"><SocialIcon type="facebook" /></a>
-                  <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-full bg-[#f5f5f3] text-gray-500 hover:text-primary hover:bg-orange-50 flex items-center justify-center transition-colors"><SocialIcon type="linkedin" /></a>
-                  <a href="#" aria-label="Instagram" className="w-8 h-8 rounded-full bg-[#f5f5f3] text-gray-500 hover:text-primary hover:bg-orange-50 flex items-center justify-center transition-colors"><SocialIcon type="instagram" /></a>
+                  <a href="#" aria-label="Facebook" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#fff2ea] hover:text-primary">
+                    <SocialIcon type="facebook" />
+                  </a>
+                  <a href="#" aria-label="LinkedIn" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#fff2ea] hover:text-primary">
+                    <SocialIcon type="linkedin" />
+                  </a>
+                  <a href="#" aria-label="Instagram" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#fff2ea] hover:text-primary">
+                    <SocialIcon type="instagram" />
+                  </a>
                 </div>
 
-                <button type="button" className="inline-flex items-center gap-2 rounded-full bg-[#fafafa] px-4 py-2 text-xs font-semibold text-[#1c2940] shadow-sm hover:bg-white hover:shadow-md transition-all">
+                <a href="#" className="group/details inline-flex h-8 items-center gap-2 rounded-full border border-transparent bg-[#fafafa] px-4 text-[12px] font-semibold text-[#1c2940] shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all duration-300 ease-out hover:border-primary/15 hover:bg-[#fff4ed] hover:text-primary hover:shadow-[0_5px_14px_rgba(245,74,0,0.12)]">
                   <span>View Details</span>
-                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
-                </button>
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 transition-transform duration-300 ease-out group-hover/details:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
+                </a>
               </div>
             </article>
           ))}
