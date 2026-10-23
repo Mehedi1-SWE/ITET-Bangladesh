@@ -7,7 +7,6 @@
   --color-secondary: #0f172b;
   --color-base-light: #f8f7f2;
   --font-sans: var(--font-poppins), "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-manuale: var(--font-manuale), "Manuale", Georgia, serif;
 }
 
 * {
@@ -89,4 +88,35 @@ a {
 
 .font-serif {
   font-family: var(--font-manuale), "Manuale", Georgia, serif !important;
+}
+
+
+.font-raleway {
+  font-family: var(--font-raleway), "Raleway", Arial, sans-serif !important;
+}
+
+
+.itet-square-loader {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-color: #fc9000;
+  perspective: 100px;
+  animation: itet-square-loader 3s 0s infinite cubic-bezier(0.09, 0.57, 0.49, 0.9);
+  animation-fill-mode: both;
+}
+
+@keyframes itet-square-loader {
+  25% {
+    transform: rotateX(180deg) rotateY(0);
+  }
+  50% {
+    transform: rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    transform: rotateX(0) rotateY(180deg);
+  }
+  100% {
+    transform: rotateX(0) rotateY(0);
+  }
 }
