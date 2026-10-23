@@ -63,6 +63,34 @@ function PriceCard({ title, icon, unit }) {
   );
 }
 
+
+function ResponsibilitySkeleton() {
+  const cards = [
+    "rounded-tl-[48px] rounded-br-[48px] rounded-tr-none rounded-bl-none",
+    "rounded-tr-[48px] rounded-bl-[48px] rounded-tl-none rounded-br-none",
+    "rounded-tl-[48px] rounded-tr-[48px] rounded-br-[48px] rounded-bl-none",
+    "rounded-tr-[48px] rounded-bl-[48px] rounded-tl-[48px] rounded-br-none",
+  ];
+
+  return (
+    <section className="py-16 md:py-24 bg-white border-t border-gray-100" aria-label="Our Responsibility">
+      <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
+        <div className="animate-pulse space-y-12">
+          <div className="text-center max-w-xl mx-auto space-y-3">
+            <div className="w-48 sm:w-64 h-8 bg-gray-200 rounded mx-auto" />
+            <div className="w-full max-w-lg h-4 bg-gray-200 rounded mx-auto" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {cards.map((shape) => (
+              <div key={shape} className={`h-[340px] bg-gray-50 border border-gray-200 p-7 ${shape} space-y-4`} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function WideAd() {
   return (
     <section className="py-10 lg:py-16">
@@ -182,6 +210,7 @@ export default function HomeLowerSections() {
           </div>
         </div>
       </section>
+      <ResponsibilitySkeleton />
       <WideAd />
       <AlumniSkeleton />
       <GallerySection />
