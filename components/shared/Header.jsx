@@ -44,7 +44,7 @@ export default function Header() {
                 <Link className="hover:text-primary" href="/contact">Contact Us</Link>
               </div>
               <span className="hidden sm:block mx-2">|</span>
-              <div className="flex h-full items-center gap-3 text-[14px] leading-none">
+              <div className="flex h-full items-center gap-3 text-[13px] leading-none">
                 <a href="https://www.facebook.com/groups/itetbd/?ref=share&mibextid=KtfwRi" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="facebook" /></a>
                 <a href="https://www.linkedin.com/in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="linkedin" /></a>
                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-primary transition-transform duration-500"><SocialIcon type="instagram" /></a>
