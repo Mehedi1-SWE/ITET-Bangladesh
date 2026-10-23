@@ -45,9 +45,13 @@ jobs:
           html = (root / "home.html").read_text(errors="ignore")
 
           stream_marker = html.find('id="S:0"')
-          content_start = html.find('<div class="bg-white">', stream_marker if stream_marker >= 0 else 0)
-          cta = html.find("Empower Your Textile Career Today", content_start)
-          content_end = html.find("</section>", cta)
+          content_start = html.find('<section class="w-full bg-base-light', stream_marker if stream_marker >= 0 else 0)
+          gallery_marker = html.find("Media Gallery", content_start)
+          content_end = html.find("</section>", gallery_marker)
+
+          cta_marker = html.find("Empower Your Textile Career Today")
+          cta_start = html.rfind("<section", 0, cta_marker)
+          cta_end = html.find("</section>", cta_marker)
 
           header_start = html.find('<div class="hidden xl:block">')
           header_end = html.find("</header>", header_start)
@@ -55,16 +59,18 @@ jobs:
           footer_start = html.find('<footer class="relative bg-[#050813]')
           footer_end = html.find("</footer>", footer_start)
 
-          if min(content_start, cta, content_end, header_start, header_end, footer_start, footer_end) < 0:
+          values = [content_start, gallery_marker, content_end, cta_marker, cta_start, cta_end, header_start, header_end, footer_start, footer_end]
+          if min(values) < 0:
               raise SystemExit(
-                  f"Could not locate live regions: content={content_start}, cta={cta}, "
-                  f"header={header_start}, footer={footer_start}"
+                  f"Could not locate live regions: content={content_start}, gallery={gallery_marker}, "
+                  f"cta={cta_marker}, header={header_start}, footer={footer_start}"
               )
 
           header = html[header_start:header_end + len("</header>")]
           content = html[content_start:content_end + len("</section>")]
+          cta_section = html[cta_start:cta_end + len("</section>")]
           footer = html[footer_start:footer_end + len("</footer>")]
-          body = header + content + footer
+          body = header + content + cta_section + footer
 
           body = re.sub(r'\s+srcSet="[^"]*"', "", body)
           body = re.sub(r'\s+sizes="[^"]*"', "", body)
