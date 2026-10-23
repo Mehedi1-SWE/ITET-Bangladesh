@@ -27,4 +27,26 @@ download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1789365283/txtth9nd
 download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1789365283/shmhsayunyipq43jgjki.webp" "public/images/partners/auko-tex.webp"
 download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1789365284/c8ha8ag7jkwqjjm2xb0t.webp" "public/images/partners/van-lin.webp"
 
+
+mkdir -p public/images/market
+mkdir -p public/images/gallery
+
+download "https://i.postimg.cc/ryR1T3nB/L1.png" "public/images/market/yarn.png"
+download "https://i.postimg.cc/5yzLmQQ4/L2.png" "public/images/market/chemical.png"
+download "https://i.postimg.cc/mDtQt5bF/L3.png" "public/images/market/fabrics-accessories.png"
+
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1787392520/fchpbtayxgoihujbolap.jpg" "public/images/gallery/gallery-01.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786968419/dpwfafgh6ox4kau3zo9y.jpg" "public/images/gallery/gallery-02.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786968268/kzyv31tazjvtpmnhp2ci.jpg" "public/images/gallery/gallery-03.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786623204/omwhwr5woifwj17nl3se.jpg" "public/images/gallery/gallery-04.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622893/my8ajrl1bi360rubdto2.jpg" "public/images/gallery/gallery-05.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622571/rznb5zh4zfcwdym1vpc4.jpg" "public/images/gallery/gallery-06.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622438/gzldzflekiej6bkxqid7.jpg" "public/images/gallery/gallery-07.jpg"
+
+
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622156/i7vsh7brluqn4q2bztss.jpg" "public/images/gallery/gallery-08.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786619036/jggfrdrnp18ujbzim1wk.jpg" "public/images/gallery/gallery-09.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786615736/ra4bglla1m7y0iwx6q4d.jpg" "public/images/gallery/gallery-10.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786615640/ktvkf8w4w6zkf1odcknj.jpg" "public/images/gallery/gallery-11.jpg"
+
 echo "Downloaded ITET public assets."

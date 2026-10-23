@@ -1,0 +1,243 @@
+name: Visual Compare
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "app/**"
+      - "components/**"
+      - "public/**"
+      - "reference/live-site/**"
+      - ".github/workflows/visual-compare.yml"
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build app
+        run: npm run build
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Build static live reference
+        run: |
+          rm -rf reference/live-site/images
+          cp -R public/images reference/live-site/images
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import unquote
+          from urllib.request import urlretrieve
+          import re
+
+          root = Path("reference/live-site")
+          html = (root / "home.html").read_text(errors="ignore")
+
+          html_class_match = re.search(r'<html[^>]*class="([^"]*)"', html)
+          body_class_match = re.search(r'<body[^>]*class="([^"]*)"', html)
+          html_classes = html_class_match.group(1) if html_class_match else ""
+          body_classes = body_class_match.group(1) if body_class_match else ""
+
+          # The downloaded live CSS is served from /css/*.css and references
+          # fonts as ../media/<hash>.woff2, which resolves to /media/<hash>.woff2.
+          # Mirror every referenced live font into that exact static-server path.
+          media_dir = root / "media"
+          media_dir.mkdir(parents=True, exist_ok=True)
+          font_files = set()
+          for css_path in sorted((root / "css").glob("*.css")):
+              css_text = css_path.read_text(errors="ignore")
+              font_files.update(re.findall(r'url\\(\\.\\./media/([^\\)"]+\\.woff2)\\)', css_text))
+          for font_name in sorted(font_files):
+              target = media_dir / font_name
+              if not target.exists():
+                  urlretrieve("https://itetbd.net/_next/static/media/" + font_name, target)
+
+          stream_marker = html.find('id="S:0"')
+          content_start = html.find('<section class="w-full bg-base-light', stream_marker if stream_marker >= 0 else 0)
+          gallery_marker = html.find("Media Gallery", content_start)
+          content_end = html.find("</section>", gallery_marker)
+
+          cta_marker = html.find("Empower Your Textile Career Today")
+          cta_start = html.rfind("<section", 0, cta_marker)
+          cta_end = html.find("</section>", cta_marker)
+
+          header_start = html.find('<div class="hidden xl:block">')
+          header_end = html.find("</header>", header_start)
+
+          footer_start = html.find('<footer class="relative bg-[#050813]')
+          footer_end = html.find("</footer>", footer_start)
+
+          values = [content_start, gallery_marker, content_end, cta_marker, cta_start, cta_end, header_start, header_end, footer_start, footer_end]
+          if min(values) < 0:
+              raise SystemExit(
+                  f"Could not locate live regions: content={content_start}, gallery={gallery_marker}, "
+                  f"cta={cta_marker}, header={header_start}, footer={footer_start}"
+              )
+
+          header = html[header_start:header_end + len("</header>")]
+          content = html[content_start:content_end + len("</section>")]
+          cta_section = html[cta_start:cta_end + len("</section>")]
+          footer = html[footer_start:footer_end + len("</footer>")]
+          body = header + content + cta_section + footer
+
+          body = re.sub(r'\s+srcSet="[^"]*"', "", body)
+          body = re.sub(r'\s+sizes="[^"]*"', "", body)
+          body = re.sub(r'\s+loading="lazy"', "", body)
+          body = body.replace('style="opacity:0;transform:translateY(8px)"', '')
+          body = body.replace('style="opacity:0;transform:translateY(12px)"', '')
+
+          asset_map = {
+              "t401koolwosautufl57y.jpg": "/images/leadership/secretary-general.jpg",
+              "euf8qnccsryjcjw2vdix.jpg": "/images/leadership/president.jpg",
+              "z4w2tnpphbqfifogzghm.webp": "/images/partners/360d-soul.webp",
+              "ghsg9xis6ehmjqe3ygow.webp": "/images/partners/emmtex-solutions.webp",
+              "yfnhpmf2tvekprgsxsx9.webp": "/images/partners/knit-empir.webp",
+              "txtth9ndbcypx5nwrfo7.webp": "/images/partners/texpro-worldno1.webp",
+              "shmhsayunyipq43jgjki.webp": "/images/partners/auko-tex.webp",
+              "c8ha8ag7jkwqjjm2xb0t.webp": "/images/partners/van-lin.webp",
+              "L1.png": "/images/market/yarn.png",
+              "L2.png": "/images/market/chemical.png",
+              "L3.png": "/images/market/fabrics-accessories.png",
+              "fchpbtayxgoihujbolap.jpg": "/images/gallery/gallery-01.jpg",
+              "dpwfafgh6ox4kau3zo9y.jpg": "/images/gallery/gallery-02.jpg",
+              "kzyv31tazjvtpmnhp2ci.jpg": "/images/gallery/gallery-03.jpg",
+              "omwhwr5woifwj17nl3se.jpg": "/images/gallery/gallery-04.jpg",
+              "my8ajrl1bi360rubdto2.jpg": "/images/gallery/gallery-05.jpg",
+              "rznb5zh4zfcwdym1vpc4.jpg": "/images/gallery/gallery-06.jpg",
+              "gzldzflekiej6bkxqid7.jpg": "/images/gallery/gallery-07.jpg",
+              "i7vsh7brluqn4q2bztss.jpg": "/images/gallery/gallery-08.jpg",
+              "jggfrdrnp18ujbzim1wk.jpg": "/images/gallery/gallery-09.jpg",
+              "ra4bglla1m7y0iwx6q4d.jpg": "/images/gallery/gallery-10.jpg",
+              "ktvkf8w4w6zkf1odcknj.jpg": "/images/gallery/gallery-11.jpg",
+          }
+
+          for token, path in asset_map.items():
+              # Match by the exact asset token, regardless of Next image optimizer query encoding.
+              body = re.sub(
+                  r'src="[^"]*' + re.escape(token) + r'[^"]*"',
+                  f'src="{path}"',
+                  body
+              )
+
+          def convert_src(match):
+              encoded = match.group(1)
+              decoded = unquote(encoded.replace("&amp;", "&"))
+              if decoded == "/hero-building-bg.jpg":
+                  return 'src="/images/home/itet-architecture.jpg"'
+              if "itet-logo" in decoded:
+                  return 'src="/images/logo/itet-logo.jpg"'
+              if "footer-bg" in decoded:
+                  return 'src="/images/home/hero-texture.jpg"'
+              for token, path in asset_map.items():
+                  if token in decoded:
+                      return f'src="{path}"'
+              if decoded.startswith("http://") or decoded.startswith("https://"):
+                  return f'src="{decoded}"'
+              return f'src="{decoded}"'
+
+          body = re.sub(
+              r'src="/_next/image\?url=([^"&]+)(?:&amp;|&)w=[^"]*"',
+              convert_src,
+              body
+          )
+
+          css_links = "\n".join(
+              f'<link rel="stylesheet" href="/css/{p.name}">'
+              for p in sorted((root / "css").glob("*.css"))
+          )
+
+          page = f"""<!doctype html>
+          <html class="{html_classes}">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            {css_links}
+            <style>
+              html,body{{margin:0;padding:0}}
+              body{{background:#fff}}
+            </style>
+          </head>
+          <body class="{body_classes}">{body}</body>
+          </html>"""
+          (root / "static.html").write_text(page)
+          PY
+
+      - name: Start local servers
+        run: |
+          npm run start > /tmp/itet-next.log 2>&1 &
+          python -m http.server 4000 --directory reference/live-site > /tmp/reference.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:3000 >/dev/null && curl -fsS http://127.0.0.1:4000/static.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/itet-next.log
+          cat /tmp/reference.log
+          exit 1
+
+      - name: Capture reference and local screenshots
+        run: |
+          mkdir -p visual
+          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:4000/static.html visual/reference-desktop.png
+          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:3000/?visual=1 visual/local-desktop.png
+          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:4000/static.html visual/reference-mobile.png
+          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000/?visual=1 visual/local-mobile.png
+
+      - name: Calculate visual difference
+        run: |
+          python -m pip install pillow
+          python - <<'PY'
+          from PIL import Image, ImageChops, ImageStat
+          import json
+
+          pairs = [
+              ("desktop", "visual/reference-desktop.png", "visual/local-desktop.png"),
+              ("mobile", "visual/reference-mobile.png", "visual/local-mobile.png"),
+          ]
+          report = {}
+          for name, ref_path, local_path in pairs:
+              ref = Image.open(ref_path).convert("RGB")
+              local = Image.open(local_path).convert("RGB")
+              width = min(ref.width, local.width)
+              height = min(ref.height, local.height)
+              a = ref.crop((0, 0, width, height))
+              b = local.crop((0, 0, width, height))
+              diff = ImageChops.difference(a, b)
+              stat = ImageStat.Stat(diff)
+              mean = sum(stat.mean) / 3
+              similarity = max(0.0, 100.0 * (1.0 - mean / 255.0))
+              report[name] = {
+                  "compared_width": width,
+                  "compared_height": height,
+                  "reference_height": ref.height,
+                  "local_height": local.height,
+                  "visual_similarity_percent": round(similarity, 2),
+              }
+              diff.save(f"visual/diff-{name}.png")
+
+          Path = __import__("pathlib").Path
+          Path("visual/report.json").write_text(json.dumps(report, indent=2))
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload visual comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-comparison
+          path: visual/
+          retention-days: 7

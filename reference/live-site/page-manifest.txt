@@ -1,0 +1,17 @@
+client-portal: 41034 bytes
+committee: 102226 bytes
+constitution: 95683 bytes
+contact: 113765 bytes
+events: 107392 bytes
+gallery: 186536 bytes
+history-itet: 97200 bytes
+home: 316043 bytes
+job-circular: 88153 bytes
+member-benefits: 123517 bytes
+member-portal: 31081 bytes
+membership-login: 98414 bytes
+membership-overview: 112364 bytes
+mission-vision: 96451 bytes
+notices: 171894 bytes
+publication: 100010 bytes
+welfare-trust: 100342 bytes
