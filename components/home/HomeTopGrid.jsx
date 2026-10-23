@@ -92,7 +92,7 @@ function HandshakeIcon() {
   return <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" /></svg>;
 }
 
-function PartnerCard({ image }) {
+function PartnerCard({ images }) {
   return (
     <div className="bg-white p-2 sm:p-2.5 xl:p-3 rounded-xl w-full shadow-xs border border-gray-200/80 shrink-0">
       <div className="flex items-center gap-1.5 mb-1">
@@ -101,8 +101,12 @@ function PartnerCard({ image }) {
       </div>
       <div className="overflow-hidden">
         <div className="py-0.5 px-0.5">
-          <div className="relative w-full h-[46px] sm:h-[50px] xl:h-[54px] overflow-hidden rounded-lg bg-white/90 border border-gray-100 transition-all duration-300 flex items-center justify-center p-1 shadow-2xs">
-            <img src={image} alt="ABC" className="w-full h-full object-contain p-1 transition-all duration-300 hover:scale-105" />
+          <div className="grid grid-cols-3 gap-1.5">
+            {images.map((image) => (
+              <div key={image} className="relative w-full h-[46px] sm:h-[50px] xl:h-[54px] overflow-hidden rounded-lg bg-white/90 border border-gray-100 transition-all duration-300 flex items-center justify-center p-1 shadow-2xs">
+                <img src={image} alt="ABC" className="w-full h-full object-contain p-1 transition-all duration-300 hover:scale-105" />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -231,16 +235,14 @@ function NoticePanel() {
 }
 
 export default function HomeTopGrid() {
-  const [leaderIndex, setLeaderIndex] = useState(1);
-  const [partnerIndex, setPartnerIndex] = useState(0);
+  const [leaderIndex, setLeaderIndex] = useState(0);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.has("visual")) return undefined;
 
     const a = setInterval(() => setLeaderIndex((i) => (i + 1) % leaders.length), 6500);
-    const b = setInterval(() => setPartnerIndex((i) => (i + 1) % partners.length), 2600);
-    return () => { clearInterval(a); clearInterval(b); };
+    return () => clearInterval(a);
   }, []);
 
   return (
@@ -276,12 +278,12 @@ export default function HomeTopGrid() {
 
         <div className="flex flex-col gap-2.5 sm:gap-3 md:hidden">
           <div className="w-full"><AdCard ratio="21:9" /></div>
-          <div><PartnerCard image={partners[partnerIndex]} /></div>
+          <div><PartnerCard images={partners} /></div>
         </div>
 
         <div className="hidden md:flex flex-col justify-between gap-2 sm:gap-2.5 lg:gap-2 xl:gap-2.5 2xl:gap-3 w-full min-w-0 h-full lg:order-3">
           <div className="w-full flex-1 min-h-0"><AdCard ratio="3:4" portrait className="h-full" /></div>
-          <div className="shrink-0 w-full"><PartnerCard image={partners[partnerIndex]} /></div>
+          <div className="shrink-0 w-full"><PartnerCard images={partners} /></div>
         </div>
       </div>
     </section>
