@@ -10,7 +10,7 @@ const leaders = [
     name: "Engr. A.S.M Hafizur Rahman Nixon",
     designation: "Secretary General, ITET",
     image: "/images/leadership/secretary-general.jpg",
-    text: "It is both an honor and a profound responsibility to serve as Secretary General of ITET. Since its establishment, ITET has been the professional home of Bangladesh’s textile engineers.",
+    text: "It is both an honor and a profound responsibility to serve as Secretary General of ITET. Since its establishment, ITET has been the professional home of Bangladesh’s textile engineers—a platform to unite our voices, strengthen our professional identity, and contribute meaningfully to the nation’s textile and apparel sector.",
   },
   {
     role: "PRESIDENT, ITET'S MESSAGE",
@@ -18,7 +18,7 @@ const leaders = [
     name: "Engr. Md. Enayet Hossain",
     designation: "President, ITET",
     image: "/images/leadership/president.jpg",
-    text: "It is a proud moment to introduce the official website of ITET. This platform is designed to be the digital home of our members — connecting professionals and sharing knowledge.",
+    text: "Bismillahir Rahmanir Rahim Assalamu Alaikum. It is a proud moment to introduce the official website of the Institution of Textile Engineers & Technologists (ITET). This platform is designed to be the digital home of our members — connecting professionals, sharing knowledge, and strengthening our collective voice.",
   },
 ];
 
@@ -71,6 +71,24 @@ function AdCard({ ratio, portrait = false, className = "" }) {
           <Link className="inline-flex items-center px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-md border border-white/20 text-white text-xs font-medium shadow-md transition-all hover:border-white/35" href="/contact">Book this space</Link>
         </div>
       )}
+    </div>
+  );
+}
+
+function PartnerCard({ image }) {
+  return (
+    <div className="bg-white p-2 sm:p-2.5 xl:p-3 rounded-xl w-full shadow-xs border border-gray-200/80 shrink-0">
+      <div className="flex items-center gap-1.5 mb-1">
+        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-orange-50 text-primary flex items-center justify-center shrink-0">⌁</div>
+        <h3 className="text-[10.5px] sm:text-[11.5px] font-bold text-gray-800 tracking-tight leading-tight">We are proud to work with our valued partners</h3>
+      </div>
+      <div className="overflow-hidden">
+        <div className="py-0.5 px-0.5">
+          <div className="relative w-full h-[46px] sm:h-[50px] xl:h-[54px] overflow-hidden rounded-lg bg-white/90 border border-gray-100 flex items-center justify-center p-1 shadow-2xs">
+            <img src={image} alt="ABC" className="h-full w-full object-contain p-1 transition-all duration-300 hover:scale-105" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -137,6 +155,7 @@ export default function HomeTopGrid() {
           <div className="flex-1 min-h-0 flex flex-col">
             <LeadershipCard leader={leaders[leaderIndex]} />
           </div>
+          <div className="hidden md:block w-full shrink-0"><AdCard ratio="21:9" /></div>
         </div>
 
         <div className="flex flex-col md:col-span-2 md:grid md:grid-cols-2 lg:flex lg:flex-col lg:col-span-1 gap-2 sm:gap-2.5 lg:gap-2 xl:gap-2.5 2xl:gap-3 w-full min-w-0 h-full lg:order-2">
@@ -181,22 +200,17 @@ export default function HomeTopGrid() {
             </div>
           </div>
 
-          <div className="hidden md:block w-full shrink-0"><AdCard ratio="21:9" /></div>
+        </div>
+
+        <div className="flex flex-col gap-2.5 sm:gap-3 md:hidden">
+          <div className="w-full"><AdCard ratio="21:9" /></div>
+          <div><PartnerCard image={partners[partnerIndex]} /></div>
         </div>
 
         <div className="hidden md:flex flex-col justify-between gap-2 sm:gap-2.5 lg:gap-2 xl:gap-2.5 2xl:gap-3 w-full min-w-0 h-full lg:order-3">
           <div className="w-full flex-1 min-h-0"><AdCard ratio="3:4" portrait className="h-full" /></div>
           <div className="shrink-0 w-full">
-            <div className="bg-white p-2 sm:p-2.5 xl:p-3 rounded-xl w-full shadow-xs border border-gray-200/80 shrink-0">
-              <div className="flex items-center gap-1.5 mb-1"><div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-orange-50 text-primary flex items-center justify-center shrink-0">⌁</div><h3 className="text-[10.5px] sm:text-[11.5px] font-bold text-gray-800 tracking-tight leading-tight">We are proud to work with our valued partners</h3></div>
-              <div className="overflow-hidden">
-                <div className="py-0.5 px-0.5">
-                  <div className="relative w-full h-[46px] sm:h-[50px] xl:h-[54px] overflow-hidden rounded-lg bg-white/90 border border-gray-100 flex items-center justify-center p-1 shadow-2xs">
-                    <img src={partners[partnerIndex]} alt="ABC" className="h-full w-full object-contain p-1" />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <PartnerCard image={partners[partnerIndex]} />
           </div>
         </div>
       </div>
