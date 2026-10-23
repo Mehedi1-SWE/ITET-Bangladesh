@@ -1,0 +1,99 @@
+name: Visual Compare
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "app/**"
+      - "components/**"
+      - "public/**"
+      - ".github/workflows/visual-compare.yml"
+  workflow_dispatch:
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build app
+        run: npm run build
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start local app
+        run: |
+          npm run start > /tmp/itet-next.log 2>&1 &
+          echo $! > /tmp/itet-next.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:3000 >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/itet-next.log
+          exit 1
+
+      - name: Capture live and local screenshots
+        run: |
+          mkdir -p visual
+          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page https://itetbd.net/ visual/live-desktop.png
+          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:3000 visual/local-desktop.png
+          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page https://itetbd.net/ visual/live-mobile.png
+          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000 visual/local-mobile.png
+
+      - name: Calculate visual difference
+        run: |
+          python -m pip install pillow
+          python - <<'PY'
+          from PIL import Image, ImageChops, ImageStat
+          import json
+
+          pairs = [
+              ("desktop", "visual/live-desktop.png", "visual/local-desktop.png"),
+              ("mobile", "visual/live-mobile.png", "visual/local-mobile.png"),
+          ]
+          report = {}
+          for name, live_path, local_path in pairs:
+              a = Image.open(live_path).convert("RGB")
+              b = Image.open(local_path).convert("RGB")
+              w = min(a.width, b.width)
+              h = min(a.height, b.height)
+              a = a.crop((0, 0, w, h))
+              b = b.crop((0, 0, w, h))
+              diff = ImageChops.difference(a, b)
+              stat = ImageStat.Stat(diff)
+              mean = sum(stat.mean) / 3
+              score = max(0.0, 100.0 * (1.0 - mean / 255.0))
+              report[name] = {
+                  "compared_width": w,
+                  "compared_height": h,
+                  "live_height": Image.open(live_path).height,
+                  "local_height": Image.open(local_path).height,
+                  "visual_similarity_percent": round(score, 2),
+              }
+              diff.save(f"visual/diff-{name}.png")
+
+          with open("visual/report.json", "w") as f:
+              json.dump(report, f, indent=2)
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload visual comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-comparison
+          path: visual/
+          retention-days: 7
