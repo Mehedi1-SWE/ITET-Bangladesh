@@ -18,7 +18,7 @@ const membershipItems = [
 ];
 
 function Chevron() {
-  return <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 transition-transform duration-200 text-gray-400 group-hover:rotate-180" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>;
+  return <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>;
 }
 
 function AdSquare() {
