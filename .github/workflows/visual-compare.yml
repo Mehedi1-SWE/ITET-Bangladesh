@@ -1,14 +1,15 @@
 name: Visual Compare
 
 on:
+  workflow_dispatch:
   push:
     branches: ["main"]
     paths:
       - "app/**"
       - "components/**"
       - "public/**"
+      - "reference/live-site/**"
       - ".github/workflows/visual-compare.yml"
-  workflow_dispatch:
 
 jobs:
   compare:
@@ -33,25 +34,87 @@ jobs:
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
 
-      - name: Start local app
+      - name: Build static live reference
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import unquote
+          import re
+
+          root = Path("reference/live-site")
+          html = (root / "home.html").read_text(errors="ignore")
+
+          marker = html.find('<div hidden id="S:0">')
+          start = html.find('<div class="bg-white">', marker if marker >= 0 else 0)
+          end = html.find("</footer>", start)
+          if start < 0 or end < 0:
+              raise SystemExit("Could not locate streamed homepage body")
+          body = html[start:end + len("</footer>")]
+
+          body = re.sub(r'\s+srcSet="[^"]*"', "", body)
+          body = re.sub(r'\s+sizes="[^"]*"', "", body)
+          body = re.sub(r'\s+loading="lazy"', "", body)
+
+          def convert_src(match):
+              encoded = match.group(1)
+              decoded = unquote(encoded.replace("&amp;", "&"))
+              if decoded == "/hero-building-bg.jpg":
+                  return 'src="http://127.0.0.1:3000/images/home/itet-architecture.jpg"'
+              if "itet-logo" in decoded:
+                  return 'src="http://127.0.0.1:3000/images/logo/itet-logo.jpg"'
+              if "footer-bg" in decoded:
+                  return 'src="http://127.0.0.1:3000/images/home/hero-texture.jpg"'
+              if decoded.startswith("http://") or decoded.startswith("https://"):
+                  return f'src="{decoded}"'
+              return f'src="{decoded}"'
+
+          body = re.sub(
+              r'src="/_next/image\?url=([^"&]+)(?:&amp;|&)w=[^"]*"',
+              convert_src,
+              body
+          )
+
+          css_links = "\n".join(
+              f'<link rel="stylesheet" href="/css/{p.name}">'
+              for p in sorted((root / "css").glob("*.css"))
+          )
+
+          page = f"""<!doctype html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            {css_links}
+            <style>
+              html,body{{margin:0;padding:0}}
+              body{{background:#fff}}
+            </style>
+          </head>
+          <body>{body}</body>
+          </html>"""
+          (root / "static.html").write_text(page)
+          PY
+
+      - name: Start local servers
         run: |
           npm run start > /tmp/itet-next.log 2>&1 &
-          echo $! > /tmp/itet-next.pid
+          python -m http.server 4000 --directory reference/live-site > /tmp/reference.log 2>&1 &
           for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:3000 >/dev/null; then
+            if curl -fsS http://127.0.0.1:3000 >/dev/null && curl -fsS http://127.0.0.1:4000/static.html >/dev/null; then
               exit 0
             fi
             sleep 1
           done
           cat /tmp/itet-next.log
+          cat /tmp/reference.log
           exit 1
 
-      - name: Capture live and local screenshots
+      - name: Capture reference and local screenshots
         run: |
           mkdir -p visual
-          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page https://itetbd.net/ visual/live-desktop.png
+          npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:4000/static.html visual/reference-desktop.png
           npx playwright screenshot --browser chromium --viewport-size="1440,900" --full-page http://127.0.0.1:3000 visual/local-desktop.png
-          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page https://itetbd.net/ visual/live-mobile.png
+          npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:4000/static.html visual/reference-mobile.png
           npx playwright screenshot --browser chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000 visual/local-mobile.png
 
       - name: Calculate visual difference
@@ -62,32 +125,32 @@ jobs:
           import json
 
           pairs = [
-              ("desktop", "visual/live-desktop.png", "visual/local-desktop.png"),
-              ("mobile", "visual/live-mobile.png", "visual/local-mobile.png"),
+              ("desktop", "visual/reference-desktop.png", "visual/local-desktop.png"),
+              ("mobile", "visual/reference-mobile.png", "visual/local-mobile.png"),
           ]
           report = {}
-          for name, live_path, local_path in pairs:
-              a = Image.open(live_path).convert("RGB")
-              b = Image.open(local_path).convert("RGB")
-              w = min(a.width, b.width)
-              h = min(a.height, b.height)
-              a = a.crop((0, 0, w, h))
-              b = b.crop((0, 0, w, h))
+          for name, ref_path, local_path in pairs:
+              ref = Image.open(ref_path).convert("RGB")
+              local = Image.open(local_path).convert("RGB")
+              width = min(ref.width, local.width)
+              height = min(ref.height, local.height)
+              a = ref.crop((0, 0, width, height))
+              b = local.crop((0, 0, width, height))
               diff = ImageChops.difference(a, b)
               stat = ImageStat.Stat(diff)
               mean = sum(stat.mean) / 3
-              score = max(0.0, 100.0 * (1.0 - mean / 255.0))
+              similarity = max(0.0, 100.0 * (1.0 - mean / 255.0))
               report[name] = {
-                  "compared_width": w,
-                  "compared_height": h,
-                  "live_height": Image.open(live_path).height,
-                  "local_height": Image.open(local_path).height,
-                  "visual_similarity_percent": round(score, 2),
+                  "compared_width": width,
+                  "compared_height": height,
+                  "reference_height": ref.height,
+                  "local_height": local.height,
+                  "visual_similarity_percent": round(similarity, 2),
               }
               diff.save(f"visual/diff-{name}.png")
 
-          with open("visual/report.json", "w") as f:
-              json.dump(report, f, indent=2)
+          Path = __import__("pathlib").Path
+          Path("visual/report.json").write_text(json.dumps(report, indent=2))
           print(json.dumps(report, indent=2))
           PY
 
