@@ -104,9 +104,9 @@ function PartnerCard({ images, startIndex = 1 }) {
         <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-orange-50 text-primary flex items-center justify-center shrink-0"><HandshakeIcon /></div>
         <h3 className="text-[10.5px] sm:text-[11.5px] font-bold text-gray-800 tracking-tight leading-tight">We are proud to work with our valued partners</h3>
       </div>
-      <div className="grid grid-cols-2 gap-2">
-        {visible.map((image) => (
-          <div key={image} className="relative w-full h-[54px] sm:h-[58px] xl:h-[62px] overflow-hidden rounded-lg bg-white border border-gray-100 flex items-center justify-center p-1.5 shadow-2xs">
+      <div className="grid grid-cols-1 2xl:grid-cols-2 gap-2">
+        {visible.map((image, index) => (
+          <div key={image} className={`relative w-full h-[54px] sm:h-[58px] xl:h-[62px] overflow-hidden rounded-lg bg-white border border-gray-100 items-center justify-center p-1.5 shadow-2xs ${index === 1 ? "hidden 2xl:flex" : "flex"}`}>
             <img src={image} alt="ABC" className="w-full h-full object-contain transition-transform duration-300 hover:scale-105" />
           </div>
         ))}
@@ -238,7 +238,7 @@ function NoticePanel() {
 
 export default function HomeTopGrid() {
   const [leaderIndex, setLeaderIndex] = useState(1);
-  const [partnerIndex, setPartnerIndex] = useState(1);
+  const [partnerIndex, setPartnerIndex] = useState(0);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
