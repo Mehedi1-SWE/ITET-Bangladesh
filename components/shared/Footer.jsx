@@ -115,7 +115,7 @@ export default function Footer() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#080d1a]/90 via-[#050813]/85 to-[#02040a]/95 backdrop-blur-[1px]" />
       </div>
 
-      <div aria-hidden="true" className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[25%] font-black text-[13vw] tracking-[0.06em] text-transparent select-none pointer-events-none leading-none z-0 uppercase whitespace-nowrap text-center blur-[1px]" style={{ WebkitTextStroke: "2px rgba(255,255,255,.09)", textShadow: "0 0 60px rgba(255,255,255,.03)" }}>ITET</div>
+      <div aria-hidden="true" className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[25%] font-raleway font-black text-[13vw] tracking-[0.06em] text-transparent select-none pointer-events-none leading-none z-0 uppercase whitespace-nowrap text-center blur-[1px]" style={{ WebkitTextStroke: "2px rgba(255,255,255,.09)", textShadow: "0 0 60px rgba(255,255,255,.03)" }}>ITET</div>
       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#f54a00]/70 to-transparent z-10" />
       <div className="absolute -top-28 -left-28 w-80 h-80 rounded-full bg-[#f54a00]/15 blur-3xl pointer-events-none z-0" />
       <div className="absolute top-1/2 -right-28 w-96 h-96 rounded-full bg-[#3b82f6]/10 blur-3xl pointer-events-none z-0" />
