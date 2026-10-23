@@ -237,7 +237,8 @@ function NoticePanel() {
 }
 
 export default function HomeTopGrid() {
-  const [leaderIndex, setLeaderIndex] = useState(1);\n  const [partnerIndex, setPartnerIndex] = useState(1);
+  const [leaderIndex, setLeaderIndex] = useState(1);
+  const [partnerIndex, setPartnerIndex] = useState(1);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
