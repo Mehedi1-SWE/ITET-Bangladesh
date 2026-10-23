@@ -196,9 +196,14 @@ function AlumniSkeleton() {
           <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">Connecting you with the remarkable leaders, innovators, and textile experts shaping our global industry.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
-          {[1,2,3,4].map((item) => (
+          {[1, 2, 3, 4].map((item) => (
             <div key={item} className="bg-white rounded-3xl p-5 border border-stone-200/80 animate-pulse space-y-4 shadow-xs">
-              <div className="flex justify-between items-start"><div className="space-y-2 w-3/4"><div className="h-5 bg-stone-200 rounded-md w-4/5" /><div className="h-3.5 bg-stone-200 rounded-md w-1/2" /></div></div>
+              <div className="flex justify-between items-start">
+                <div className="space-y-2 w-3/4">
+                  <div className="h-5 bg-stone-200 rounded-md w-4/5" />
+                  <div className="h-3.5 bg-stone-200 rounded-md w-1/2" />
+                </div>
+              </div>
               <div className="w-full aspect-square bg-stone-200 rounded-2xl" />
               <div className="h-6 bg-stone-100 rounded-lg w-full" />
             </div>
@@ -301,16 +306,18 @@ export default function HomeLowerSections() {
     <>
       <section className="bg-gradient-to-b from-gray-50 to-gray-100 py-10 lg:py-16">
         <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-gray-800 mb-3 text-center pt-8 font-manuale">Textile Market Updates</h2>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-gray-800 mb-3 text-center font-manuale">Textile Market Updates</h2>
           <p className="text-center text-gray-600 mb-8">Real-Time Pricing Insights on Industry Materials.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {marketGroups.map((group) => <PriceCard key={group.title} {...group} />)}
           </div>
         </div>
       </section>
+      <ResponsibilitySkeleton />
       <WideAd />
       <AlumniSkeleton />
       <GallerySection />
+      <MembershipCta />
     </>
   );
 }
