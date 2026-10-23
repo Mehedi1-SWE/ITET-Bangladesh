@@ -43,4 +43,10 @@ download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622893/my8ajrl1
 download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622571/rznb5zh4zfcwdym1vpc4.jpg" "public/images/gallery/gallery-06.jpg"
 download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622438/gzldzflekiej6bkxqid7.jpg" "public/images/gallery/gallery-07.jpg"
 
+
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786622156/i7vsh7brluqn4q2bztss.jpg" "public/images/gallery/gallery-08.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786619036/jggfrdrnp18ujbzim1wk.jpg" "public/images/gallery/gallery-09.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786615736/ra4bglla1m7y0iwx6q4d.jpg" "public/images/gallery/gallery-10.jpg"
+download "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786615640/ktvkf8w4w6zkf1odcknj.jpg" "public/images/gallery/gallery-11.jpg"
+
 echo "Downloaded ITET public assets."
