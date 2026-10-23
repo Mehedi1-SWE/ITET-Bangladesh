@@ -3,7 +3,7 @@ import WelcomeSection from "@/components/home/WelcomeSection";
 import LeadershipMessages from "@/components/home/LeadershipMessages";
 import PartnersSection from "@/components/home/PartnersSection";
 
-const heroTexture = "https://itetbd.net/_next/image?q=90&url=%2F_next%2Fstatic%2Fmedia%2Ffooter-bg.1uqsdmgciiqzm.jpg&w=3840";
+const heroTexture = "/images/home/hero-texture.jpg";
 
 export default function Home() {
   return (
