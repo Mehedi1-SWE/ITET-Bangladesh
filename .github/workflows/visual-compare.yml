@@ -36,6 +36,8 @@ jobs:
 
       - name: Build static live reference
         run: |
+          rm -rf reference/live-site/images
+          cp -R public/images reference/live-site/images
           python - <<'PY'
           from pathlib import Path
           from urllib.parse import unquote
@@ -106,7 +108,7 @@ jobs:
           for token, path in asset_map.items():
               body = re.sub(
                   r'src="/_next/image\\?url=[^"]*' + re.escape(token) + r'[^"]*"',
-                  f'src="http://127.0.0.1:3000{path}"',
+                  f'src="{path}"',
                   body
               )
 
@@ -114,14 +116,14 @@ jobs:
               encoded = match.group(1)
               decoded = unquote(encoded.replace("&amp;", "&"))
               if decoded == "/hero-building-bg.jpg":
-                  return 'src="http://127.0.0.1:3000/images/home/itet-architecture.jpg"'
+                  return 'src="/images/home/itet-architecture.jpg"'
               if "itet-logo" in decoded:
-                  return 'src="http://127.0.0.1:3000/images/logo/itet-logo.jpg"'
+                  return 'src="/images/logo/itet-logo.jpg"'
               if "footer-bg" in decoded:
-                  return 'src="http://127.0.0.1:3000/images/home/hero-texture.jpg"'
+                  return 'src="/images/home/hero-texture.jpg"'
               for token, path in asset_map.items():
                   if token in decoded:
-                      return f'src="http://127.0.0.1:3000{path}"'
+                      return f'src="{path}"'
               if decoded.startswith("http://") or decoded.startswith("https://"):
                   return f'src="{decoded}"'
               return f'src="{decoded}"'
