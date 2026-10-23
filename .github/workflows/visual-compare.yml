@@ -41,10 +41,25 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           from urllib.parse import unquote
+          from urllib.request import urlretrieve
           import re
 
           root = Path("reference/live-site")
           html = (root / "home.html").read_text(errors="ignore")
+
+          html_class_match = re.search(r'<html[^>]*class="([^"]*)"', html)
+          body_class_match = re.search(r'<body[^>]*class="([^"]*)"', html)
+          html_classes = html_class_match.group(1) if html_class_match else ""
+          body_classes = body_class_match.group(1) if body_class_match else ""
+
+          font_paths = sorted(set(re.findall(r'href="([^"]+\\.woff2)"[^>]*as="font"', html)))
+          for font_path in font_paths:
+              if not font_path.startswith("/"):
+                  continue
+              target = root / font_path.lstrip("/")
+              target.parent.mkdir(parents=True, exist_ok=True)
+              if not target.exists():
+                  urlretrieve("https://itetbd.net" + font_path, target)
 
           stream_marker = html.find('id="S:0"')
           content_start = html.find('<section class="w-full bg-base-light', stream_marker if stream_marker >= 0 else 0)
@@ -140,7 +155,7 @@ jobs:
           )
 
           page = f"""<!doctype html>
-          <html>
+          <html class="{html_classes}">
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -150,7 +165,7 @@ jobs:
               body{{background:#fff}}
             </style>
           </head>
-          <body>{body}</body>
+          <body class="{body_classes}">{body}</body>
           </html>"""
           (root / "static.html").write_text(page)
           PY
