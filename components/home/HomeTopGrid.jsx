@@ -106,6 +106,9 @@ export default function HomeTopGrid() {
   const [partnerIndex, setPartnerIndex] = useState(0);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("visual")) return undefined;
+
     const a = setInterval(() => setLeaderIndex((i) => (i + 1) % leaders.length), 6500);
     const b = setInterval(() => setPartnerIndex((i) => (i + 1) % partners.length), 2600);
     return () => { clearInterval(a); clearInterval(b); };
