@@ -41,7 +41,7 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-xs transition-all duration-200">
+      <header className="relative sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-xs transition-all duration-200">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18">
             <Link className="flex items-center gap-2.5 sm:gap-3 group shrink-0" href="/">
