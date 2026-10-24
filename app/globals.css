@@ -120,3 +120,28 @@ a {
     transform: rotateX(0) rotateY(0);
   }
 }
+
+
+.field {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #f9fafb;
+  padding: 0.7rem 0.875rem;
+  color: #111827;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.field::placeholder {
+  color: #9ca3af;
+}
+
+.field:focus {
+  border-color: #f54a00;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(245, 74, 0, 0.10);
+}
