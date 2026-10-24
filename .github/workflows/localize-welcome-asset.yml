@@ -1,0 +1,53 @@
+name: Localize Welcome Asset
+
+on:
+  push:
+    paths:
+      - ".github/workflows/localize-welcome-asset.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Move inline welcome image to public
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, re
+          from pathlib import Path
+
+          path=Path("components/home/WelcomePortalModal.jsx")
+          text=path.read_text()
+          match=re.search(r'const leafPanel = "data:image/webp;base64,([^"]+)";', text)
+          if match:
+              out=Path("public/images/home/welcome-leaf.webp")
+              out.parent.mkdir(parents=True, exist_ok=True)
+              out.write_bytes(base64.b64decode(match.group(1)))
+              text=text[:match.start()] + 'const leafPanel = "/images/home/welcome-leaf.webp";' + text[match.end():]
+              path.write_text(text)
+              print("localized",out,out.stat().st_size)
+          else:
+              print("inline asset already localized or not found")
+          PY
+
+      - name: Commit localized asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add components/home/WelcomePortalModal.jsx public/images/home/welcome-leaf.webp || true
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "Move welcome image into public assets"
+          git push
