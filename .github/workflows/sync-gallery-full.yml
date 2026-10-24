@@ -1,0 +1,60 @@
+name: Sync Full ITET Gallery
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-gallery-full.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download remaining official gallery photos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/gallery
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614574/WhatsApp_Image_2025-09-09_at_10.34.44_PM_o93rqt.jpg" -o public/images/gallery/gallery-23.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614575/WhatsApp_Image_2025-09-09_at_10.32.23_PM_tbma4v.jpg" -o public/images/gallery/gallery-24.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614576/WhatsApp_Image_2025-09-09_at_10.28.42_PM_1_ddgbbt.jpg" -o public/images/gallery/gallery-25.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614577/WhatsApp_Image_2025-09-09_at_10.32.22_PM_rvv2in.jpg" -o public/images/gallery/gallery-26.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614577/WhatsApp_Image_2025-09-09_at_10.28.42_PM_ydp31d.jpg" -o public/images/gallery/gallery-27.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614578/WhatsApp_Image_2025-09-09_at_10.28.41_PM_veyhee.jpg" -o public/images/gallery/gallery-28.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614578/WhatsApp_Image_2025-09-09_at_10.28.41_PM_1_h8vdvf.jpg" -o public/images/gallery/gallery-29.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614579/WhatsApp_Image_2025-09-09_at_10.28.40_PM_zwlta9.jpg" -o public/images/gallery/gallery-30.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614580/WhatsApp_Image_2025-09-09_at_10.28.38_PM_1_okjg9b.jpg" -o public/images/gallery/gallery-31.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614580/WhatsApp_Image_2025-09-09_at_10.28.39_PM_nxs7ag.jpg" -o public/images/gallery/gallery-32.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614580/WhatsApp_Image_2025-09-09_at_10.28.38_PM_bftufo.jpg" -o public/images/gallery/gallery-33.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614581/WhatsApp_Image_2025-09-09_at_10.28.37_PM_1_vr5w1s.jpg" -o public/images/gallery/gallery-34.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614581/WhatsApp_Image_2025-09-09_at_10.28.37_PM_jz4ry6.jpg" -o public/images/gallery/gallery-35.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614582/WhatsApp_Image_2025-09-09_at_10.28.36_PM_f2u4ln.jpg" -o public/images/gallery/gallery-36.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614583/WhatsApp_Image_2025-09-09_at_10.24.56_PM_1_uoxguj.jpg" -o public/images/gallery/gallery-37.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614584/WhatsApp_Image_2025-09-09_at_10.24.56_PM_wh6zt6.jpg" -o public/images/gallery/gallery-38.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614585/WhatsApp_Image_2025-09-09_at_10.19.59_PM_2_ubuvnj.jpg" -o public/images/gallery/gallery-39.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614585/WhatsApp_Image_2025-09-09_at_10.19.59_PM_1_d4m0tr.jpg" -o public/images/gallery/gallery-40.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614586/WhatsApp_Image_2025-09-09_at_10.19.59_PM_ahtp16.jpg" -o public/images/gallery/gallery-41.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614587/WhatsApp_Image_2025-09-09_at_10.05.02_PM_2_hxakjl.jpg" -o public/images/gallery/gallery-42.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614587/WhatsApp_Image_2025-09-09_at_10.05.02_PM_3_zckosw.jpg" -o public/images/gallery/gallery-43.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614587/WhatsApp_Image_2025-09-09_at_10.05.02_PM_1_rdl6k7.jpg" -o public/images/gallery/gallery-44.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614589/WhatsApp_Image_2025-09-09_at_10.05.02_PM_cziyaa.jpg" -o public/images/gallery/gallery-45.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614589/WhatsApp_Image_2025-09-09_at_10.05.01_PM_taovks.jpg" -o public/images/gallery/gallery-46.jpg
+          file public/images/gallery/gallery-{23..46}.jpg
+      - name: Commit full gallery
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/gallery/gallery-{23..46}.jpg
+          if git diff --cached --quiet; then
+            echo "Gallery already complete."
+            exit 0
+          fi
+          git commit -m "Add remaining official gallery photographs"
+          git push
