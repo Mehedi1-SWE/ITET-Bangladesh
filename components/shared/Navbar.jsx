@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const aboutItems = [
   ["History of ITET", "/history-itet"],
@@ -41,10 +42,10 @@ function AdSquare() {
   );
 }
 
-function MegaMenu({ label, items }) {
+function MegaMenu({ label, items, active = false }) {
   return (
     <div className="group">
-      <button type="button" className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1.5 cursor-pointer text-gray-700 hover:text-primary hover:bg-gray-50">
+      <button type="button" className={`px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1.5 cursor-pointer hover:text-primary hover:bg-gray-50 ${active ? "text-primary font-semibold" : "text-gray-700"}`}>
         <span>{label}</span><Chevron />
       </button>
       <div className="hidden xl:block absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-xl transition-all duration-300 ease-out origin-top opacity-0 -translate-y-3 invisible pointer-events-none py-0 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible group-hover:pointer-events-auto group-hover:py-6 group-hover:max-h-[520px]">
@@ -79,18 +80,21 @@ function MegaMenu({ label, items }) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+  const topLinkClass = (href) => `px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 hover:text-primary hover:bg-gray-50 ${isActive(href) ? "text-primary font-semibold" : "text-gray-700"}`;
 
   return (
     <>
       <nav className="hidden xl:flex items-center gap-1.5 lg:gap-2">
-        <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-primary font-semibold" href="/">Home</Link>
-        <MegaMenu label="About ITET" items={aboutItems} />
-        <MegaMenu label="Membership" items={membershipItems} />
-        <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-gray-50" href="/events">Events</Link>
-        <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-gray-50" href="/notices">Notice</Link>
-        <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-gray-50" href="/publication">Publication</Link>
-        <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-gray-50" href="/job-circular">Job Circular</Link>
-        <Link className="px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-150 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-gray-50" href="/gallery">Gallery</Link>
+        <Link className={topLinkClass("/")} href="/">Home</Link>
+        <MegaMenu label="About ITET" items={aboutItems} active={aboutItems.some(([, href]) => isActive(href))} />
+        <MegaMenu label="Membership" items={membershipItems} active={membershipItems.some(([, href]) => isActive(href))} />
+        <Link className={topLinkClass("/events")} href="/events">Events</Link>
+        <Link className={topLinkClass("/notices")} href="/notices">Notice</Link>
+        <Link className={topLinkClass("/publication")} href="/publication">Publication</Link>
+        <Link className={topLinkClass("/job-circular")} href="/job-circular">Job Circular</Link>
+        <Link className={topLinkClass("/gallery")} href="/gallery">Gallery</Link>
       </nav>
 
       <div className="hidden xl:flex items-center gap-3">
@@ -118,14 +122,14 @@ export default function Navbar() {
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-3">
-            <Link href="/" onClick={() => setOpen(false)} className="block py-3 text-sm font-semibold text-primary border-b border-gray-100">Home</Link>
+            <Link href="/" onClick={() => setOpen(false)} className={`block py-3 text-sm font-semibold border-b border-gray-100 ${isActive("/") ? "text-primary" : "text-gray-700"}`}>Home</Link>
             <p className="mt-4 mb-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400">About ITET</p>
-            {aboutItems.map(([text, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block py-2.5 text-sm text-gray-700 border-b border-gray-50">{text}</Link>)}
+            {aboutItems.map(([text, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className={`block py-2.5 text-sm border-b border-gray-50 ${isActive(href) ? "text-primary font-semibold" : "text-gray-700"}`}>{text}</Link>)}
             <p className="mt-4 mb-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400">Membership</p>
             {membershipItems.map(([text, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block py-2.5 text-sm text-gray-700 border-b border-gray-50">{text}</Link>)}
             {[
               ["Events","/events"],["Notice","/notices"],["Publication","/publication"],["Job Circular","/job-circular"],["Gallery","/gallery"]
-            ].map(([text,href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-gray-700 border-b border-gray-100">{text}</Link>)}
+            ].map(([text,href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className={`block py-3 text-sm font-medium border-b border-gray-100 ${isActive(href) ? "text-primary font-semibold" : "text-gray-700"}`}>{text}</Link>)}
 
             <div className="mt-5"><AdSquare /></div>
 
