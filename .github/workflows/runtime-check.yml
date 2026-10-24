@@ -2,7 +2,11 @@ name: Runtime Check
 
 on:
   push:
+    branches: ["main"]
     paths:
+      - "app/**"
+      - "components/**"
+      - "public/**"
       - ".github/workflows/runtime-check.yml"
 
 jobs:
