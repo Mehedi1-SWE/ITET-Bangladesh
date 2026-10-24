@@ -16,10 +16,10 @@ export default function MemberLoginForm() {
   const [captchaInput, setCaptchaInput] = useState("");
   const [status, setStatus] = useState("");
 
-  function refreshCaptcha() {
+  function refreshCaptcha(clearStatus = true) {
     setCaptcha(makeCaptcha());
     setCaptchaInput("");
-    setStatus("");
+    if (clearStatus) setStatus("");
   }
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function MemberLoginForm() {
     }
     if (!captcha || captchaInput.trim().toUpperCase() !== captcha.toUpperCase()) {
       setStatus("CAPTCHA does not match. Please try again.");
-      refreshCaptcha();
+      refreshCaptcha(false);
       return;
     }
     setStatus("CAPTCHA verified. Member authentication requires the ITET account service.");
