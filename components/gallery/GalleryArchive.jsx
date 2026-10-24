@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const gallery = [
   { file:"gallery-01.jpg", category:"Industry & Policy", span:"lg:col-span-3", badge:"ITET TIE- MoU", title:"টেক্সটাইল খাতে উদ্ভাবন ও গবেষণার নতুন দিগন্ত: ITET এবং TIE-এর মধ্যে ঐতিহাসিক MoU স্বাক্ষর!" },
@@ -43,6 +43,14 @@ export default function GalleryArchive() {
   const shown = gallery.slice(0, visible);
   const remaining = Math.max(0, gallery.length - visible);
 
+  const moveSelection = useCallback((direction) => {
+    setSelected((current) => {
+      if (!current || shown.length === 0) return current;
+      const index = shown.findIndex((item) => item.file === current.file);
+      return shown[(index + direction + shown.length) % shown.length];
+    });
+  }, [shown]);
+
   useEffect(() => {
     if (!selected) return undefined;
     const onKey = (event) => {
@@ -56,15 +64,7 @@ export default function GalleryArchive() {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [selected]);
-
-  function moveSelection(direction) {
-    setSelected((current) => {
-      if (!current) return current;
-      const index = shown.findIndex((item) => item.file === current.file);
-      return shown[(index + direction + shown.length) % shown.length];
-    });
-  }
+  }, [selected, moveSelection]);
 
   return (
     <>
