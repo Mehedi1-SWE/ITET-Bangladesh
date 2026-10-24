@@ -45,10 +45,10 @@ export default function Header() {
               </div>
               <span className="hidden sm:block mx-2">|</span>
               <div className="flex items-center gap-3">
-                <a href="https://www.facebook.com/groups/itetbd/?ref=share&mibextid=KtfwRi" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="facebook" /></a>
-                <a href="https://www.linkedin.com/in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="linkedin" /></a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="instagram" /></a>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube" className="text-md text-white hover:text-primary transition-transform duration-500"><SocialIcon type="youtube" /></a>
+                <a href="https://www.facebook.com/groups/itetbd/?ref=share&mibextid=KtfwRi" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-md text-white transition-all duration-300 hover:text-[#1877F2] hover:scale-110"><SocialIcon type="facebook" /></a>
+                <a href="https://www.linkedin.com/in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-md text-white transition-all duration-300 hover:text-[#0A66C2] hover:scale-110"><SocialIcon type="linkedin" /></a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-md text-white transition-all duration-300 hover:text-[#E4405F] hover:scale-110"><SocialIcon type="instagram" /></a>
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube" className="text-md text-white transition-all duration-300 hover:text-[#FF0000] hover:scale-110"><SocialIcon type="youtube" /></a>
               </div>
             </div>
           </div>
