@@ -58,6 +58,7 @@ jobs:
                 sections: document.querySelectorAll("section").length,
                 links: document.querySelectorAll("a").length,
                 bodyTextLength: text.length,
+                suspectPaths: Array.from(document.querySelectorAll("path")).map((p,index)=>({index,d:p.getAttribute("d")||"",html:p.outerHTML})).filter(x=>/117\.22|288 64|58\.781/.test(x.d)),
               };
             });
             console.log("HTTP_STATUS", response?.status());
