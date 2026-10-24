@@ -1,3 +1,5 @@
+import MembershipPlans from "@/components/membership/MembershipPlans";
+import CopyButton from "@/components/membership/CopyButton";
 import Link from "next/link";
 
 const steps = [
@@ -92,8 +94,8 @@ export default function MembershipOverview() {
                     <div className="bg-gray-50/80 rounded-lg p-2 border border-stone-300"><span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider block">Branch</span><span className="text-xs sm:text-sm font-semibold text-gray-800 block">Mirpur DOHS Branch</span></div>
                   </div>
                   <div className="bg-gray-50/80 rounded-lg p-2 border border-stone-300"><span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider block">Account Name</span><span className="text-xs font-semibold text-gray-900 block leading-snug break-words">THE INSTITUTION OF TEXTILE ENGINEERING &amp; TECHNOLOGISTS, BANGLADESH</span></div>
-                  <div className="bg-emerald-50/50 rounded-lg p-2.5 border border-emerald-300 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-emerald-800 uppercase tracking-wider block">Account Number</span><span className="text-sm sm:text-base font-mono font-bold text-gray-900 tracking-wider">3004-0212000538</span></div><button type="button" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-white text-emerald-800 border border-emerald-300 shadow-2xs">Copy</button></div>
-                  <div className="bg-gray-50/80 rounded-lg p-2.5 border border-stone-300 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider block">Routing Number</span><span className="text-xs sm:text-sm font-mono font-semibold text-gray-800 tracking-wider">240261283</span></div><button type="button" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-white text-gray-700 border border-stone-300 shadow-2xs">Copy</button></div>
+                  <div className="bg-emerald-50/50 rounded-lg p-2.5 border border-emerald-300 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-emerald-800 uppercase tracking-wider block">Account Number</span><span className="text-sm sm:text-base font-mono font-bold text-gray-900 tracking-wider">3004-0212000538</span></div><CopyButton value="3004-0212000538" tone="green" /></div>
+                  <div className="bg-gray-50/80 rounded-lg p-2.5 border border-stone-300 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider block">Routing Number</span><span className="text-xs sm:text-sm font-mono font-semibold text-gray-800 tracking-wider">240261283</span></div><CopyButton value="240261283" /></div>
                 </div>
               </div>
               <div className="mt-3 pt-2.5 border-t border-stone-200 flex items-center gap-1.5 text-[11px] text-gray-500"><span className="text-emerald-600">ⓘ</span><span>Upload bank deposit voucher or payment receipt when applying.</span></div>
@@ -110,7 +112,7 @@ export default function MembershipOverview() {
                   {[
                     ["bKash Personal 1", "01308-317841"],
                     ["bKash Personal 2", "01715-771454"],
-                  ].map(([label, number]) => <div key={number} className="bg-pink-50/40 rounded-lg p-2.5 border border-pink-200/70 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-pink-700 uppercase tracking-wider block">{label}</span><span className="text-sm font-mono font-bold text-gray-800 select-all tracking-wide">{number}</span></div><button type="button" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-white text-pink-700 border border-pink-300 shadow-2xs">Copy</button></div>)}
+                  ].map(([label, number]) => <div key={number} className="bg-pink-50/40 rounded-lg p-2.5 border border-pink-200/70 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-pink-700 uppercase tracking-wider block">{label}</span><span className="text-sm font-mono font-bold text-gray-800 select-all tracking-wide">{number}</span></div><CopyButton value="01308-317841" tone="pink" /></div>)}
                 </div>
               </div>
               <div className="mt-3 pt-2.5 border-t border-stone-200 space-y-1"><div className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-700"><span className="text-primary">✓</span><span>Verification Requirement</span></div><p className="text-[11px] text-gray-500 leading-snug">Enter your <strong>TrxID</strong> or upload the <strong>Payment Slip Screenshot</strong> during registration.</p></div>
@@ -126,7 +128,7 @@ export default function MembershipOverview() {
             <h2 className="text-2xl sm:text-3xl lg:text-3xl font-medium tracking-tight text-gray-800">Choose Your Membership</h2>
             <p className="mt-3.5 text-md sm:text-base text-neutral-600 max-w-4xl mx-auto">Choose the membership plan that fits your journey and unlock training, events, networking, career opportunities, industry resources, and lifelong connections.</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-6 items-stretch max-w-6xl mx-auto"/>
+          <div className="max-w-6xl mx-auto"><MembershipPlans /></div>
         </div>
       </section>
     </div>
