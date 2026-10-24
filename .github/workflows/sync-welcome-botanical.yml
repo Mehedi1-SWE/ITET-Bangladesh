@@ -1,0 +1,36 @@
+name: Sync Welcome Botanical Asset
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-welcome-botanical.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download official live popup asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 "https://itetbd.net/modal-botanical-art.jpg" -o public/modal-botanical-art.jpg
+          file public/modal-botanical-art.jpg
+      - name: Commit asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/modal-botanical-art.jpg
+          if git diff --cached --quiet; then
+            echo "Asset already current."
+            exit 0
+          fi
+          git commit -m "Add official welcome botanical artwork"
+          git push
