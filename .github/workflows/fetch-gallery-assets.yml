@@ -6,32 +6,44 @@ on:
       - ".github/workflows/fetch-gallery-assets.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   fetch-gallery:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Download gallery images
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p gallery-assets
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614566/WhatsApp_Image_2025-09-10_at_9.34.36_PM_lsvj3r.jpg" -o gallery-assets/gallery-12.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614567/WhatsApp_Image_2025-09-10_at_9.34.35_PM_lmkrsn.jpg" -o gallery-assets/gallery-13.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614567/WhatsApp_Image_2025-09-10_at_9.34.35_PM_1_a5iu4m.jpg" -o gallery-assets/gallery-14.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614567/WhatsApp_Image_2025-09-10_at_9.34.34_PM_tupn8a.jpg" -o gallery-assets/gallery-15.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614569/WhatsApp_Image_2025-09-09_at_10.34.41_PM_jqvvkz.jpg" -o gallery-assets/gallery-16.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614569/WhatsApp_Image_2025-09-09_at_10.34.43_PM_j8u4nu.jpg" -o gallery-assets/gallery-17.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614570/WhatsApp_Image_2025-09-09_at_10.34.39_PM_a85y5g.jpg" -o gallery-assets/gallery-18.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614572/WhatsApp_Image_2025-09-09_at_10.32.26_PM_hjogro.jpg" -o gallery-assets/gallery-19.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614572/WhatsApp_Image_2025-09-09_at_10.32.27_PM_owljca.jpg" -o gallery-assets/gallery-20.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614574/WhatsApp_Image_2025-09-09_at_10.32.25_PM_uyfpia.jpg" -o gallery-assets/gallery-21.jpg
-          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614574/WhatsApp_Image_2025-09-09_at_10.32.24_PM_rqsorp.jpg" -o gallery-assets/gallery-22.jpg
-          file gallery-assets/*
-      - name: Upload gallery artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: itet-gallery-12-22
-          path: gallery-assets/
-          retention-days: 1
+          mkdir -p public/images/gallery
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614566/WhatsApp_Image_2025-09-10_at_9.34.36_PM_lsvj3r.jpg" -o public/images/gallery/gallery-12.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614567/WhatsApp_Image_2025-09-10_at_9.34.35_PM_lmkrsn.jpg" -o public/images/gallery/gallery-13.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614567/WhatsApp_Image_2025-09-10_at_9.34.35_PM_1_a5iu4m.jpg" -o public/images/gallery/gallery-14.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614567/WhatsApp_Image_2025-09-10_at_9.34.34_PM_tupn8a.jpg" -o public/images/gallery/gallery-15.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614569/WhatsApp_Image_2025-09-09_at_10.34.41_PM_jqvvkz.jpg" -o public/images/gallery/gallery-16.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614569/WhatsApp_Image_2025-09-09_at_10.34.43_PM_j8u4nu.jpg" -o public/images/gallery/gallery-17.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614570/WhatsApp_Image_2025-09-09_at_10.34.39_PM_a85y5g.jpg" -o public/images/gallery/gallery-18.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614572/WhatsApp_Image_2025-09-09_at_10.32.26_PM_hjogro.jpg" -o public/images/gallery/gallery-19.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614572/WhatsApp_Image_2025-09-09_at_10.32.27_PM_owljca.jpg" -o public/images/gallery/gallery-20.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614574/WhatsApp_Image_2025-09-09_at_10.32.25_PM_uyfpia.jpg" -o public/images/gallery/gallery-21.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614574/WhatsApp_Image_2025-09-09_at_10.32.24_PM_rqsorp.jpg" -o public/images/gallery/gallery-22.jpg
+
+      - name: Commit local gallery assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/gallery/gallery-{12..22}.jpg
+          if git diff --cached --quiet; then
+            echo "Gallery assets already current."
+            exit 0
+          fi
+          git commit -m "Add remaining live gallery assets"
+          git push
