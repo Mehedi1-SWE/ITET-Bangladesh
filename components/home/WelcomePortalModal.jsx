@@ -61,11 +61,7 @@ export default function WelcomePortalModal({ disabled = false }) {
   );
 
   useEffect(() => {
-    if (disabled) {
-      setMounted(false);
-      setVisible(false);
-      return undefined;
-    }
+    if (disabled) return undefined;
 
     const openTimer = window.setTimeout(() => {
       setRemaining(6);
