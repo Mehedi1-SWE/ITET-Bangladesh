@@ -112,7 +112,7 @@ export default function MembershipOverview() {
                   {[
                     ["bKash Personal 1", "01308-317841"],
                     ["bKash Personal 2", "01715-771454"],
-                  ].map(([label, number]) => <div key={number} className="bg-pink-50/40 rounded-lg p-2.5 border border-pink-200/70 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-pink-700 uppercase tracking-wider block">{label}</span><span className="text-sm font-mono font-bold text-gray-800 select-all tracking-wide">{number}</span></div><CopyButton value="01308-317841" tone="pink" /></div>)}
+                  ].map(([label, number]) => <div key={number} className="bg-pink-50/40 rounded-lg p-2.5 border border-pink-200/70 flex items-center justify-between gap-2"><div><span className="text-[10px] font-medium text-pink-700 uppercase tracking-wider block">{label}</span><span className="text-sm font-mono font-bold text-gray-800 select-all tracking-wide">{number}</span></div><CopyButton value={number} tone="pink" /></div>)}
                 </div>
               </div>
               <div className="mt-3 pt-2.5 border-t border-stone-200 space-y-1"><div className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-700"><span className="text-primary">✓</span><span>Verification Requirement</span></div><p className="text-[11px] text-gray-500 leading-snug">Enter your <strong>TrxID</strong> or upload the <strong>Payment Slip Screenshot</strong> during registration.</p></div>
