@@ -51,6 +51,20 @@ export default function MemberBenefitsPage() {
           </div>
         </div>
       </section>
+
+      <section className="border-t border-gray-100 bg-white py-12 sm:py-16">
+        <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
+          <div className="rounded-3xl bg-secondary px-6 py-10 text-center text-white shadow-xl sm:px-10 sm:py-12">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-300">Get Started Today</span>
+            <h2 className="mx-auto mt-3 max-w-3xl font-manuale text-3xl font-semibold sm:text-4xl">Ready to join Bangladesh&apos;s apex textile body?</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-white/65">Apply online in minutes, provide your credentials and payment reference, and begin your ITET membership application.</p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Link href="/membership-overview" className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#d94100]">Apply for Membership</Link>
+              <Link href="/membership-login" className="rounded-lg border border-white/15 bg-white/[0.05] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Existing Member Login</Link>
+            </div>
+          </div>
+        </div>
+      </section>
       <SupportInquiries />
     </div>
   );
