@@ -1,13 +1,6 @@
 import AboutHero from "@/components/shared/AboutHero";
 import SupportInquiries from "@/components/shared/SupportInquiries";
 
-const goals = [
-  ["Professional Unity", "Bring textile engineers and technologists together under a strong, inclusive professional platform."],
-  ["Knowledge & Innovation", "Promote continuous learning, technical excellence, research, and industry-academia exchange."],
-  ["Member Welfare", "Support professional growth, networking, welfare initiatives, and member-focused services."],
-  ["National Contribution", "Contribute informed professional perspectives to the sustainable development of Bangladesh's textile sector."],
-];
-
 export const metadata = { title: "Mission & Vision | ITET Bangladesh | ITET Bangladesh" };
 
 export default function MissionVision() {
@@ -15,14 +8,41 @@ export default function MissionVision() {
     <div className="min-h-screen bg-white">
       <AboutHero meta="Purpose & Goals" before="Strategic Vision" accent="& Core Mission" after="of ITET" description="Our strategic vision, institutional objectives, and steadfast commitment to advancing Bangladesh's textile engineering profession." />
 
-      <section className="bg-[#fbfaf7] py-12 sm:py-16">
-        <div className="mx-[5%] grid gap-6 md:mx-[5%] lg:mx-[5%] lg:grid-cols-2 xl:mx-[6%] 2xl:mx-[8%]">
-          <article className="rounded-3xl bg-secondary p-7 text-white shadow-xl sm:p-9"><span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-300">Our Vision</span><h2 className="mt-3 font-manuale text-3xl font-semibold sm:text-4xl">A respected, connected, future-ready textile engineering community</h2><p className="mt-5 text-sm leading-7 text-white/70">To strengthen the professional stature of textile engineers and technologists and help position Bangladesh's textile community for sustainable, innovative, and globally competitive growth.</p></article>
-          <article className="rounded-3xl border border-gray-200 bg-white p-7 shadow-sm sm:p-9"><span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Our Mission</span><h2 className="mt-3 font-manuale text-3xl font-semibold text-secondary sm:text-4xl">Serve, unite, develop and represent the profession</h2><p className="mt-5 text-sm leading-7 text-gray-600">ITET works to create meaningful professional connections, improve access to knowledge and development opportunities, support members, encourage ethical practice, and strengthen collaboration among industry, academia, policymakers, and professionals.</p></article>
-        </div>
+      <section className="bg-white py-10 md:py-14">
+        <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
+          <div className="mx-auto max-w-6xl space-y-7">
+            <article className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.06)]">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-orange-50 to-white px-6 py-5 sm:px-8">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Our Vision</p>
+              </div>
+              <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-2">
+                <div>
+                  <h2 className="font-manuale text-2xl font-semibold text-secondary">আমাদের দৃষ্টিভঙ্গি</h2>
+                  <p className="mt-4 text-sm leading-8 text-gray-600">টেক্সটাইল ইঞ্জিনিয়ারিং-এ অগ্রগতি সাধন, শিল্পের মানদণ্ড নির্ধারণ এবং উদ্ভাবন, শিক্ষা ও নৈতিক চর্চার মাধ্যমে ভবিষ্যৎ প্রজন্মকে অনুপ্রাণিত করে—বস্ত্র পেশাজীবীদের একটি বিশ্বব্যাপী স্বীকৃত প্রতিষ্ঠান হিসেবে প্রতিষ্ঠিত হওয়া।</p>
+                </div>
+                <div className="border-t border-gray-100 pt-6 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+                  <h2 className="font-manuale text-2xl font-semibold text-secondary">Our Vision</h2>
+                  <p className="mt-4 text-sm leading-8 text-gray-600">To be a globally recognized institution of textile professionals—leading advancements in textile engineering, shaping industry standards, and inspiring future generations through innovation, education, and ethical practice.</p>
+                </div>
+              </div>
+            </article>
 
-        <div className="mx-[5%] mt-10 grid gap-5 md:mx-[5%] md:grid-cols-2 lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
-          {goals.map(([title,body], index) => <article key={title} className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-lg"><div className="flex items-center gap-4"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-sm font-bold text-primary">0{index+1}</span><h3 className="text-lg font-semibold text-secondary">{title}</h3></div><p className="mt-4 text-sm leading-7 text-gray-600">{body}</p></article>)}
+            <article className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.06)]">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-orange-50 to-white px-6 py-5 sm:px-8">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Our Mission</p>
+              </div>
+              <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-2">
+                <div>
+                  <h2 className="font-manuale text-2xl font-semibold text-secondary">আমাদের লক্ষ্য</h2>
+                  <p className="mt-4 text-sm leading-8 text-gray-600">বাংলাদেশসহ বিশ্বব্যাপী বস্ত্রশিল্পে উদ্ভাবন, টেকসই উন্নয়ন এবং উৎকর্ষ সাধনে অবদান রাখতে বস্ত্র প্রকৌশলী ও প্রযুক্তিবিদদের ধারাবাহিক পেশাগত উন্নয়ন, জ্ঞান বিনিময় এবং কৌশলগত অংশীদারিত্বের মাধ্যমে ক্ষমতায়ন করা।</p>
+                </div>
+                <div className="border-t border-gray-100 pt-6 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+                  <h2 className="font-manuale text-2xl font-semibold text-secondary">Our Mission</h2>
+                  <p className="mt-4 text-sm leading-8 text-gray-600">To empower textile engineers and technologists through continuous professional development, knowledge sharing, and strategic partnerships — driving innovation, sustainability, and excellence in the textile industry of Bangladesh and beyond.</p>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
