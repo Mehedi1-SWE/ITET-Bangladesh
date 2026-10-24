@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 
 const events = [
   {
@@ -51,7 +52,7 @@ export default function EventsArchive() {
                   <span className="rounded-full bg-orange-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">{event.tag}</span>
                   <span className="text-sm font-semibold text-primary">{event.price}</span>
                 </div>
-                <h2 className="mt-3 text-lg font-semibold leading-snug text-secondary sm:text-xl">{event.title}</h2>
+                <Link href="/events/6aa8fbc9e68ea0aea6623f9a" className="mt-3 block text-lg font-semibold leading-snug text-secondary transition hover:text-primary sm:text-xl">{event.title}</Link>
                 <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-gray-500 sm:text-sm">
                   <span>◷ {event.time}</span>
                   <span>⌖ {event.location}</span>
@@ -59,7 +60,7 @@ export default function EventsArchive() {
                 </div>
               </div>
               <div className="flex items-center justify-center border-t border-gray-100 p-5 md:border-l md:border-t-0">
-                <span className="rounded-lg bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-500">{event.status}</span>
+                <Link href="/events/6aa8fbc9e68ea0aea6623f9a" className="rounded-lg bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-500 transition hover:bg-primary hover:text-white">View Event</Link>
               </div>
             </article>
           ))}
