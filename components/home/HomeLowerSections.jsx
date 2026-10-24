@@ -327,7 +327,7 @@ function GallerySection() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-2.5 sm:gap-3.5 md:gap-4">
           {gallery.map((item) => (
-            <div key={item.file} className={`group relative overflow-hidden rounded-md sm:rounded-lg bg-neutral-200/90 cursor-pointer shadow-[0_2px_10px_-3px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 ring-1 ring-black/[0.04] ${item.span} h-[165px] xs:h-[190px] sm:h-[240px] md:h-[280px] lg:h-[360px]`}>
+            <Link href="/gallery" key={item.file} className={`group relative overflow-hidden rounded-md sm:rounded-lg bg-neutral-200/90 cursor-pointer shadow-[0_2px_10px_-3px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 ring-1 ring-black/[0.04] ${item.span} h-[165px] xs:h-[190px] sm:h-[240px] md:h-[280px] lg:h-[360px]`}>
               <img src={`/images/gallery/${item.file}`} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
 
@@ -357,7 +357,7 @@ function GallerySection() {
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <div className="mt-10 sm:mt-12 flex justify-center items-center">
