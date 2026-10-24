@@ -1,0 +1,65 @@
+name: Welcome Popup Check
+
+on:
+  push:
+    paths:
+      - "components/home/WelcomePortalModal.jsx"
+      - "public/modal-botanical-art.jpg"
+      - ".github/workflows/welcome-popup-check.yml"
+
+jobs:
+  popup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm install
+      - run: npm run build
+      - run: |
+          npm run start > /tmp/itet-next.log 2>&1 &
+          for i in {1..40}; do
+            if curl -fsS http://127.0.0.1:3000/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/itet-next.log
+          exit 1
+      - name: Verify welcome popup behavior
+        shell: bash
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          node <<'NODE'
+          const { chromium } = require("playwright");
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1440,height:900}});
+            const errors=[];
+            page.on("pageerror",e=>errors.push(String(e)));
+            page.on("console",m=>{ if(m.type()==="error") errors.push(m.text()); });
+            const res=await page.goto("http://127.0.0.1:3000/",{waitUntil:"networkidle"});
+            const before=await page.locator('[role="dialog"]').count();
+            await page.waitForTimeout(1250);
+            const dialog=page.locator('[role="dialog"]');
+            const after=await dialog.count();
+            const text=after ? await dialog.innerText() : "";
+            const imgOk=after ? await dialog.locator('img[alt="ITET Botanical Art"]').evaluate(img=>img.complete && img.naturalWidth>0) : false;
+            const box=after ? await dialog.locator(':scope > div').boundingBox() : null;
+            console.log("HTTP",res?.status());
+            console.log("BEFORE_1S",before);
+            console.log("AFTER_1S",after);
+            console.log("HAS_TITLE",text.includes("Welcome to ITET"));
+            console.log("HAS_6S",/Auto-closing in [456]s/.test(text));
+            console.log("BOTANICAL_OK",imgOk);
+            console.log("MODAL_BOX",JSON.stringify(box));
+            console.log("ERRORS",JSON.stringify(errors));
+            if(res?.status()!==200 || before!==0 || after!==1 || !text.includes("Welcome to ITET") || !imgOk || errors.length) process.exit(1);
+            await dialog.locator('button[aria-label="Close modal"]').click();
+            await page.waitForTimeout(350);
+            console.log("AFTER_CLOSE",await page.locator('[role="dialog"]').count());
+            if(await page.locator('[role="dialog"]').count()!==0) process.exit(1);
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
