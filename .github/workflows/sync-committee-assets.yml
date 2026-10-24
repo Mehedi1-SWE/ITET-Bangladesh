@@ -65,16 +65,67 @@ jobs:
 
           file public/images/committee/* public/images/welfare/*
 
-      - name: Commit portraits
+      - name: Build local member datasets from official API
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p data /tmp/itet-member-data
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/interim-committees" -o /tmp/itet-member-data/committee.json
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/welfare-trust" -o /tmp/itet-member-data/welfare.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          def ext(url):
+              suffix = Path(urlparse(url).path).suffix.lower().lstrip(".")
+              if suffix == "jpeg":
+                  suffix = "jpg"
+              return suffix if suffix in {"jpg","png","webp"} else "jpg"
+
+          committee = json.load(open("/tmp/itet-member-data/committee.json"))
+          committee_out = []
+          for index, item in enumerate(committee, 1):
+              committee_out.append({
+                  "id": item.get("_id", str(index)),
+                  "name": (item.get("name") or "").strip(),
+                  "role": (item.get("role") or "").strip(),
+                  "image": f"/images/committee/committee-{index:02d}.{ext(item.get('image',''))}",
+                  "priority": item.get("priorityValue") if item.get("priorityValue") is not None else 999,
+              })
+          committee_out.sort(key=lambda item: (item["priority"], item["name"].lower()))
+
+          welfare = json.load(open("/tmp/itet-member-data/welfare.json"))
+          welfare_out = []
+          for index, item in enumerate(welfare, 1):
+              welfare_out.append({
+                  "id": item.get("_id", str(index)),
+                  "name": (item.get("name") or "").strip(),
+                  "role": (item.get("role") or "").strip(),
+                  "category": (item.get("category") or "").strip(),
+                  "image": f"/images/welfare/welfare-{index:02d}.{ext(item.get('image',''))}",
+                  "priority": item.get("priorityValue") if item.get("priorityValue") is not None else 999,
+              })
+          welfare_out.sort(key=lambda item: (
+              0 if "trustee" in item["category"].lower() else 1,
+              item["priority"],
+              item["name"].lower(),
+          ))
+
+          Path("data/committee-members.json").write_text(json.dumps(committee_out, ensure_ascii=False, indent=2) + "\n")
+          Path("data/welfare-members.json").write_text(json.dumps(welfare_out, ensure_ascii=False, indent=2) + "\n")
+          PY
+
+      - name: Commit portraits and datasets
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/images/committee public/images/welfare
+          git add public/images/committee public/images/welfare data/committee-members.json data/welfare-members.json
           if git diff --cached --quiet; then
             echo "Portraits already current."
             exit 0
           fi
-          git commit -m "Add official committee and welfare portraits"
+          git commit -m "Sync official committee and welfare data"
           git push
