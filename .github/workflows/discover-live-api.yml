@@ -16,23 +16,63 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p /tmp/itet-js
-          for page in committee welfareTrust gallery notices events; do
-            curl -fsSL "https://itetbd.net/$page" -o "/tmp/$page.html"
-            grep -oE 'src="/_next/static/chunks/[^"]+\.js"' "/tmp/$page.html" | sed 's/^src="//;s/"$//' >> /tmp/scripts.txt || true
-          done
-          sort -u /tmp/scripts.txt > /tmp/scripts-unique.txt
-          while read -r src; do
-            name="$(basename "$src")"
-            curl -fsSL "https://itetbd.net$src" -o "/tmp/itet-js/$name" || true
-          done < /tmp/scripts-unique.txt
+          python - <<'PY'
+          import re
+          import urllib.request
+          from pathlib import Path
 
-          echo "=== API-like paths ==="
-          grep -rhoE 'https?://[^"''' )]+' /tmp/itet-js 2>/dev/null | grep -Ei 'itet|api|gallery|committee|trust|notice|event' | sort -u | head -300 || true
-          grep -rhoE '/api/[A-Za-z0-9_./?=&:%-]+' /tmp/itet-js 2>/dev/null | sort -u | head -300 || true
+          base = "https://itetbd.net"
+          pages = ["committee", "welfareTrust", "gallery", "notices", "events"]
+          script_urls = set()
 
-          echo "=== committee context ==="
-          grep -rhoE '.{0,140}(committee|trustee|welfare).{0,220}' /tmp/itet-js 2>/dev/null | head -300 || true
+          for page in pages:
+              html = urllib.request.urlopen(f"{base}/{page}", timeout=30).read().decode("utf-8", "ignore")
+              script_urls.update(re.findall(r'src="(/_next/static/chunks/[^"]+\.js)"', html))
 
-          echo "=== gallery context ==="
-          grep -rhoE '.{0,140}(gallery|photograph|loadMore|pageSize|limit).{0,220}' /tmp/itet-js 2>/dev/null | head -300 || true
+          print("scripts", len(script_urls))
+          chunks = []
+          for src in sorted(script_urls):
+              try:
+                  text = urllib.request.urlopen(base + src, timeout=30).read().decode("utf-8", "ignore")
+                  chunks.append((src, text))
+              except Exception as exc:
+                  print("FETCH_FAIL", src, exc)
+
+          patterns = [
+              re.compile(r'https?://[^"\'\s)]+'),
+              re.compile(r'/api/[A-Za-z0-9_./?=&:%-]+'),
+          ]
+
+          print("=== API-like paths ===")
+          matches = set()
+          for src, text in chunks:
+              for pattern in patterns:
+                  for value in pattern.findall(text):
+                      low = value.lower()
+                      if any(k in low for k in ["api", "itet", "gallery", "committee", "trust", "notice", "event"]):
+                          matches.add(value)
+          for value in sorted(matches):
+              print(value)
+
+          for label, words in [
+              ("committee context", ["committee","trustee","welfare"]),
+              ("gallery context", ["gallery","photograph","loadmore","pagesize"]),
+          ]:
+              print("===", label, "===")
+              count = 0
+              for src, text in chunks:
+                  low = text.lower()
+                  for word in words:
+                      start = 0
+                      while count < 250:
+                          pos = low.find(word, start)
+                          if pos < 0:
+                              break
+                          print(src, text[max(0,pos-180):pos+360].replace("\n"," "))
+                          count += 1
+                          start = pos + len(word)
+                      if count >= 250:
+                          break
+                  if count >= 250:
+                      break
+          PY
