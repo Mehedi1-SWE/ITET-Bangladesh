@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import MembershipCta from "@/components/shared/MembershipCta";
 
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
@@ -14,6 +15,7 @@ export default function SiteChrome({ children }) {
     <>
       <Header />
       <main>{children}</main>
+      {pathname !== "/" ? <MembershipCta /> : null}
       <Footer />
     </>
   );
