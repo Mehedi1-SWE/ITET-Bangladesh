@@ -28,7 +28,7 @@ export default function Constitution() {
                     <p className="mt-1 text-xs leading-5 text-gray-500">Verified charter covering institutional bylaws, electoral frameworks, and member rights.</p>
                   </div>
                 </div>
-                <a href="https://itetbd.net/constitution" target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#d94100]">Download Full Constitution <span>↓</span></a>
+                <a href="https://drive.google.com/file/d/1cz2MRfMW5BFSC_M8jJ_eWWWu-QQTgbxb/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#d94100]">Download Full Constitution <span>↓</span></a>
               </div>
             </div>
           </div>

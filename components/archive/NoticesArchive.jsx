@@ -3,12 +3,12 @@
 import { useMemo, useState } from "react";
 
 const notices = [
-  { date: "Oct 20", iso: "2026-10-20", category: "General", title: "আইটিইটি বাংলাদেশের মহাসচিবের বিদেশে অবস্থানকালীন দায়িত্ব হস্তান্তর প্রসঙ্গে", attached: true, body: "Official ITET circular regarding transfer of responsibilities during the Secretary General's stay abroad." },
-  { date: "Oct 19", iso: "2026-10-19", category: "General", title: "ITET Membership Renewal & Revised Fee Notice", attached: false, body: "ITET members are requested to update their profiles, renew membership, and complete necessary member-card procedures within the announced period. Revised membership fees are scheduled to take effect from January 1, 2027." },
-  { date: "Oct 19", iso: "2026-10-19", category: "General", title: "ITET Membership Announcement", attached: true, body: "Official membership announcement from ITET Bangladesh." },
-  { date: "Oct 17", iso: "2026-10-17", category: "General", title: "শোকবার্তা", attached: true, body: "Official condolence notice from ITET Bangladesh." },
-  { date: "Sep 14", iso: "2026-09-14", category: "General", title: "তিতাস গ্যাসকে আইটিইটির প্রস্তাবনা।", attached: true, body: "Official ITET proposal and institutional communication." },
-  { date: "Aug 23", iso: "2026-08-23", category: "General", title: "বস্ত্র খাতের উন্নয়ন ও সংস্কারে বস্ত্র অধিদপ্তরের মহাপরিচালকের সাথে ITET-এর ১৫তম কাউন্সিলের ফলপ্রসূ বৈঠক", attached: true, body: "Official update regarding the productive meeting of ITET's 15th Council with the Director General of the Department of Textiles." },
+  { date: "Oct 20", iso: "2026-10-20", category: "General", title: "আইটিইটি বাংলাদেশের মহাসচিবের বিদেশে অবস্থানকালীন দায়িত্ব হস্তান্তর প্রসঙ্গে", body: "Official ITET circular regarding transfer of responsibilities during the Secretary General's stay abroad.", attachment: { type: "image", href: "/images/notices/notice-01.jpg", label: "Download Image" } },
+  { date: "Oct 19", iso: "2026-10-19", category: "General", title: "ITET Membership Renewal & Revised Fee Notice", body: "ITET members are requested to update their profiles, renew membership, and complete necessary member-card procedures within the announced period. Revised membership fees are scheduled to take effect from January 1, 2027.", attachment: null },
+  { date: "Oct 19", iso: "2026-10-19", category: "General", title: "ITET Membership Announcement", body: "Official membership announcement from ITET Bangladesh.", attachment: { type: "external", href: "https://drive.google.com/file/d/1Efb1chXywyEiMnqHPaI-eKB6yFGX8cqC/view?usp=sharing", label: "Open Attachment" } },
+  { date: "Oct 17", iso: "2026-10-17", category: "General", title: "শোকবার্তা", body: "Official condolence notice from ITET Bangladesh.", attachment: { type: "image", href: "/images/notices/notice-04.jpg", label: "Download Image" } },
+  { date: "Sep 14", iso: "2026-09-14", category: "General", title: "তিতাস গ্যাসকে আইটিইটির প্রস্তাবনা।", body: "Official ITET proposal and institutional communication.", attachment: { type: "external", href: "https://drive.google.com/file/d/1QzaEA_V1hqP2TB4hWgVyJdM-N3M8oyzx/view", label: "Open Attachment" } },
+  { date: "Aug 23", iso: "2026-08-23", category: "General", title: "বস্ত্র খাতের উন্নয়ন ও সংস্কারে বস্ত্র অধিদপ্তরের মহাপরিচালকের সাথে ITET-এর ১৫তম কাউন্সিলের ফলপ্রসূ বৈঠক", body: "Official update regarding the productive meeting of ITET's 15th Council with the Director General of the Department of Textiles.", attachment: { type: "external", href: "https://drive.google.com/file/d/1F5bA6uC63xqy5lhYyFy4ePD5Jdy93f6_/view", label: "Open Attachment" } },
 ];
 
 export default function NoticesArchive() {
@@ -77,7 +77,7 @@ export default function NoticesArchive() {
                     <span className="rounded-full bg-orange-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">{notice.category}</span>
                   </div>
                   <h3 className="text-sm font-semibold leading-6 text-secondary sm:text-base">{notice.title}</h3>
-                  {notice.attached ? <button type="button" onClick={() => setSelected(notice)} className="mt-2 text-xs font-semibold text-blue-600 hover:underline">Download Image</button> : null}
+                  {notice.attachment ? <a href={notice.attachment.href} target={notice.attachment.type === "external" ? "_blank" : undefined} rel={notice.attachment.type === "external" ? "noopener noreferrer" : undefined} download={notice.attachment.type === "image" ? true : undefined} className="mt-2 inline-block text-xs font-semibold text-blue-600 hover:underline" onClick={(event) => event.stopPropagation()}>{notice.attachment.label}</a> : null}
                 </div>
                 <button type="button" onClick={() => setSelected(notice)} className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-4 py-2 text-xs font-semibold text-gray-700 transition hover:border-primary hover:bg-orange-50 hover:text-primary">View <span>→</span></button>
               </article>
@@ -92,7 +92,8 @@ export default function NoticesArchive() {
           <div className="flex items-start justify-between gap-5"><div><span className="rounded-full bg-orange-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">{selected.category}</span><h2 className="mt-3 text-xl font-semibold leading-8 text-secondary">{selected.title}</h2><p className="mt-1 text-xs text-gray-400">{selected.date}, 2026</p></div><button type="button" onClick={() => setSelected(null)} className="rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-600">✕</button></div>
           <div className="my-6 h-px bg-gray-100" />
           <p className="text-sm leading-7 text-gray-600">{selected.body}</p>
-          {selected.attached ? <div className="mt-6 rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4 text-xs text-gray-500">Attachment is listed on the official notice. Local attachment file is not included in the current repository snapshot.</div> : null}
+          {selected.attachment?.type === "image" ? <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-gray-50"><img src={selected.attachment.href} alt={selected.title} className="max-h-[55vh] w-full object-contain" /></div> : null}
+          {selected.attachment?.type === "external" ? <a href={selected.attachment.href} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex rounded-lg bg-primary px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[#d94100]">Open Official Attachment ↗</a> : null}
         </div>
       </div> : null}
     </>

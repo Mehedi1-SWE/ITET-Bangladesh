@@ -7,7 +7,7 @@ import MembershipCta from "@/components/shared/MembershipCta";
 
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
-  const standalone = pathname === "/client-portal" || pathname.startsWith("/client-portal/");
+  const standalone = pathname === "/client-portal" || pathname.startsWith("/client-portal/") || pathname === "/general-membership" || pathname === "/renew-membership";
 
   if (standalone) return <>{children}</>;
 

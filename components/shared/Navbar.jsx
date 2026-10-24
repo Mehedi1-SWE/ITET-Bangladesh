@@ -14,8 +14,10 @@ const aboutItems = [
 
 const membershipItems = [
   ["Membership Overview", "/membership-overview"],
-  ["Member Benefits", "/members-benifits"],
-  ["Directory & Update Info", "/membership-login"],
+  ["Members Benefits", "/members-benifits"],
+  ["General Membership", "/general-membership"],
+  ["Renew Membership", "/renew-membership"],
+  ["Member Login", "/membership-login"],
 ];
 
 function Chevron() {

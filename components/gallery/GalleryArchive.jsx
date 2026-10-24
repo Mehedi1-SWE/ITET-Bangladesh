@@ -25,11 +25,23 @@ const gallery = [
   { file:"gallery-20.jpg", category:"Moments & Archives", span:"lg:col-span-4", title:"Key Activities and Milestones of the ITET Interim Convening Committee" },
   { file:"gallery-21.jpg", category:"Moments & Archives", span:"lg:col-span-4", title:"Key Activities and Milestones of the ITET Interim Convening Committee" },
   { file:"gallery-22.jpg", category:"Moments & Archives", span:"lg:col-span-4", title:"Key Activities and Milestones of the ITET Interim Convening Committee" },
+  ...Array.from({ length: 24 }, (_, index) => {
+    const number = index + 23;
+    const pattern = ["lg:col-span-3","lg:col-span-6","lg:col-span-3","lg:col-span-4","lg:col-span-4","lg:col-span-4","lg:col-span-6","lg:col-span-6","lg:col-span-4","lg:col-span-4","lg:col-span-4"];
+    return {
+      file: `gallery-${String(number).padStart(2, "0")}.jpg`,
+      category: "Moments & Archives",
+      span: pattern[index % pattern.length],
+      title: index % 5 === 1 ? "ITET Gallery" : "Key Activities and Milestones of the ITET Interim Convening Committee",
+    };
+  }),
 ];
 
 export default function GalleryArchive() {
+  const [visible, setVisible] = useState(22);
   const [selected, setSelected] = useState(null);
-  const [loadMessage, setLoadMessage] = useState("");
+  const shown = gallery.slice(0, visible);
+  const remaining = Math.max(0, gallery.length - visible);
 
   useEffect(() => {
     if (!selected) return undefined;
@@ -49,8 +61,8 @@ export default function GalleryArchive() {
   function moveSelection(direction) {
     setSelected((current) => {
       if (!current) return current;
-      const index = gallery.findIndex((item) => item.file === current.file);
-      return gallery[(index + direction + gallery.length) % gallery.length];
+      const index = shown.findIndex((item) => item.file === current.file);
+      return shown[(index + direction + shown.length) % shown.length];
     });
   }
 
@@ -59,11 +71,11 @@ export default function GalleryArchive() {
       <section className="pt-8 sm:pt-10">
         <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
           <div className="mb-6 flex items-center justify-between px-1 text-xs text-neutral-500 sm:text-sm">
-            <span>Showing <strong className="font-semibold text-neutral-900">22</strong> of 46 curated moments</span>
+            <span>Showing <strong className="font-semibold text-neutral-900">{shown.length}</strong> of {gallery.length} curated moments</span>
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 md:grid-cols-3 md:gap-4 lg:grid-cols-12">
-            {gallery.map((item) => (
+            {shown.map((item) => (
               <button type="button" onClick={() => setSelected(item)} key={item.file} className={`group relative h-[165px] cursor-pointer overflow-hidden rounded-md bg-neutral-200/90 text-left shadow-[0_2px_10px_-3px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04] transition-all duration-500 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)] xs:h-[190px] sm:h-[240px] sm:rounded-lg md:h-[280px] lg:h-[360px] ${item.span}`}>
                 <img src={`/images/gallery/${item.file}`} alt={item.title} className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/25 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -82,10 +94,13 @@ export default function GalleryArchive() {
           </div>
 
           <div className="mt-14 text-center">
-            <button type="button" onClick={() => setLoadMessage("The next 15 production photographs are being synchronized from ITET's gallery source.")} className="group inline-flex items-center gap-2.5 rounded-md bg-secondary px-5 py-3 text-sm font-medium text-white shadow-lg shadow-neutral-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-primary/20">
-              <span>Load More Memories</span><span className="rounded-full bg-white/20 px-2 py-0.5 text-xs text-white/90">+15</span><span className="transition-transform group-hover:translate-x-1">→</span>
-            </button>
-            {loadMessage ? <p className="mx-auto mt-3 max-w-lg text-xs text-neutral-400">{loadMessage}</p> : null}
+            {remaining > 0 ? (
+              <button type="button" onClick={() => setVisible((value) => Math.min(gallery.length, value + 15))} className="group inline-flex items-center gap-2.5 rounded-md bg-secondary px-5 py-3 text-sm font-medium text-white shadow-lg shadow-neutral-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-primary/20">
+                <span>Load More Memories</span><span className="rounded-full bg-white/20 px-2 py-0.5 text-xs text-white/90">+{Math.min(15, remaining)}</span><span className="transition-transform group-hover:translate-x-1">→</span>
+              </button>
+            ) : (
+              <div className="border-t border-neutral-200/70 pt-8"><p className="text-xs font-medium tracking-wide text-neutral-400 sm:text-sm">✦ You have explored all {gallery.length} curated photographs in this collection ✦</p></div>
+            )}
           </div>
         </div>
       </section>
