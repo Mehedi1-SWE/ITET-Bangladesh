@@ -2,79 +2,91 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import members from "@/data/committee-members.json";
 
-const members = [
-  {
-    name: "Engr. Md. Enayet Hossain",
-    role: "President, ITET",
-    image: "/images/leadership/president.jpg",
-  },
-  {
-    name: "Engr. A.S.M Hafizur Rahman Nixon",
-    role: "Secretary General, ITET",
-    image: "/images/leadership/secretary-general.jpg",
-  },
-];
+function MemberCard({ member, onClick }) {
+  return (
+    <button type="button" onClick={() => onClick(member)} className="group overflow-hidden rounded-xl border border-gray-100 bg-white text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-100 hover:shadow-xl">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+        <Image src={member.image} alt={member.name} fill sizes="(max-width:640px) 50vw,(max-width:1024px) 25vw,16vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.035]" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      </div>
+      <div className="px-2.5 py-3">
+        <p className="mb-1 line-clamp-2 text-[10px] font-semibold uppercase leading-tight tracking-wide text-primary sm:text-[11px]">{member.role}</p>
+        <h3 className="line-clamp-2 text-[12px] font-bold leading-tight text-gray-800 transition-colors group-hover:text-primary sm:text-[13px]">{member.name}</h3>
+      </div>
+    </button>
+  );
+}
+
+function MemberModal({ member, onClose }) {
+  if (!member) return null;
+
+  return (
+    <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={onClose}>
+      <div className="relative w-full max-w-sm rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-2xl" onClick={(event) => event.stopPropagation()}>
+        <button type="button" onClick={onClose} aria-label="Close member profile" className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm text-gray-500 transition hover:bg-gray-200 hover:text-gray-800">✕</button>
+        <div className="relative mx-auto aspect-[4/5] w-40 overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+          <Image src={member.image} alt={member.name} fill sizes="160px" className="object-cover object-top" />
+        </div>
+        <p className="mt-5 text-xs font-semibold uppercase tracking-wider text-primary">{member.role}</p>
+        <h2 className="mt-2 text-xl font-bold leading-snug text-gray-900">{member.name}</h2>
+        <div className="mx-auto mt-5 h-px w-16 bg-orange-100" />
+        <p className="mt-4 text-xs leading-6 text-gray-500">15th Central Executive Council • ITET Bangladesh</p>
+      </div>
+    </div>
+  );
+}
 
 export default function CommitteeMembers() {
   const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState(null);
 
-  const filteredMembers = useMemo(() => {
-    const search = query.trim().toLowerCase();
-
-    if (!search) {
-      return members;
-    }
-
-    return members.filter((member) => member.name.toLowerCase().includes(search) || member.role.toLowerCase().includes(search));
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return members;
+    return members.filter((member) => member.name.toLowerCase().includes(needle) || member.role.toLowerCase().includes(needle));
   }, [query]);
 
   return (
-    <section className="relative overflow-hidden pb-8 md:pb-12">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-primary/10 via-amber-100/10 to-transparent pointer-events-none rounded-full blur-3xl -z-10" />
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none" />
-      <div className="absolute top-1/3 right-0 w-72 h-72 bg-amber-100/20 rounded-full blur-3xl -z-10 pointer-events-none" />
+    <>
+      <section className="relative overflow-hidden py-6 md:py-10">
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-96 w-full max-w-7xl -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/10 via-amber-100/10 to-transparent blur-3xl" />
+        <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
+          <div className="relative rounded-3xl border border-primary/20 bg-white/90 p-4 shadow-xl shadow-primary/5 backdrop-blur-sm sm:p-7 md:p-10 lg:p-12">
+            <div className="absolute -top-1 left-8 right-8 h-2 rounded-t-full bg-gradient-to-r from-primary via-yellow-500 to-primary opacity-80" />
 
-      <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
-        <div className="relative bg-white/90 backdrop-blur-sm border border-primary/20 rounded-3xl p-4 sm:p-7 md:p-10 lg:p-12 shadow-xl shadow-primary/5">
-          <div className="absolute -top-1 left-8 right-8 h-2 bg-gradient-to-r from-primary via-yellow-500 to-primary rounded-t-full opacity-80" />
-
-          <div className="text-center max-w-4xl mx-auto mb-8 md:mb-12">
-            <div className="mt-2 max-w-md mx-auto relative flex items-center">
-              <svg viewBox="0 0 24 24" className="w-4 h-4 text-gray-400 absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="m21 21-4.34-4.34" />
-                <circle cx="11" cy="11" r="8" />
-              </svg>
-              <input type="text" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by member name or role..." className="w-full pl-10 pr-9 py-2 text-xs sm:text-sm bg-gray-50/80 hover:bg-gray-50 focus:bg-white border border-gray-200 focus:border-primary rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-inner" />
+            <div className="mx-auto mb-8 max-w-md md:mb-10">
+              <div className="relative flex items-center">
+                <svg viewBox="0 0 24 24" className="pointer-events-none absolute left-3.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                <input type="text" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by member name or role..." className="w-full rounded-full border border-gray-200 bg-gray-50/80 py-2 pl-10 pr-9 text-xs shadow-inner outline-none transition-all hover:bg-gray-50 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 sm:text-sm" />
+                {query ? <button type="button" onClick={() => setQuery("")} className="absolute right-3 rounded-full p-0.5 text-xs text-gray-400 hover:bg-gray-100 hover:text-gray-700" aria-label="Clear search">✕</button> : null}
+              </div>
             </div>
+
+            {query ? (
+              <div>
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  <p className="text-xs text-gray-500">{filtered.length} member{filtered.length === 1 ? "" : "s"} matching “{query}”</p>
+                  <button type="button" onClick={() => setQuery("")} className="text-xs font-semibold text-primary hover:underline">Show all members</button>
+                </div>
+                {filtered.length ? <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 md:gap-5 lg:grid-cols-6">{filtered.map((member) => <MemberCard key={member.id} member={member} onClick={setSelected} />)}</div> : <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 py-16 text-center"><div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white text-gray-300 shadow-sm">♙</div><p className="text-sm font-medium text-gray-600">No committee member found matching your search.</p><button type="button" onClick={() => setQuery("")} className="mt-3 inline-flex items-center text-xs font-semibold text-primary hover:underline">Clear Search</button></div>}
+              </div>
+            ) : (
+              <div>
+                <div className="relative mb-8">
+                  <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200" /></div>
+                  <div className="relative flex justify-center text-xs uppercase"><span className="flex items-center gap-1.5 bg-white px-4 font-semibold tracking-wider text-gray-500"><span className="text-primary">✦</span> Executive Committee Members</span></div>
+                </div>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 md:gap-5 lg:grid-cols-6">
+                  {members.map((member) => <MemberCard key={member.id} member={member} onClick={setSelected} />)}
+                </div>
+              </div>
+            )}
           </div>
-
-          {filteredMembers.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto">
-              {filteredMembers.map((member) => (
-                <article key={member.name} className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-gray-100">
-                    <Image src={member.image} alt={member.name} fill sizes="(max-width: 640px) 90vw, 360px" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" priority />
-                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    <div className="absolute left-4 right-4 bottom-4">
-                      <span className="inline-flex rounded-full bg-primary px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-white shadow-sm">{member.role}</span>
-                    </div>
-                  </div>
-
-                  <div className="p-4 sm:p-5 text-center">
-                    <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">{member.name}</h2>
-                    <p className="mt-1 text-xs sm:text-sm font-medium text-primary">{member.role}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="py-16 text-center">
-              <p className="text-sm text-gray-500">No committee member found for “{query}”.</p>
-            </div>
-          )}
         </div>
-      </div>
-    </section>
+      </section>
+      <MemberModal member={selected} onClose={() => setSelected(null)} />
+    </>
   );
 }
