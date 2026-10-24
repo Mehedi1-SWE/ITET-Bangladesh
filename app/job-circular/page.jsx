@@ -1,13 +1,8 @@
-import ArchiveHero from "@/components/shared/ArchiveHero";
-import JobsArchive from "@/components/archive/JobsArchive";
-
-export const metadata = { title: "Job Circulars & Career Opportunities | ITET" };
+export const metadata = {
+  title: "Job Circulars & Career Opportunities | ITET | ITET Bangladesh",
+  description: "Explore career openings and recruitment circulars for textile engineers, merchandisers, apparel technologists, and industry leaders.",
+};
 
 export default function JobCircularPage() {
-  return (
-    <div>
-      <ArchiveHero eyebrow="Career & Opportunities" count="ITET Jobs" before="Job Circulars" accent="& Career Opportunities" description="Explore career opportunities, industry vacancies and professional openings shared with the ITET community." />
-      <JobsArchive />
-    </div>
-  );
+  return <div className="min-h-[1px]" aria-label="ITET job circular page" />;
 }
