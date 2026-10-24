@@ -1,0 +1,68 @@
+name: Sync ITET Document Assets
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-document-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download official notice assets and inspect constitution
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/notices public/docs
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1792486092/sicjoyggf9z7sqpjpbz1.jpg" -o public/images/notices/notice-01.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1792248177/eouhx1aw0znqpljyadd3.jpg" -o public/images/notices/notice-04.jpg
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/constitution" -o /tmp/constitution.json
+
+          python - <<'PY'
+          import json, re, subprocess
+          from pathlib import Path
+
+          data=json.loads(Path("/tmp/constitution.json").read_text())
+          print("CONSTITUTION_JSON", json.dumps(data, ensure_ascii=False, indent=2))
+
+          def walk(value):
+              if isinstance(value, dict):
+                  for v in value.values(): yield from walk(v)
+              elif isinstance(value, list):
+                  for v in value: yield from walk(v)
+              elif isinstance(value, str) and value.startswith("http"):
+                  yield value
+
+          urls=list(dict.fromkeys(walk(data)))
+          for url in urls:
+              low=url.lower()
+              if ".pdf" in low or "constitution" in low:
+                  try:
+                      subprocess.run(["curl","-L","--fail","--retry","3",url,"-o","public/docs/Constitution_of_ITET.pdf"],check=True)
+                      print("DOWNLOADED_CONSTITUTION",url)
+                      break
+                  except Exception as exc:
+                      print("CONSTITUTION_DOWNLOAD_FAIL",url,exc)
+          PY
+          file public/images/notices/* public/docs/* 2>/dev/null || true
+
+      - name: Commit localized document assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/notices public/docs || true
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "Add official notice and constitution assets"
+          git push
