@@ -1,6 +1,5 @@
 import { Poppins, Manuale, Raleway } from "next/font/google";
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
+import SiteChrome from "@/components/shared/SiteChrome";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -55,9 +54,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${manuale.variable} ${raleway.variable}`}>
       <body className={`${poppins.className} bg-white font-sans`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
