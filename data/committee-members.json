@@ -1,0 +1,205 @@
+[
+  {
+    "id": "68f5c3a1f413ef7b8d395237",
+    "name": "Engr. Md. Enayet Hossain",
+    "role": "President",
+    "image": "/images/committee/committee-01.jpg",
+    "priority": 1
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d395238",
+    "name": "Engr. Sumayel Muhammad Mallik",
+    "role": "Senior Vice-President",
+    "image": "/images/committee/committee-02.jpg",
+    "priority": 2
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d39523a",
+    "name": "Engr. A.S.M Hafizur Rahman Nixon",
+    "role": "Secretary General",
+    "image": "/images/committee/committee-04.jpg",
+    "priority": 3
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d39523d",
+    "name": "Engr. Mohammed Shahinul Haque",
+    "role": "Vice-President",
+    "image": "/images/committee/committee-07.jpg",
+    "priority": 4
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d395239",
+    "name": "Engr. Miah Mohammad Mainul Islam Palash",
+    "role": "Vice-President",
+    "image": "/images/committee/committee-03.jpg",
+    "priority": 5
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d39523b",
+    "name": "Engr. Md. Abdus Salam",
+    "role": "Vice-President",
+    "image": "/images/committee/committee-05.jpg",
+    "priority": 6
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d39523f",
+    "name": "Engr. Rezaul karim (Reza)",
+    "role": "Joint Secretary General",
+    "image": "/images/committee/committee-09.jpg",
+    "priority": 7
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d39523c",
+    "name": "Engr. Md. Sazedul Haque Shaluk",
+    "role": "Joint Secretary General",
+    "image": "/images/committee/committee-06.jpg",
+    "priority": 8
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d39523e",
+    "name": "ENGR. MD. MOYDUL ISLAM (MOID)",
+    "role": "Organizing Secretary",
+    "image": "/images/committee/committee-08.jpg",
+    "priority": 9
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d395240",
+    "name": "Engr. Md. Jahidur Rahman (Anis)",
+    "role": "Treasurer",
+    "image": "/images/committee/committee-10.jpg",
+    "priority": 10
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d395241",
+    "name": "Engr. Md. Faisal Hossain",
+    "role": "Education and Literary affairs Secretary",
+    "image": "/images/committee/committee-11.jpg",
+    "priority": 11
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d395243",
+    "name": "Engr. Tasbidul Islam Dipu",
+    "role": "Asst. Education and Literary Affairs Secretary",
+    "image": "/images/committee/committee-13.png",
+    "priority": 12
+  },
+  {
+    "id": "68f5c3a1f413ef7b8d395242",
+    "name": "Engr. Chandra Shekhar Das",
+    "role": "Publicity  & Publicatoin Secretary.",
+    "image": "/images/committee/committee-12.jpg",
+    "priority": 14
+  },
+  {
+    "id": "6a5e4e68dbcc94fc69d1dda0",
+    "name": "Engr. Md. Abdullah al Mamun",
+    "role": "Asst. Press & Publication Secretary",
+    "image": "/images/committee/committee-14.png",
+    "priority": 15
+  },
+  {
+    "id": "6a5e4ef3dbcc94fc69d1ddc9",
+    "name": "Engr. A.S.M Ashik Istiak Likhon",
+    "role": "Sports and Cultural Affairs Secretary",
+    "image": "/images/committee/committee-15.jpg",
+    "priority": 16
+  },
+  {
+    "id": "6a5e4f60dbcc94fc69d1ddf8",
+    "name": "Engr. Md. Abdullah Al Mamun",
+    "role": "Asst. Sports and Cultural Affairs Secretary",
+    "image": "/images/committee/committee-16.jpg",
+    "priority": 17
+  },
+  {
+    "id": "6a5e4fc4dbcc94fc69d1de28",
+    "name": "Engr. Md. Jahirul Islam",
+    "role": "International Affairs Secretary",
+    "image": "/images/committee/committee-17.jpg",
+    "priority": 18
+  },
+  {
+    "id": "6a5e502adbcc94fc69d1de5f",
+    "name": "Engr. Md. Arifur Rahman Khan(Zisan)",
+    "role": "Recruitment and Investment Affairs Secretary",
+    "image": "/images/committee/committee-18.jpg",
+    "priority": 19
+  },
+  {
+    "id": "6a5e507edbcc94fc69d1de8f",
+    "name": "Engr. Md. Arfan Ali PK",
+    "role": "Social Welfare Secretary",
+    "image": "/images/committee/committee-19.jpg",
+    "priority": 20
+  },
+  {
+    "id": "6a5e50d2dbcc94fc69d1deae",
+    "name": "Engr. Md. Mahmudul Islam Saddam",
+    "role": "Asst. Social Welfare Secretary",
+    "image": "/images/committee/committee-20.jpg",
+    "priority": 21
+  },
+  {
+    "id": "6a5e5145dbcc94fc69d1dee5",
+    "name": "Engr. Md. Farukul Islam Joni",
+    "role": "Office Secretary",
+    "image": "/images/committee/committee-21.jpg",
+    "priority": 22
+  },
+  {
+    "id": "6a5e51c1dbcc94fc69d1df1f",
+    "name": "Eng. Prithiala Kamal",
+    "role": "Women's Affairs Secretary",
+    "image": "/images/committee/committee-22.jpg",
+    "priority": 23
+  },
+  {
+    "id": "6a5e52addbcc94fc69d1df9d",
+    "name": "Engr. Md. Khaledul Islam Mithun",
+    "role": "Executive member",
+    "image": "/images/committee/committee-25.jpg",
+    "priority": 24
+  },
+  {
+    "id": "6a5e5217dbcc94fc69d1df45",
+    "name": "Eng. Md. Shariful Amin",
+    "role": "Executive member",
+    "image": "/images/committee/committee-23.jpg",
+    "priority": 25
+  },
+  {
+    "id": "6a5e526fdbcc94fc69d1df75",
+    "name": "Eng. Md. Saidur Rahman (Robin)",
+    "role": "Executive member",
+    "image": "/images/committee/committee-24.jpg",
+    "priority": 26
+  },
+  {
+    "id": "6a5e5354dbcc94fc69d1dfc6",
+    "name": "Engr. Monjus Sattar Md. Russel",
+    "role": "Executive member",
+    "image": "/images/committee/committee-26.jpg",
+    "priority": 27
+  },
+  {
+    "id": "6a5e53b3dbcc94fc69d1dff6",
+    "name": "Engr. Muhammad Ullah Al Fasani",
+    "role": "Executive member",
+    "image": "/images/committee/committee-27.jpg",
+    "priority": 28
+  },
+  {
+    "id": "6a5ee7abdbcc94fc69d1e269",
+    "name": "Engr. Ehsanul Karim Kaiser",
+    "role": "Ex-Officio Member",
+    "image": "/images/committee/committee-28.jpg",
+    "priority": 30
+  },
+  {
+    "id": "6a5ee8c0dbcc94fc69d1e35b",
+    "name": "Engr. A.K.M Mohsin Ahmed",
+    "role": "Ex-Officio Member",
+    "image": "/images/committee/committee-29.jpg",
+    "priority": 32
+  }
+]

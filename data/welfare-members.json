@@ -1,0 +1,90 @@
+[
+  {
+    "id": "68f4c0def413ef7b8d394944",
+    "name": "PROF. DR. ENGR. MD. ZULHASH UDDIN",
+    "role": "Chairman",
+    "category": "trustees",
+    "image": "/images/welfare/welfare-01.png",
+    "priority": 1
+  },
+  {
+    "id": "68f4c0def413ef7b8d394945",
+    "name": "ENGR. MD. ENAYET HOSSAIN",
+    "role": "Member Secretary",
+    "category": "trustees",
+    "image": "/images/welfare/welfare-02.jpg",
+    "priority": 2
+  },
+  {
+    "id": "68f4c0def413ef7b8d394946",
+    "name": "ENGR.MD. EHSANUL KARIM KAISAR",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-03.jpg",
+    "priority": 1
+  },
+  {
+    "id": "68f4c0def413ef7b8d39494d",
+    "name": "ENGR. A.K.M. MOHSIN AHMED",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-10.jpg",
+    "priority": 3
+  },
+  {
+    "id": "68f4c0def413ef7b8d39494e",
+    "name": "ENGR. MD. MOYDUL ISLAM (MOID)",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-11.jpg",
+    "priority": 50
+  },
+  {
+    "id": "68f4c0def413ef7b8d39494b",
+    "name": "ENGR. ABDUS SOBHAN, CIP",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-08.png",
+    "priority": 999
+  },
+  {
+    "id": "68f4c0def413ef7b8d39494a",
+    "name": "ENGR. MD. A.T.M SHAMSU UDDIN KHAN",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-07.png",
+    "priority": 999
+  },
+  {
+    "id": "68f4c0def413ef7b8d394947",
+    "name": "ENGR. MD. SHAMSUZZAMAN, CIP",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-04.png",
+    "priority": 999
+  },
+  {
+    "id": "68f4c0def413ef7b8d394948",
+    "name": "ENGR. NASHIR UDDIN MIA",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-05.png",
+    "priority": 999
+  },
+  {
+    "id": "68f4c0def413ef7b8d39494c",
+    "name": "ENGR.DEWAN SAIFUL ALAM MASUD",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-09.png",
+    "priority": 999
+  },
+  {
+    "id": "68f4c0def413ef7b8d394949",
+    "name": "ENGR.MD. SAYEDUR RAHMAN",
+    "role": "Member",
+    "category": "member",
+    "image": "/images/welfare/welfare-06.png",
+    "priority": 999
+  }
+]
