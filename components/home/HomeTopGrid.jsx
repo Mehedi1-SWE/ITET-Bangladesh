@@ -191,7 +191,7 @@ function EventPanel() {
         <Link className="text-xs font-medium text-primary underline transition-colors hover:text-primary-light" href="/events">View All</Link>
       </div>
       <div className="my-1.5 shrink-0 border border-dashed border-gray-300 sm:my-2" />
-      <Link href="/events" className="group flex flex-1 items-stretch gap-2 rounded-md border border-gray-200/90 bg-white p-2 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:gap-2.5 sm:p-2.5">
+      <Link href="/events/6aa8fbc9e68ea0aea6623f9a" className="group flex flex-1 items-stretch gap-2 rounded-md border border-gray-200/90 bg-white p-2 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:gap-2.5 sm:p-2.5">
         <div className="w-[50px] shrink-0 self-start overflow-hidden rounded-md border border-gray-200/90 bg-white shadow-2xs sm:w-[54px]">
           <div className="relative bg-[#f43f5e] px-0.5 py-0.5"><span className="block pt-0.5 text-center text-[8.5px] font-black uppercase leading-tight tracking-wider text-white">SEP</span></div>
           <div className="flex flex-col items-center justify-center bg-white p-1"><span className="text-base font-black leading-none tracking-tighter text-[#f43f5e] sm:text-lg">26</span><span className="mt-0.5 text-[7.5px] font-medium text-gray-400">2026</span></div>
