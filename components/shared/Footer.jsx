@@ -65,7 +65,15 @@ function YoutubeIcon() {
 }
 
 function Social({ label, href, children }) {
-  return <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-8 h-8 rounded-md bg-white/10 border border-white/15 flex items-center justify-center text-white transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary hover:-translate-y-1 hover:shadow-lg backdrop-blur-sm">{children}</a>;
+  const brand = {
+    Facebook: "hover:bg-[#1877F2] hover:border-[#1877F2]",
+    LinkedIn: "hover:bg-[#0A66C2] hover:border-[#0A66C2]",
+    Instagram: "hover:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] hover:border-[#D6249F]",
+    Twitter: "hover:bg-white hover:text-black hover:border-white",
+    YouTube: "hover:bg-[#FF0000] hover:border-[#FF0000]",
+  }[label] || "hover:bg-primary hover:border-primary";
+
+  return <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className={`flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-white/10 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${brand}`}>{children}</a>;
 }
 
 function MapPinIcon() {
