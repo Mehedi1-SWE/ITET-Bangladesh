@@ -99,3 +99,55 @@ jobs:
                           print("NEEDLE",needle,"AT",pos)
                           print(text[max(0,pos-6000):pos+14000])
           PY
+
+
+  inspect-remaining:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect remaining live routes and gallery payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re, urllib.request, html, json
+
+          base="https://itetbd.net"
+
+          # Exact navbar membership block from current live chunk.
+          home=urllib.request.urlopen(base, timeout=30).read().decode("utf-8","ignore")
+          scripts=sorted(set(re.findall(r'src="(/_next/static/chunks/[^"]+\.js)"', home)))
+          for src in scripts:
+              try:
+                  text=urllib.request.urlopen(base+src, timeout=30).read().decode("utf-8","ignore")
+              except Exception:
+                  continue
+              pos=text.find('{label:"Membership",hasDropdown')
+              if pos>=0:
+                  print("=== EXACT MEMBERSHIP NAV ===")
+                  print(text[pos:pos+5000])
+
+          # Server-rendered content for missing membership routes.
+          for route in ["general-membership","renew-membership"]:
+              try:
+                  body=urllib.request.urlopen(f"{base}/{route}", timeout=30).read().decode("utf-8","ignore")
+                  print(f"=== {route} HTML LENGTH {len(body)} ===")
+                  stripped=re.sub(r'<script.*?</script>',' ',body,flags=re.S|re.I)
+                  stripped=re.sub(r'<style.*?</style>',' ',stripped,flags=re.S|re.I)
+                  stripped=re.sub(r'<[^>]+>',' ',stripped)
+                  stripped=html.unescape(re.sub(r'\s+',' ',stripped))
+                  print(stripped[:16000])
+              except Exception as exc:
+                  print(route,"FETCH_FAIL",exc)
+
+          # Find every serialized gallery URL in the current gallery HTML, not only rendered <img> tags.
+          body=urllib.request.urlopen(base+"/gallery", timeout=30).read().decode("utf-8","ignore")
+          urls=[]
+          for raw in re.findall(r'https?[^"\\\s<>]+', body):
+              value=html.unescape(raw).replace('\\u0026','&').replace('\\/','/')
+              if "res.cloudinary.com" in value or "postimg.cc" in value:
+                  value=value.rstrip('),]}')
+                  if value not in urls: urls.append(value)
+          print("=== SERIALIZED GALLERY URL COUNT ===",len(urls))
+          for i,u in enumerate(urls,1):
+              print(f"GALLERY_URL_{i:02d}",u)
+          PY
