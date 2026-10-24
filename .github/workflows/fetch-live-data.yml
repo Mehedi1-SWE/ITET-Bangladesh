@@ -1,0 +1,49 @@
+name: Fetch ITET Live Data
+
+on:
+  push:
+    paths:
+      - ".github/workflows/fetch-live-data.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch production API data
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p live-data
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/interim-committees" -o live-data/interim-committees.json
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/welfare-trust" -o live-data/welfare-trust.json
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/standing-committees" -o live-data/standing-committees.json
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/alumni" -o live-data/alumni.json
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/events" -o live-data/events.json
+          curl -fsSL --retry 3 "https://admin.itetbd.net/api/notices?getAll=true&status=published" -o live-data/notices.json
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in sorted(Path("live-data").glob("*.json")):
+              try:
+                  data=json.loads(path.read_text())
+                  if isinstance(data,list):
+                      print(path.name, "list", len(data))
+                  elif isinstance(data,dict):
+                      print(path.name, "dict keys", sorted(data.keys())[:20])
+                      for key in ("data","items","results"):
+                          if isinstance(data.get(key),list):
+                              print(" ", key, len(data[key]))
+              except Exception as exc:
+                  print(path.name, "INVALID", exc)
+          PY
+
+      - name: Upload API snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: itet-live-data
+          path: live-data/
+          retention-days: 1
