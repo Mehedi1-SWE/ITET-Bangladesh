@@ -1,0 +1,38 @@
+name: Discover ITET Live API
+
+on:
+  push:
+    paths:
+      - ".github/workflows/discover-live-api.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect live JavaScript bundles
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/itet-js
+          for page in committee welfareTrust gallery notices events; do
+            curl -fsSL "https://itetbd.net/$page" -o "/tmp/$page.html"
+            grep -oE 'src="/_next/static/chunks/[^"]+\.js"' "/tmp/$page.html" | sed 's/^src="//;s/"$//' >> /tmp/scripts.txt || true
+          done
+          sort -u /tmp/scripts.txt > /tmp/scripts-unique.txt
+          while read -r src; do
+            name="$(basename "$src")"
+            curl -fsSL "https://itetbd.net$src" -o "/tmp/itet-js/$name" || true
+          done < /tmp/scripts-unique.txt
+
+          echo "=== API-like paths ==="
+          grep -rhoE 'https?://[^"''' )]+' /tmp/itet-js 2>/dev/null | grep -Ei 'itet|api|gallery|committee|trust|notice|event' | sort -u | head -300 || true
+          grep -rhoE '/api/[A-Za-z0-9_./?=&:%-]+' /tmp/itet-js 2>/dev/null | sort -u | head -300 || true
+
+          echo "=== committee context ==="
+          grep -rhoE '.{0,140}(committee|trustee|welfare).{0,220}' /tmp/itet-js 2>/dev/null | head -300 || true
+
+          echo "=== gallery context ==="
+          grep -rhoE '.{0,140}(gallery|photograph|loadMore|pageSize|limit).{0,220}' /tmp/itet-js 2>/dev/null | head -300 || true
