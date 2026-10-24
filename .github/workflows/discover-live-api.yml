@@ -76,3 +76,26 @@ jobs:
                   if count >= 250:
                       break
           PY
+
+      - name: Print exact committee component context
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re, urllib.request
+          base="https://itetbd.net"
+          html=urllib.request.urlopen(base+"/committee", timeout=30).read().decode("utf-8","ignore")
+          scripts=sorted(set(re.findall(r'src="(/_next/static/chunks/[^"]+\.js)"', html)))
+          for src in scripts:
+              try:
+                  text=urllib.request.urlopen(base+src, timeout=30).read().decode("utf-8","ignore")
+              except Exception:
+                  continue
+              if "useInterimData" in text or "No committee member found" in text:
+                  print("CHUNK",src)
+                  for needle in ["useInterimData","No committee member found","Executive Committee Members"]:
+                      pos=text.find(needle)
+                      if pos>=0:
+                          print("NEEDLE",needle,"AT",pos)
+                          print(text[max(0,pos-6000):pos+14000])
+          PY
