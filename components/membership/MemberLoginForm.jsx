@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function makeCaptcha() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -12,7 +12,7 @@ function makeCaptcha() {
 
 export default function MemberLoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [captcha, setCaptcha] = useState("");
+  const [captcha, setCaptcha] = useState(() => makeCaptcha());
   const [captchaInput, setCaptchaInput] = useState("");
   const [status, setStatus] = useState("");
 
@@ -22,9 +22,6 @@ export default function MemberLoginForm() {
     if (clearStatus) setStatus("");
   }
 
-  useEffect(() => {
-    refreshCaptcha();
-  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
