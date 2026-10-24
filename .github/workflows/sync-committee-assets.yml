@@ -1,0 +1,80 @@
+name: Sync ITET Committee Assets
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-committee-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download official portraits
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/committee public/images/welfare
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1788451887/t27m2obqcz6uk9lpxkuc.jpg" -o public/images/committee/committee-01.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1787222728/ljrp1ujl8f2fyqviadde.jpg" -o public/images/committee/committee-02.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784549757/ul77gxy6ffwe6lo2ruxz.jpg" -o public/images/committee/committee-03.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784604102/nvpufmxixuulezzykvqp.jpg" -o public/images/committee/committee-04.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784564028/s2ovcjtva5sjss7hkipj.jpg" -o public/images/committee/committee-05.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784564267/yxgskms9ak8jhdomqvkf.jpg" -o public/images/committee/committee-06.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784563151/ckk93srkr2flldgvxi4m.jpg" -o public/images/committee/committee-07.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1789799804/m0gubkf6h2tdjipieepi.jpg" -o public/images/committee/committee-08.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784564384/wyj2ebdi7bshvnat07rx.jpg" -o public/images/committee/committee-09.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784564545/hecj9y6w8lkqggef99vr.jpg" -o public/images/committee/committee-10.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784564808/ucxsxurl9tqklz6keorz.jpg" -o public/images/committee/committee-11.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786652942/ziu6swpzvimxpnwozxjs.jpg" -o public/images/committee/committee-12.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1790054246/f0jyk15m41beshot5m4u.png" -o public/images/committee/committee-13.png
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786652637/duyurtetpnpxt3yqgnxe.png" -o public/images/committee/committee-14.png
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784565480/s2jqimaqzjzb8vb28y4s.jpg" -o public/images/committee/committee-15.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784565596/hlhuuz09mdpaspbhd3fr.jpg" -o public/images/committee/committee-16.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784565689/mlhvywbkwndufupcz6mh.jpg" -o public/images/committee/committee-17.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784565794/ph1vwljmhamsjxamr6yr.jpg" -o public/images/committee/committee-18.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784565877/spfwzxculzk3kbutevcv.jpg" -o public/images/committee/committee-19.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1786628728/pwekfix5kpp0uewbffb6.jpg" -o public/images/committee/committee-20.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566078/nkof3pcqhmn5lg2wk2ml.jpg" -o public/images/committee/committee-21.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566206/xj2j7bchfvcrghtensli.jpg" -o public/images/committee/committee-22.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566292/of8jvcwc9lrr7jhhyswd.jpg" -o public/images/committee/committee-23.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566379/glfnvygcnpi2flrhjxcs.jpg" -o public/images/committee/committee-24.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566442/opyuprm8gd467mz1lbqk.jpg" -o public/images/committee/committee-25.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566599/pzryip79x5f29qlopaye.jpg" -o public/images/committee/committee-26.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784566704/pknzgwtcdslnrayemsca.jpg" -o public/images/committee/committee-27.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1787747527/om513onji9a67ajxctjw.jpg" -o public/images/committee/committee-28.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1784604862/qgbzgvupgzy45e0enwtv.jpg" -o public/images/committee/committee-29.jpg
+
+          curl -L --fail --retry 3 "https://i.postimg.cc/X71qSShQ/Chairman-Prof-Dr-Md-Zulhash-Uddin.png" -o public/images/welfare/welfare-01.png
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1788451861/kfahqds36ldg2jcw3fhj.jpg" -o public/images/welfare/welfare-02.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1787747496/mqb5drsqzcybelvhyjfb.jpg" -o public/images/welfare/welfare-03.jpg
+          curl -L --fail --retry 3 "https://i.postimg.cc/bv2rtDYN/Member-Engr-Md-Shamsuzzaman-CIP.png" -o public/images/welfare/welfare-04.png
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757614091/Generated_Image_September_12_2025_-_12_07AM_ooho9w.png" -o public/images/welfare/welfare-05.png
+          curl -L --fail --retry 3 "https://i.postimg.cc/15J8h1YP/Member-Engr-Md-Sayedur-Rahman.png" -o public/images/welfare/welfare-06.png
+          curl -L --fail --retry 3 "https://i.postimg.cc/nhWMrYJP/Member-Engr-A-T-M-Shamsu-Uddin-Khan.png" -o public/images/welfare/welfare-07.png
+          curl -L --fail --retry 3 "https://i.postimg.cc/MKpHFKsn/Member-Engr-ABDUS-SOBHAN-CIP.png" -o public/images/welfare/welfare-08.png
+          curl -L --fail --retry 3 "https://i.postimg.cc/fR3LMqQZ/Member-Engr-Dewan-Saiful-Alam-Masud.png" -o public/images/welfare/welfare-09.png
+          curl -L --fail --retry 3 "https://res.cloudinary.com/du04p5ikw/image/upload/v1757612373/Mohsin_l44loc.jpg" -o public/images/welfare/welfare-10.jpg
+          curl -L --fail --retry 3 "https://res.cloudinary.com/dov6k7xdk/image/upload/v1789799788/imryqj99j2dfzw1xn49i.jpg" -o public/images/welfare/welfare-11.jpg
+
+          file public/images/committee/* public/images/welfare/*
+
+      - name: Commit portraits
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/committee public/images/welfare
+          if git diff --cached --quiet; then
+            echo "Portraits already current."
+            exit 0
+          fi
+          git commit -m "Add official committee and welfare portraits"
+          git push
