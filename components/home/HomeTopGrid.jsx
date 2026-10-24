@@ -148,33 +148,28 @@ function ArrowRightTiny({ size = 10 }) {
 
 function LeadershipCard({ leader }) {
   return (
-    <div className="w-full h-full rounded-xl overflow-hidden shadow-xs bg-[#0B1426] text-white border border-slate-800/80">
-      <div className="focus:outline-none cursor-pointer group select-none h-full">
-        <div className="flex flex-row items-stretch h-full min-h-[120px]">
-          <div className="w-[28%] sm:w-[29%] min-w-[95px] max-w-[140px] relative shrink-0 overflow-hidden rounded-l-xl">
-            <img src={leader.image} alt={leader.name} className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+    <Link href={`/leadership#${leader.id}`} className="group block h-full w-full overflow-hidden rounded-xl border border-slate-800/80 bg-[#0B1426] text-white shadow-xs">
+      <div className="flex h-full min-h-[120px] flex-row items-stretch">
+        <div className="relative w-[28%] min-w-[95px] max-w-[140px] shrink-0 overflow-hidden rounded-l-xl sm:w-[29%]">
+          <img src={leader.image} alt={leader.name} className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+        </div>
+        <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-2 bg-[#0B1426] px-3 py-2 sm:gap-2.5 sm:px-3.5 sm:py-2.5">
+          <div className="pointer-events-none absolute bottom-1.5 right-2 select-none opacity-20"><LoomWatermark /></div>
+          <div className="relative z-10 space-y-1">
+            <div className="flex items-center gap-1.5"><div className="flex h-3.5 w-3.5 shrink-0 items-center justify-center text-primary"><QuoteIcon /></div><span className="text-[10px] font-semibold uppercase tracking-wider text-white sm:text-[11px]">{leader.role}</span></div>
+            <p className="line-clamp-1 text-[10px] font-medium italic text-primary sm:text-[10.5px]">{leader.quote}</p>
+            <p className="line-clamp-2 text-[10px] font-normal leading-relaxed text-[#CBD5E1] sm:text-[11px]">{leader.text}</p>
           </div>
-          <div className="flex-1 flex flex-col justify-center py-2 sm:py-2.5 px-3 sm:px-3.5 relative min-w-0 bg-[#0B1426] gap-2 sm:gap-2.5">
-            <div className="absolute right-2 bottom-1.5 pointer-events-none select-none opacity-20"><LoomWatermark /></div>
-            <div className="relative z-10 space-y-1">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3.5 h-3.5 flex items-center text-primary justify-center shrink-0"><QuoteIcon /></div>
-                <span className="text-[10px] sm:text-[11px] font-semibold text-white uppercase tracking-wider">{leader.role}</span>
-              </div>
-              <p className="text-[10px] sm:text-[10.5px] font-medium italic line-clamp-1 text-primary">{leader.quote}</p>
-              <p className="text-[10px] sm:text-[11px] text-[#CBD5E1] leading-relaxed line-clamp-2 font-normal">{leader.text}</p>
-            </div>
-            <div className="pt-1 relative z-10">
-              <div className="border-t border-[#1E293B] mb-1" />
-              <div className="flex items-center justify-between">
-                <div className="min-w-0"><h4 className="text-[11px] sm:text-xs font-semibold text-white truncate transition-colors">{leader.name}</h4><p className="text-[10px] sm:text-[11px] text-[#94A3B8] font-normal truncate">{leader.designation}</p></div>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity hover:underline hover:text-primary text-[10px] font-medium flex items-center gap-0.5 shrink-0 ml-1"><span>Read</span><ArrowRightTiny /></div>
-              </div>
+          <div className="relative z-10 pt-1">
+            <div className="mb-1 border-t border-[#1E293B]" />
+            <div className="flex items-center justify-between">
+              <div className="min-w-0"><h4 className="truncate text-[11px] font-semibold text-white sm:text-xs">{leader.name}</h4><p className="truncate text-[10px] font-normal text-[#94A3B8] sm:text-[11px]">{leader.designation}</p></div>
+              <div className="ml-1 flex shrink-0 items-center gap-0.5 text-[10px] font-medium text-white/70 opacity-70 transition-all group-hover:translate-x-0.5 group-hover:text-primary group-hover:opacity-100"><span>Read</span><ArrowRightTiny /></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -190,65 +185,70 @@ function FileTextIcon() { return <svg width="10" height="10" viewBox="0 0 24 24"
 
 function EventPanel() {
   return (
-    <div className="bg-white p-2 sm:p-2.5 xl:p-3 rounded-xl shadow-xs border border-gray-200/80 flex flex-col h-full min-h-0">
-      <div className="flex items-center justify-between mb-0.5 shrink-0">
-        <h3 className="font-semibold text-gray-800 text-xs sm:text-sm flex gap-1.5 items-center"><CalendarHeaderIcon /><span>Events &amp; Conclaves</span></h3>
-        <Link className="text-xs text-primary font-medium underline hover:text-primary-light transition-colors" href="/events">View All</Link>
+    <div className="flex h-full min-h-0 flex-col rounded-xl border border-gray-200/80 bg-white p-2 shadow-xs sm:p-2.5 xl:p-3">
+      <div className="mb-0.5 flex shrink-0 items-center justify-between">
+        <h3 className="flex items-center gap-1.5 text-xs font-semibold text-gray-800 sm:text-sm"><CalendarHeaderIcon /><span>Events &amp; Conclaves</span></h3>
+        <Link className="text-xs font-medium text-primary underline transition-colors hover:text-primary-light" href="/events">View All</Link>
       </div>
-      <div className="border border-dashed border-gray-300 my-1.5 sm:my-2 shrink-0" />
-      <div className="space-y-1.5 sm:space-y-2 flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar">
-        <div className="group bg-white rounded-md border border-gray-200/90 shadow-2xs hover:shadow-md transition-all duration-200 p-2 sm:p-2.5 flex flex-row items-stretch gap-2 sm:gap-2.5 relative cursor-pointer hover:-translate-y-0.5">
-          <div className="w-[50px] sm:w-[54px] shrink-0 flex flex-col rounded-md overflow-hidden border border-gray-200/90 shadow-2xs bg-white self-start">
-            <div className="relative w-full"><div className="bg-[#f43f5e] w-full py-0.5 px-0.5 relative"><div className="flex justify-around items-center absolute -top-0.5 left-0 right-0 px-1.5"><div className="w-1 h-1 bg-gray-300/80 rounded-full shadow-inner" /><div className="w-1 h-1 bg-gray-300/80 rounded-full shadow-inner" /></div><span className="block text-[8.5px] font-black tracking-wider text-white text-center uppercase leading-tight pt-0.5">SEP</span></div></div>
-            <div className="flex-1 flex flex-col items-center justify-center p-0.5 bg-white"><span className="text-base sm:text-lg font-black text-[#f43f5e] tracking-tighter leading-none">26</span><span className="text-[7.5px] text-gray-400 font-medium text-center leading-tight line-clamp-1 mt-0.5">2026</span></div>
-          </div>
-          <div className="flex-1 flex flex-col justify-between min-w-0">
-            <div>
-              <div className="flex items-start justify-between gap-1">
-                <h4 className="font-semibold text-[11.5px] sm:text-xs text-gray-800 leading-snug line-clamp-1 group-hover:text-primary transition-colors flex items-center gap-1 flex-1 min-w-0"><span className="truncate">Installation Ceremony of the 15th ITET Council (2026–2028)</span></h4>
-                <div className="flex items-center gap-0.5 shrink-0 -mt-0.5"><span className="text-[8.5px] font-bold px-1.5 py-0.2 rounded-xs inline-flex items-center tracking-tight bg-purple-50 text-purple-600 border border-purple-200">৳0</span><span className="text-gray-400 group-hover:text-primary text-xs">➜</span></div>
-              </div>
-              <div className="flex items-center justify-between gap-1 my-0.5 text-[8.5px]">
-                <div className="flex items-center gap-1 min-w-0 truncate">
-                  <span className="font-semibold px-1.5 py-0.2 rounded-xs shrink-0 bg-rose-50 text-rose-600">Members Only</span>
-                  <span className="font-medium bg-stone-50 text-stone-600 border border-stone-200 px-1.5 py-0.2 rounded-xs inline-flex items-center gap-0.5 shrink-0 truncate"><CalendarSmall /><span className="truncate">Reg: 24 Sept 2026</span></span>
-                  <span className="font-bold px-1.5 py-0.2 rounded-xs shrink-0 inline-flex items-center gap-0.5 tracking-tight bg-rose-50 text-rose-600 border border-rose-100"><span>⌛</span><span>Closed</span></span>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center justify-between gap-1 pt-0.5 mt-0.5 border-t border-gray-100 text-[9px] sm:text-[9.5px] text-gray-500">
-              <div className="flex items-center gap-1 min-w-0 truncate"><MapPinIcon /><span className="truncate">গল্ফ গার্ডেন, আর্মি গল্ফ ক্লাব</span></div>
-              <div className="flex items-center gap-0.5 text-gray-500 shrink-0"><ClockIcon /><span className="text-[8.5px] font-medium">07:00 PM - 11:00 PM</span></div>
-            </div>
-          </div>
+      <div className="my-1.5 shrink-0 border border-dashed border-gray-300 sm:my-2" />
+      <Link href="/events" className="group flex flex-1 items-stretch gap-2 rounded-md border border-gray-200/90 bg-white p-2 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:gap-2.5 sm:p-2.5">
+        <div className="w-[50px] shrink-0 self-start overflow-hidden rounded-md border border-gray-200/90 bg-white shadow-2xs sm:w-[54px]">
+          <div className="relative bg-[#f43f5e] px-0.5 py-0.5"><span className="block pt-0.5 text-center text-[8.5px] font-black uppercase leading-tight tracking-wider text-white">SEP</span></div>
+          <div className="flex flex-col items-center justify-center bg-white p-1"><span className="text-base font-black leading-none tracking-tighter text-[#f43f5e] sm:text-lg">26</span><span className="mt-0.5 text-[7.5px] font-medium text-gray-400">2026</span></div>
         </div>
-      </div>
+        <div className="flex min-w-0 flex-1 flex-col justify-between">
+          <div>
+            <div className="flex items-start justify-between gap-1"><h4 className="line-clamp-2 flex-1 text-[11.5px] font-semibold leading-snug text-gray-800 transition-colors group-hover:text-primary sm:text-xs">Installation Ceremony of the 15th ITET Council (2026–2028)</h4><span className="shrink-0 rounded-xs border border-purple-200 bg-purple-50 px-1.5 text-[8.5px] font-bold text-purple-600">৳0</span></div>
+            <div className="mt-1 flex flex-wrap items-center gap-1 text-[8.5px]"><span className="rounded-xs bg-rose-50 px-1.5 font-semibold text-rose-600">Members Only</span><span className="rounded-xs border border-stone-200 bg-stone-50 px-1.5 font-medium text-stone-600">Reg: 24 Sept 2026</span><span className="rounded-xs border border-rose-100 bg-rose-50 px-1.5 font-bold text-rose-600">Closed</span></div>
+          </div>
+          <div className="mt-1 flex items-center justify-between gap-1 border-t border-gray-100 pt-1 text-[9px] text-gray-500 sm:text-[9.5px]"><div className="flex min-w-0 items-center gap-1"><MapPinIcon /><span className="truncate">গল্ফ গার্ডেন, আর্মি গল্ফ ক্লাব</span></div><div className="flex shrink-0 items-center gap-0.5"><ClockIcon /><span className="text-[8.5px] font-medium">07:00 PM - 11:00 PM</span></div></div>
+        </div>
+      </Link>
     </div>
   );
 }
 
 function NoticePanel() {
+  const [filter, setFilter] = useState("All");
+
+  const visibleNotices = notices.filter(([, , , date]) => {
+    if (filter === "All") return true;
+    const value = new Date(date);
+    const now = new Date();
+    const sameDay = value.getFullYear() === now.getFullYear() && value.getMonth() === now.getMonth() && value.getDate() === now.getDate();
+    if (filter === "Today") return sameDay;
+    if (filter === "Month") return value.getFullYear() === now.getFullYear() && value.getMonth() === now.getMonth();
+    if (filter === "This Week") {
+      const startOfWeek = new Date(now);
+      const day = startOfWeek.getDay();
+      startOfWeek.setDate(now.getDate() - ((day + 6) % 7));
+      startOfWeek.setHours(0,0,0,0);
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 7);
+      return value >= startOfWeek && value < endOfWeek;
+    }
+    return true;
+  });
+
   return (
-    <div className="bg-white p-2 sm:p-2.5 xl:p-3 rounded-xl shadow-xs border border-gray-200/80 flex flex-col h-full min-h-0">
-      <div className="flex items-center justify-between mb-1.5 shrink-0">
-        <div className="flex items-center gap-1.5"><BellIcon /><h3 className="font-bold text-gray-900 text-xs sm:text-sm">Latest Notices</h3></div>
-        <Link className="text-xs text-primary font-semibold hover:underline flex items-center gap-0.5 transition-colors" href="/notices"><span>View All</span><ChevronRightIcon /></Link>
+    <div className="flex h-full min-h-0 flex-col rounded-xl border border-gray-200/80 bg-white p-2 shadow-xs sm:p-2.5 xl:p-3">
+      <div className="mb-1.5 flex shrink-0 items-center justify-between">
+        <div className="flex items-center gap-1.5"><BellIcon /><h3 className="text-xs font-bold text-gray-900 sm:text-sm">Latest Notices</h3></div>
+        <Link className="flex items-center gap-0.5 text-xs font-semibold text-primary transition-colors hover:underline" href="/notices"><span>View All</span><ChevronRightIcon /></Link>
       </div>
-      <div className="mb-2 shrink-0"><div className="bg-stone-100 p-0.5 rounded-md flex items-center gap-0.5 border border-stone-200/60 text-[10.5px] sm:text-[11px]"><button type="button" className="flex-1 text-center py-1 px-1 rounded-md font-medium transition-all duration-150 cursor-pointer bg-white text-stone-900 font-bold shadow-2xs">All</button><button type="button" className="flex-1 text-center py-1 px-1 rounded-md font-medium transition-all duration-150 cursor-pointer text-stone-600 hover:text-stone-900 hover:bg-stone-200/50">Today</button><button type="button" className="flex-1 text-center py-1 px-1 rounded-md font-medium transition-all duration-150 cursor-pointer text-stone-600 hover:text-stone-900 hover:bg-stone-200/50">This Week</button><button type="button" className="flex-1 text-center py-1 px-1 rounded-md font-medium transition-all duration-150 cursor-pointer text-stone-600 hover:text-stone-900 hover:bg-stone-200/50">Month</button></div></div>
-      <div className="divide-y divide-gray-100 flex-1 min-h-0 overflow-y-auto pr-0.5 custom-scrollbar">
-        {notices.map(([mon, day, title, date, attached], index) => (
-          <div key={date+title} className="group py-2 px-1 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-slate-50/70 rounded-md transition-colors">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg border border-gray-200/90 bg-white flex flex-col items-center justify-center shrink-0 shadow-2xs group-hover:border-primary/40 transition-colors"><span className="text-[8px] sm:text-[8.5px] font-bold text-gray-400 uppercase tracking-wider leading-tight">{mon}</span><span className="text-sm sm:text-base font-extrabold text-gray-900 leading-none mt-0.5">{day}</span></div>
-            <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-xs sm:text-[12px] text-gray-900 leading-snug line-clamp-1 group-hover:text-primary transition-colors flex items-center gap-1"><span className="truncate">{title}</span>{index < 3 && <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" title="Pinned" />}</h4>
-              <div className="flex items-center gap-1.5 sm:gap-2 text-[9.5px] sm:text-[10px] text-gray-500 mt-0.5 truncate">
-                <span className="flex items-center gap-1 shrink-0"><ClockIcon size="w-[11px] h-[11px]" /><span>{date}</span></span>
-                {attached && <><span className="text-gray-300">•</span><span className="flex items-center gap-0.5 text-primary shrink-0 font-medium"><FileTextIcon /><span>Attached</span></span></>}
-              </div>
-            </div>
-            <div className="shrink-0 self-center"><span className="text-[9px] sm:text-[9.5px] font-semibold px-2 py-0.5 rounded-sm bg-emerald-50 text-emerald-700 border border-emerald-200/80 inline-flex items-center tracking-tight capitalize">general</span></div>
-          </div>
-        ))}
+      <div className="mb-2 shrink-0">
+        <div className="flex items-center gap-0.5 rounded-md border border-stone-200/60 bg-stone-100 p-0.5 text-[10.5px] sm:text-[11px]">
+          {["All","Today","This Week","Month"].map((item) => <button key={item} type="button" onClick={() => setFilter(item)} className={`flex-1 rounded-md px-1 py-1 text-center font-medium transition-all duration-150 ${filter === item ? "bg-white font-bold text-stone-900 shadow-2xs" : "text-stone-600 hover:bg-stone-200/50 hover:text-stone-900"}`}>{item}</button>)}
+        </div>
+      </div>
+      <div className="custom-scrollbar min-h-0 flex-1 divide-y divide-gray-100 overflow-y-auto pr-0.5">
+        {visibleNotices.length ? visibleNotices.map(([mon, day, title, date, attached], index) => (
+          <Link href="/notices" key={date+title} className="group flex items-center gap-2.5 rounded-md px-1 py-2 transition-colors hover:bg-slate-50/70 sm:gap-3">
+            <div className="flex h-10 w-10 shrink-0 flex-col items-center justify-center rounded-lg border border-gray-200/90 bg-white shadow-2xs transition-colors group-hover:border-primary/40 sm:h-11 sm:w-11"><span className="text-[8px] font-bold uppercase leading-tight tracking-wider text-gray-400 sm:text-[8.5px]">{mon}</span><span className="mt-0.5 text-sm font-extrabold leading-none text-gray-900 sm:text-base">{day}</span></div>
+            <div className="min-w-0 flex-1"><h4 className="line-clamp-1 flex items-center gap-1 text-xs font-semibold leading-snug text-gray-900 transition-colors group-hover:text-primary sm:text-[12px]"><span className="truncate">{title}</span>{index < 3 && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />}</h4><div className="mt-0.5 flex items-center gap-1.5 truncate text-[9.5px] text-gray-500 sm:gap-2 sm:text-[10px]"><span className="flex shrink-0 items-center gap-1"><ClockIcon size="w-[11px] h-[11px]" /><span>{date}</span></span>{attached && <><span className="text-gray-300">•</span><span className="flex shrink-0 items-center gap-0.5 font-medium text-primary"><FileTextIcon /><span>Attached</span></span></>}</div></div>
+            <span className="shrink-0 rounded-sm border border-emerald-200/80 bg-emerald-50 px-2 py-0.5 text-[9px] font-semibold capitalize tracking-tight text-emerald-700 sm:text-[9.5px]">general</span>
+          </Link>
+        )) : <div className="flex h-full min-h-[90px] items-center justify-center text-center text-xs text-gray-400">No notices in this period.</div>}
       </div>
     </div>
   );
