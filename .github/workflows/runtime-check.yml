@@ -1,0 +1,69 @@
+name: Runtime Check
+
+on:
+  push:
+    paths:
+      - ".github/workflows/runtime-check.yml"
+
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm install
+      - run: npm run build
+      - run: |
+          npm run start > /tmp/itet-next.log 2>&1 &
+          for i in {1..40}; do
+            if curl -fsS http://127.0.0.1:3000/?visual=1 >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/itet-next.log
+          exit 1
+      - name: Browser runtime diagnostics
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          node <<'NODE'
+          const { chromium } = require("playwright");
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            const page = await browser.newPage({viewport:{width:1440,height:900}});
+            const consoleErrors = [];
+            const pageErrors = [];
+            page.on("console", msg => {
+              if (msg.type() === "error") consoleErrors.push(msg.text());
+            });
+            page.on("pageerror", err => pageErrors.push(String(err)));
+            const response = await page.goto("http://127.0.0.1:3000/?visual=1", {waitUntil:"networkidle"});
+            await page.waitForTimeout(3000);
+            const result = await page.evaluate(() => {
+              const text = document.body.innerText;
+              const markers = [
+                "Textile Market Updates",
+                "Our Responsibility",
+                "Meet Our Proud Alumni",
+                "Moments & Media Gallery",
+                "Empower Your Textile Career Today"
+              ];
+              return {
+                statusText: document.readyState,
+                height: document.documentElement.scrollHeight,
+                bodyHeight: document.body.scrollHeight,
+                markers: Object.fromEntries(markers.map(m => [m, text.includes(m)])),
+                sections: document.querySelectorAll("section").length,
+                links: document.querySelectorAll("a").length,
+                bodyTextLength: text.length,
+              };
+            });
+            console.log("HTTP_STATUS", response?.status());
+            console.log("RUNTIME_RESULT", JSON.stringify(result,null,2));
+            console.log("PAGE_ERRORS", JSON.stringify(pageErrors,null,2));
+            console.log("CONSOLE_ERRORS", JSON.stringify(consoleErrors,null,2));
+            await browser.close();
+          })().catch(err => { console.error(err); process.exit(1); });
+          NODE
