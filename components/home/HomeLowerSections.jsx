@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const marketGroups = [
-  { title: "Yarn Prices", icon: "/images/market/yarn.png", unit: "BDT/kg" },
-  { title: "Chemical Prices", icon: "/images/market/chemical.png", unit: "BDT/kg" },
-  { title: "Fabrics & Accessories Prices", icon: "/images/market/fabrics-accessories.png", unit: "BDT/cone" },
+  { title: "Yarn Prices", icon: "/images/market/yarn.png", unit: "BDT/kg", category: "yarn" },
+  { title: "Chemical Prices", icon: "/images/market/chemical.png", unit: "BDT/kg", category: "chemical" },
+  { title: "Fabrics & Accessories Prices", icon: "/images/market/fabrics-accessories.png", unit: "BDT/cone", category: "fabrics" },
 ];
 
 const gallery = [
@@ -86,49 +86,48 @@ const gallery = [
   },
 ];
 
-function PriceCard({ title, icon, unit }) {
+function PriceCard({ title, icon, unit, category }) {
   return (
-    <div className="flex flex-col bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-300 h-full">
-      <div className="p-6 flex-grow">
-        <div className="flex justify-between items-center mb-6">
+    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-300 bg-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+      <div className="flex-grow p-6">
+        <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-yellow-600/20 rounded-lg">
+            <div className="rounded-lg bg-yellow-600/20 p-2">
               <img src={icon} alt={`${title} icon`} width="32" height="32" className="object-contain" />
             </div>
             <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
           </div>
-          <button className="text-gray-400 hover:text-gray-600 transition-colors" aria-label="More options">
-            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" /></svg>
-          </button>
+          <Link href={`/market-prices?category=${category}`} className="rounded-full p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-700" aria-label={`Open ${title}`}>
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM10 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM10 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /></svg>
+          </Link>
         </div>
 
         <div className="space-y-3">
           {[1,2,3,4].map((item) => (
-            <div key={item} className="flex justify-between items-center p-4 bg-stone-100 hover:bg-gray-200 rounded-lg transition-colors">
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-medium text-gray-900 truncate">ABC</h4>
-                <p className="text-xs text-gray-500 truncate">100% Cotton Yarn</p>
+            <div key={item} className="flex items-center justify-between rounded-lg bg-stone-100 p-4 transition-colors hover:bg-gray-200">
+              <div className="min-w-0 flex-1">
+                <h4 className="truncate text-sm font-medium text-gray-900">ABC</h4>
+                <p className="truncate text-xs text-gray-500">100% Cotton Yarn</p>
               </div>
               <div className="ml-4 flex items-center">
                 <span className="text-sm font-semibold text-green-600">0</span>
-                <span className="text-xs text-gray-500 ml-1">{unit}</span>
-                <button className="ml-3 text-xs text-blue-500 hover:text-blue-700" aria-label="View details">Details</button>
+                <span className="ml-1 text-xs text-gray-500">{unit}</span>
+                <Link href={`/market-prices?category=${category}`} className="ml-3 text-xs text-blue-500 transition hover:text-blue-700 hover:underline">Details</Link>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-end px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto">
-        <a href="#" className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors hover:underline">
+      <div className="mt-auto flex justify-end border-t border-gray-100 bg-gray-50 px-6 py-4">
+        <Link href={`/market-prices?category=${category}`} className="inline-flex items-center text-sm font-medium text-blue-600 transition-colors hover:text-blue-800 hover:underline">
           View all {title}
-          <svg viewBox="0 0 448 512" className="w-4 h-4 ml-2" fill="currentColor"><path d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z" /></svg>
-        </a>
+          <svg viewBox="0 0 448 512" className="ml-2 h-4 w-4" fill="currentColor"><path d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z" /></svg>
+        </Link>
       </div>
     </div>
   );
 }
-
 
 function ResponsibilityIcon({ type }) {
   const iconClass = "w-6 h-6 text-[#0b1830]";
@@ -257,11 +256,13 @@ function SocialIcon({ type }) {
 function AlumniSection() {
   const alumni = [
     {
+      slug: "sanjida-islam-tulee",
       name: "Engr. Sanjida Islam Tulee",
       designation: "Honorable Member of Parliament (MP)",
       image: "/images/alumni/sanjida-islam-tulee.jpg",
     },
     {
+      slug: "mahbuba-hakim",
       name: "Engr. Mahbuba Hakim",
       designation: "Honorable Member of Parliament (MP)",
       image: "/images/alumni/mahbuba-hakim.jpg",
@@ -269,7 +270,7 @@ function AlumniSection() {
   ];
 
   return (
-    <section className="bg-[#f8f6f0] py-16 lg:py-[72px]">
+    <section id="alumni" className="scroll-mt-24 bg-[#f8f6f0] py-16 lg:py-[72px]">
       <div className="mx-[5%] md:mx-[5%] lg:mx-[5%] xl:mx-[6%] 2xl:mx-[8%]">
         <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-14">
           <h2 className="font-manuale text-3xl font-semibold leading-tight tracking-tight text-[#10213d] sm:text-4xl md:text-5xl">Meet Our Proud Alumni</h2>
@@ -284,27 +285,21 @@ function AlumniSection() {
                 <p className="mt-1 text-[14px] leading-snug text-[#5a6477]">{person.designation}</p>
               </div>
 
-              <div className="relative aspect-square overflow-hidden rounded-2xl border border-[#f4cdbd] bg-[#ecebea]">
+              <Link href={`/alumni/${person.slug}`} className="relative block aspect-square overflow-hidden rounded-2xl border border-[#f4cdbd] bg-[#ecebea]">
                 <img src={person.image} alt={person.name} className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.025]" />
-              </div>
+              </Link>
 
               <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#eeeeec] pt-4">
                 <div className="flex items-center gap-2">
-                  <a href="#" aria-label="Facebook" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#1877F2] hover:text-white focus:bg-[#1877F2] focus:text-white focus:outline-none active:bg-[#1877F2] active:text-white">
-                    <SocialIcon type="facebook" />
-                  </a>
-                  <a href="#" aria-label="LinkedIn" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#0A66C2] hover:text-white focus:bg-[#0A66C2] focus:text-white focus:outline-none active:bg-[#0A66C2] active:text-white">
-                    <SocialIcon type="linkedin" />
-                  </a>
-                  <a href="#" aria-label="Instagram" className="group/social flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] hover:text-white focus:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] focus:text-white focus:outline-none active:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] active:text-white">
-                    <SocialIcon type="instagram" />
-                  </a>
+                  <button type="button" aria-label="Facebook profile unavailable" title="Verified Facebook profile will be added when available" className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#1877F2] hover:text-white focus:bg-[#1877F2] focus:text-white focus:outline-none active:bg-[#1877F2] active:text-white"><SocialIcon type="facebook" /></button>
+                  <button type="button" aria-label="LinkedIn profile unavailable" title="Verified LinkedIn profile will be added when available" className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[#0A66C2] hover:text-white focus:bg-[#0A66C2] focus:text-white focus:outline-none active:bg-[#0A66C2] active:text-white"><SocialIcon type="linkedin" /></button>
+                  <button type="button" aria-label="Instagram profile unavailable" title="Verified Instagram profile will be added when available" className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f3] text-[#777d87] transition-all duration-200 ease-out hover:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] hover:text-white focus:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] focus:text-white focus:outline-none active:bg-[radial-gradient(circle_at_30%_107%,#FDF497_0%,#FDF497_5%,#FD5949_45%,#D6249F_60%,#285AEB_90%)] active:text-white"><SocialIcon type="instagram" /></button>
                 </div>
 
-                <a href="#" className="group/details inline-flex h-8 items-center gap-2 rounded-full border border-transparent bg-[#fafafa] px-4 text-[12px] font-semibold text-[#1c2940] shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all duration-300 ease-out hover:border-primary/15 hover:bg-[#fff4ed] hover:text-primary hover:shadow-[0_5px_14px_rgba(245,74,0,0.12)]">
+                <Link href={`/alumni/${person.slug}`} className="group/details inline-flex h-8 items-center gap-2 rounded-full border border-transparent bg-[#fafafa] px-4 text-[12px] font-semibold text-[#1c2940] shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all duration-300 ease-out hover:border-primary/15 hover:bg-[#fff4ed] hover:text-primary hover:shadow-[0_5px_14px_rgba(245,74,0,0.12)]">
                   <span>View Details</span>
                   <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 transition-transform duration-300 ease-out group-hover/details:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
-                </a>
+                </Link>
               </div>
             </article>
           ))}
